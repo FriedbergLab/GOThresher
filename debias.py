@@ -21,7 +21,7 @@ from dateutil import parser
 import os
 import xlsxwriter
 
-# Some filenames
+# Some filename
 FILE_ALTERNATE_ID_TO_ID_MAPPING="data/alt_to_id.graph"
 FILE_CAFA_ID_TO_UNIPROT_ID_MAP="data/CAFAIDTOUniprotIDMap.txt"
 FILE_MFO_ONTOLOGY_GRAPH="data/mf.graph"
