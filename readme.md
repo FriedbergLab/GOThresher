@@ -115,17 +115,17 @@ optional arguments:
                         Provide the percentile p. All annotations having
                         information content below p will be discarded
   --info_threshold_Wyatt_Clark INFO_THRESHOLD_WYATT_CLARK, -WCTHRESH INFO_THRESHOLD_WYATT_CLARK
-                        Provide a crisp value t. All annotations having
+                        Provide a threshold value t. All annotations having
                         information content below t will be discarded
   --info_threshold_Phillip_Lord_percentile INFO_THRESHOLD_PHILLIP_LORD_PERCENTILE, -PLTHRESHp INFO_THRESHOLD_PHILLIP_LORD_PERCENTILE
                         Provide the percentile p. All annotations having
                         information content below p will be discarded
   --info_threshold_Phillip_Lord INFO_THRESHOLD_PHILLIP_LORD, -PLTHRESH INFO_THRESHOLD_PHILLIP_LORD
-                        Provide a crisp value t. All annotations having
+                        Provide a  value t. All annotations having
                         information content below t will be discarded
   --verbose VERBOSE, -v VERBOSE
                         Set this argument to 1 if you wish to view the outcome
-                        of each operation on console
+                        of each operation on the console
   --date_before DATE_BEFORE, -dbfr DATE_BEFORE
                         The date entered here will be parsed by the parser
                         from dateutil package. For more information on
@@ -197,11 +197,11 @@ This command will generate 7 files in total. Three files corresponds to the thre
 
 2) python debias.py -cprot 100 -i data/goa_yeast.gaf data/goa_dicty.gaf -a C -WCTHRESHp 2 -recal 1 <br>
 
-This command reads from two input files one for yeast and the other for dicty. The -a C only selects the annotations which are CCO. The -WCTHRESHp argument specifies that the Wyatt Clark Threshold is a 2 percentile, which means all annotations having a Wyatt Clark Information content below 2% will be removed. Instead of providing a percentage value one can also provide a crisp value using the argument -WCTHRESH. In addition to that, those annotations will be removed which have been annotated by references that have in turn annotated more than 100 **proteins**. The output will be put in the current directory. It is necessary to have -recal 1 in this command since the GO_term to IC has to be created. Subsequent runs with different threshold and all other parameters fised is possible **WITHOUT** providing the argument -recal. This command will lead to 3 output files. One each for the two organisms and the third one is where both the organisms are combined. <br>
+This command reads from two input files one for yeast and the other for dicty. The -a C only selects the annotations which are CCO. The -WCTHRESHp argument specifies that the Wyatt Clark Threshold is a 2 percentile, which means all annotations having a Wyatt Clark Information content below 2% will be removed. Instead of providing a percentage value one can also provide a threshold value using the argument -WCTHRESH. In addition to that, those annotations will be removed which have been annotated by references that have in turn annotated more than 100 **proteins**. The output will be put in the current directory. It is necessary to have -recal 1 in this command since the GO_term to IC has to be created. Subsequent runs with different threshold and all other parameters fised is possible **WITHOUT** providing the argument -recal. This command will lead to 3 output files. One each for the two organisms and the third one is where both the organisms are combined. <br>
 
 3) python debias.py -i data/goa_yeast.gaf data/goa_dicty.gaf -a C P -PLTHRESHp 30 -e EXPEC IBA -odir data/output -single 1<br>
 
-This command will read from two input files, select CCO and BPO annotations. Further, it will **choose** only those annotations which have been made experimentally or have been annotated computationally as "IBA" (Inferred from Biological aspect of Ancestor). In addition to that it will discard all annotations which have a Phillip Lord information content less than 30%. Instead of providing a percentage value one can also provide a crisp value using the argument -PLTHRESH. The final output will be put inside the data/output directory. You can include non existent paths. The program will attempt to create the folders if required permissions are present. This will lead to only one file, since the -single argument has been provided, which will contain all the selected annotations from both the organisms. <br>
+This command will read from two input files, select CCO and BPO annotations. Further, it will **choose** only those annotations which have been made experimentally or have been annotated computationally as "IBA" (Inferred from Biological aspect of Ancestor). In addition to that it will discard all annotations which have a Phillip Lord information content less than 30%. Instead of providing a percentage value one can also provide a threshold value using the argument -PLTHRESH. The final output will be put inside the data/output directory. You can include non existent paths. The program will attempt to create the folders if required permissions are present. This will lead to only one file, since the -single argument has been provided, which will contain all the selected annotations from both the organisms. <br>
 
 4) python debias.py -cattn 1000 -i data/goa_yeast.gaf data/goa_dicty.gaf -a C P -einv COMPEC -pref testing -selrefinv Reactome <br>
 
