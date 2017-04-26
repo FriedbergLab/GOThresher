@@ -21,15 +21,16 @@ from dateutil import parser
 import os
 import xlsxwriter
 
-# Some filename
-FILE_ALTERNATE_ID_TO_ID_MAPPING="data/alt_to_id.graph"
-FILE_CAFA_ID_TO_UNIPROT_ID_MAP="data/CAFAIDTOUniprotIDMap.txt"
-FILE_MFO_ONTOLOGY_GRAPH="data/mf.graph"
-FILE_BPO_ONTOLOGY_GRAPH="data/bp.graph"
-FILE_CCO_ONTOLOGY_GRAPH="data/cc.graph"
-FILE_MFO_ONTOLOGY_ANCESTORS_GRAPH="data/mf_ancestors.map"
-FILE_BPO_ONTOLOGY_ANCESTORS_GRAPH="data/bp_ancestors.map"
-FILE_CCO_ONTOLOGY_ANCESTORS_GRAPH="data/cc_ancestors.map"
+DATADIR = "data/"
+# Some filenames
+FILE_ALTERNATE_ID_TO_ID_MAPPING = DATADIR+"alt_to_id.graph"
+FILE_CAFA_ID_TO_UNIPROT_ID_MAP = DATADIR+"CAFAIDTOUniprotIDMap.txt"
+FILE_MFO_ONTOLOGY_GRAPH = DATADIR+"mf.graph"
+FILE_BPO_ONTOLOGY_GRAPH = DATADIR+ "bp.graph"
+FILE_CCO_ONTOLOGY_GRAPH = DATADIR+"cc.graph"
+FILE_MFO_ONTOLOGY_ANCESTORS_GRAPH = DATADIR+"mf_ancestors.map"
+FILE_BPO_ONTOLOGY_ANCESTORS_GRAPH = DATADIR+"bp_ancestors.map"
+FILE_CCO_ONTOLOGY_ANCESTORS_GRAPH = DATADIR+ "cc_ancestors.map"
 
 verbose=0
 options=""
@@ -227,7 +228,7 @@ def writeToFile( data, filename ,input_filename):
             try:
                 string += per_annotation[field] + "\t"
             except TypeError:
-                print("Exception has occured in function writeToFile")
+                print("Exception has occurred in function writeToFile")
                 print(per_annotation)
                 print(field)
                 print(per_annotation[field])
@@ -321,8 +322,8 @@ def parseCommandLineArguments( ):
     parser = argparse.ArgumentParser( prog = "debias.py" )
     mutex_parser_evidence = parser.add_mutually_exclusive_group()
     mutex_parser_assigned_by=parser.add_mutually_exclusive_group()
-    mutex_parser_WC_THRESH=parser.add_mutually_exclusive_group()
-    mutex_parser_PL_THRESH=parser.add_mutually_exclusive_group()
+    mutex_parser_IC_THRESH=parser.add_mutually_exclusive_group()
+    # mutex_parser_PL_THRESH=parser.add_mutually_exclusive_group()
     mutex_parser_select_references=parser.add_mutually_exclusive_group()
     requiredArguments = parser.add_argument_group( "Required arguments" )
 
@@ -342,11 +343,11 @@ def parseCommandLineArguments( ):
     mutex_parser_assigned_by.add_argument('--assigned_by_inverse','-assgninv',nargs = "+",help="Choose only those annotations which have NOT been annotated by the provided list of databases. Cannot be provided if -assgn is provided")
     parser.add_argument('--recalculate','-recal',help="Set this to 1 if you wish to enforce the recalculation of the Information Accretion for every GO term. Calculation of the information accretion is time consuming. Therefore keep it to zero if you are performing rerun on old data. The program will then read the information accretion values from a file which it wrote to in the previous run of the program",default=0)
     
-    mutex_parser_WC_THRESH.add_argument('--info_threshold_Wyatt_Clark_percentile','-WCTHRESHp',help="Provide the percentile p. All annotations having information content below p will be discarded")
-    mutex_parser_WC_THRESH.add_argument('--info_threshold_Wyatt_Clark','-WCTHRESH',help="Provide a crisp value t. All annotations having information content below t will be discarded")
+    mutex_parser_IC_THRESH.add_argument('--info_threshold_Wyatt_Clark_percentile','-WCTHRESHp',help="Provide the percentile p. All annotations having information content below p will be discarded")
+    mutex_parser_IC_THRESH.add_argument('--info_threshold_Wyatt_Clark','-WCTHRESH',help="Provide a threshold value t. All annotations having information content below t will be discarded")
     
-    mutex_parser_PL_THRESH.add_argument('--info_threshold_Phillip_Lord_percentile','-PLTHRESHp',help="Provide the percentile p. All annotations having information content below p will be discarded")
-    mutex_parser_PL_THRESH.add_argument('--info_threshold_Phillip_Lord','-PLTHRESH',help="Provide a crisp value t. All annotations having information content below t will be discarded")
+    mutex_parser_IC_THRESH.add_argument('--info_threshold_Phillip_Lord_percentile','-PLTHRESHp',help="Provide the percentile p. All annotations having information content below p will be discarded")
+    mutex_parser_IC_THRESH.add_argument('--info_threshold_Phillip_Lord','-PLTHRESH',help="Provide a threshold value t. All annotations having information content below t will be discarded")
     
     
     parser.add_argument('--verbose','-v',help="Set this argument to 1 if you wish to view the outcome of each operation on console",default=0)
@@ -556,7 +557,7 @@ def calculateWyattClarkInformationContent(data,recal,crisp,percentile_val,aspect
             os.makedirs("data/temp/")
         cp.dump(ontology_to_ia_map,open("data/temp/"+ontology_to_ia_map_filename,"wb"))
     else:
-        vprint("Skipping recalculation of Informtion Accretion for Wyatt Clark")
+        vprint("Skipping recalculation of Information Accretion for Wyatt Clark")
     try:
         ontology_to_ia_map = cp.load( open( "data/temp/"+ontology_to_ia_map_filename, "rb" ) )
     except IOError as e:
@@ -695,18 +696,22 @@ def changeNameofOutputFiles(options):
         vprint("Species: "+species)
         final_outputfilename=path+species
         aspect=""
-        if options.aspect!=None:
+        if options.aspect:
             for i in range(len(options.aspect)):
                 aspect+=longAspect[options.aspect[i]]+"_"
             final_outputfilename+="_"+aspect[:-1]
-        if options.cutoff_prot!=None:
+        if options.cutoff_prot:
             final_outputfilename+='_REF_'+options.cutoff_prot
-        if options.evidence!=None:
+        if options.evidence:
             final_outputfilename+="_"+"_".join(options.evidence)
-        if options.info_threshold_Phillip_Lord!=None or options.info_threshold_Phillip_Lord_percentile!=None:
-            final_outputfilename+='_PL_'+options.info_threshold_Phillip_Lord_percentile
-        if(options.info_threshold_Wyatt_Clark or options.info_threshold_Wyatt_Clark_percentile!=None):
-            final_outputfilename+='_WC_'+options.info_threshold_Wyatt_Clark_percentile
+        if options.info_threshold_Phillip_Lord:
+            final_outputfilename+='_PL_'+options.info_threshold_Phillip_Lord
+        elif  options.info_threshold_Phillip_Lord_percentile:
+            final_outputfilename+='_PLP_'+options.info_threshold_Phillip_Lord_percentile
+        if options.info_threshold_Wyatt_Clark: 
+            final_outputfilename+='_WC_'+options.info_threshold_Wyatt_Clark
+        elif options.info_threshold_Wyatt_Clark_percentile:
+            final_outputfilename+='_WCP_'+options.info_threshold_Wyatt_Clark_percentile
         options.output.append(final_outputfilename)
         vprint(options.output[num])
         vprint()
