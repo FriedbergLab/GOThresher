@@ -27,7 +27,8 @@ You would need an obo formatted version of the Gene Ontology. Depending on your 
 <!--
 A program debias_prep.py has been provided in the package. This program builds the graphs for each of the ontologies and puts them in three different files. Hence the .obo files are not needed. This program has been provided so that if the hierarchy changes then this program can be used to regenerate the  files. In addition to the three hierarchy graphs for the three ontologies it also generates the mapping for alternate GO_ID to actual GO_ID. It also generates the mapping from one GO_ID to all its ancestors. 
 -->
-### Directory Structure Requirement:
+### Directory Structure Requirement
+`mkdir -p data/temp`
 
 * Under the current directory the directory "data" must be there. It is under this directory that all the required files are present. 
 
@@ -35,24 +36,27 @@ A program debias_prep.py has been provided in the package. This program builds t
 
 ### Initial files
 These files will be created upon running `debias_prep.py`. 
+`python debias_prep.py -i data/GOFILE.obo`
 
+GOFILE will usually be  one of `go.obo` or `go-basic.obo`
+
+This will generate seven files in total. Three files corresponds to the three ontologies. Three files corresponds to the mapping between each GO_term and its ancestors in its own respective ontology. The last file contains mapping from alternate GO_ID to actual GO_ID. Please use this command when a new go.obo file is released.
 ```
-1. ./data/alt_to_id.graph : Needed to obtain mapping from alternate GO_ID to actual GO_ID <br>
-2. ./data/mf.graph : The MFO Ontology graph<br>
-3. ./data/bp.graph : The BPO Ontology graph<br>
-4. ./data/cc.graph : The CCO Ontology graph<br>
-5. ./data/mf_ancestors.map : The MFO Ancestors map<br>
-6. ./data/bp_ancestors.map : The BPO Ancestors map<br>
-7. ./data/cc_ancestors.map : The CCO Ancestors map<br>
+1. ./data/alt_to_id.graph : Needed to obtain mapping from alternate GO_ID to actual GO_ID
+2. ./data/mf.graph : The MFO Ontology graph
+3. ./data/bp.graph : The BPO Ontology graph
+4. ./data/cc.graph : The CCO Ontology graph
+5. ./data/mf_ancestors.map : The MFO Ancestors map
+6. ./data/bp_ancestors.map : The BPO Ancestors map
+7. ./data/cc_ancestors.map : The CCO Ancestors map
 ```
 
-### Steps for Executing the program
+### Quick setup steps
 
 1. Download the latest go.obo file from http://www.geneontology.org/ontology/ 
 
 2. Run the program `debias_prep.py` program and provide the downloaded
-   .obo file. See the usage details below. This program needs to
-be run only when a new .obo file needs to be used.
+   .obo file. See the usage details below. This program needs to be run only when a new .obo file needs to be used.
 
 3. Run the program `debias.py` 
 
@@ -208,7 +212,7 @@ This command will generate seven files in total. Three files corresponds
 to the three ontologies. Three files corresponds to the mapping between
 each GO_term and its ancestors in its own respective ontology. The last
 file contains mapping from alternate GO_ID to actual GO_ID. Please use
-this command when a new go.obo file is released. 
+this command every time you update GOFILE. 
 
 2. `python debias.py -cprot 100 -i data/goa_yeast.gaf data/goa_dicty.gaf -a C -WCTHRESHp 2 -recal 1`
 
