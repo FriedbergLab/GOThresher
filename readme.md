@@ -7,42 +7,44 @@ privilege to debias the entire database of gene ontologies by a handful
 of  parameters. The program will generate a gaf file with fewer
 annotations than the provided input gaf file. 
 
-### Mandatory Requirements:
+### Prerequisites
 
-Here is a list of modules that your environment must have installed:
+#### Required modules. All are available from most repositories.
 
-1. networkx
+* [networkx](https://networkx.github.io/)
 
-2. operator
+* [matplotlib](https://matplotlib.org/)
 
-3. matplotlib
+* [numpy](http://www.numpy.org/)
 
-4. numpy
+* [Biopython](http://biopython.org/)
 
-5. Bio
+* [xlsxwriter](http://xlsxwriter.readthedocs.io/)
 
-6. xlsxwriter
+#### Required files
+You would need an obo formatted version of the Gene Ontology. Depending on your needs, this would usually be one of go-basic.obo or go.obo. For more details and to donwload either the most recent version or the latest version go to the [Gene Ontology](http://geneontology.org/page/download-ontology) website. 
 
-Please download and install all the above packages before starting to debias.
-
-### External Requirements:
-
+<!--
 A program debias_prep.py has been provided in the package. This program builds the graphs for each of the ontologies and puts them in three different files. Hence the .obo files are not needed. This program has been provided so that if the hierarchy changes then this program can be used to regenerate the  files. In addition to the three hierarchy graphs for the three ontologies it also generates the mapping for alternate GO_ID to actual GO_ID. It also generates the mapping from one GO_ID to all its ancestors. 
-
+-->
 ### Directory Structure Requirement:
 
 * Under the current directory the directory "data" must be there. It is under this directory that all the required files are present. 
+
 * Under the "data" directory the directory "temp" must be there. This directory holds the temporary files generated during calculating Information content. These files are required later in order to avoid recalculating the IC values for Wyatt Clark. Please do not delete these files after a run.
 
-### Required Files and their paths
+### Initial files
+These files will be created upon running `debias_prep.py`. 
 
-1) ./data/alt_to_id.graph : Needed to obtain mapping from alternate GO_ID to actual GO_ID <br>
-2) ./data/mf.graph : The MFO Ontology graph<br>
-3) ./data/bp.graph : The BPO Ontology graph<br>
-4) ./data/cc.graph : The CCO Ontology graph<br>
-5) ./data/mf_ancestors.map : The MFO Ancestors map<br>
-6) ./data/bp_ancestors.map : The BPO Ancestors map<br>
-7) ./data/cc_ancestors.map : The CCO Ancestors map<br>
+```
+1. ./data/alt_to_id.graph : Needed to obtain mapping from alternate GO_ID to actual GO_ID <br>
+2. ./data/mf.graph : The MFO Ontology graph<br>
+3. ./data/bp.graph : The BPO Ontology graph<br>
+4. ./data/cc.graph : The CCO Ontology graph<br>
+5. ./data/mf_ancestors.map : The MFO Ancestors map<br>
+6. ./data/bp_ancestors.map : The BPO Ancestors map<br>
+7. ./data/cc_ancestors.map : The CCO Ancestors map<br>
+```
 
 ### Steps for Executing the program
 
