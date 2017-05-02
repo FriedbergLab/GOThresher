@@ -19,7 +19,7 @@ Modules are available in most GNU/Linux distributions, or from their respective 
 * [xlsxwriter](http://xlsxwriter.readthedocs.io/)
 
 #### Required files
-You would need an obo formatted version of the Gene Ontology. Depending on your needs, this would usually be one of [go-basic.obo](http://purl.obolibrary.org/obo/go/go-basic.obo) or [go.obo](http://purl.obolibrary.org/obo/go.obo). For more details and to download either the most recent daily version or the latest version go to the [Gene Ontology](http://geneontology.org/page/download-ontology) website. 
+You would need an obo formatted version of the Gene Ontology. Depending on your needs, this would usually be one of [go-basic.obo](http://purl.obolibrary.org/obo/go/go-basic.obo) or [go.obo](http://purl.obolibrary.org/obo/go.obo). For more details and to download either the most recent daily version or the latest version go to the [Gene Ontology website](http://geneontology.org/page/download-ontology). 
 
 <!--
 A program debias_prep.py has been provided in the package. This program builds the graphs for each of the ontologies and puts them in three different files. Hence the .obo files are not needed. This program has been provided so that if the hierarchy changes then this program can be used to regenerate the  files. In addition to the three hierarchy graphs for the three ontologies it also generates the mapping for alternate GO_ID to actual GO_ID. It also generates the mapping from one GO_ID to all its ancestors. 
