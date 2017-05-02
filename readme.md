@@ -1,15 +1,12 @@
 # Debiasing a Protein Annotation Database
 
-The purpose of this program is to sift proteins which have very high
-information content in terms of annotation by Gene Ontology terms. It
-can perform a debiasing based on several parameters. The user has the
-privilege to debias the entire database of gene ontologies by a handful
-of  parameters. The program will generate a gaf file with fewer
-annotations than the provided input gaf file. 
+Debiaser removes bias from [GAF](http://www.geneontology.org/page/go-annotation-file-formats) files based on annotation information content, GO evidence, annotation source, number of proteins annotated from a given source, an date.  Debiaser accepts one or more GAF files as input. The motivation for GAF lies in the observation that many organism annotations are biased due to high throughpout experimental studies ([1](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003063)). Removing such annotation biases can help present a more balanaced picture of protein annotations for a given organism or set of proteins.  
 
 ### Prerequisites
 
-#### Required modules. All are available from most repositories.
+#### Required modules. 
+
+Modules are available in most GNU/Linux distributions, or from their respective websites.
 
 * [networkx](https://networkx.github.io/)
 
@@ -134,7 +131,8 @@ optional arguments:
                         information content below t will be discarded
   --info_threshold_Phillip_Lord_percentile INFO_THRESHOLD_PHILLIP_LORD_PERCENTILE, -PLTHRESHp INFO_THRESHOLD_PHILLIP_LORD_PERCENTILE
                         Provide the percentile p. All annotations having
-                        information content below p will be discarded
+                        information content below p will be discarded. So if 5 is provided, proteins annotated by 
+                        terms whose score is in the top 5%  will be  left in, the rest will be discarded.
   --info_threshold_Phillip_Lord INFO_THRESHOLD_PHILLIP_LORD, -PLTHRESH INFO_THRESHOLD_PHILLIP_LORD
                         Provide a  value t. All annotations having
                         information content below t will be discarded
