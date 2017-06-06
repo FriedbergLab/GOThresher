@@ -40,8 +40,8 @@ pip install debias
 ```
 
 ### Initial files
-These files will be created upon running `debias_prep.py`. 
-`python debias_prep.py -i data/GOFILE.obo`
+These files will be created upon running `debias_prep`. 
+`debias_prep -i data/GOFILE.obo`
 
 GOFILE will usually be  one of `go.obo` or `go-basic.obo`
 
@@ -60,14 +60,14 @@ This will generate seven files in total. Three files corresponds to the three on
 
 1. Download the latest go.obo file from http://www.geneontology.org/ontology/ 
 
-2. Run the program `debias_prep.py` program and provide the downloaded
+2. Run the program `debias_prep` program and provide the downloaded
    .obo file. See the usage details below. This program needs to be run only when a new .obo file needs to be used.
 
-3. Run the program `debias.py` 
+3. Run the program `debias` 
 
 
 ```
-usage: debias.py [-h] [--prefix PREFIX] [--cutoff_prot CUTOFF_PROT]
+usage: debias [-h] [--prefix PREFIX] [--cutoff_prot CUTOFF_PROT]
                  [--cutoff_attn CUTOFF_ATTN] [--output OUTPUT]
                  [--evidence EVIDENCE [EVIDENCE ...] | --evidence_inverse
                  EVIDENCE_INVERSE [EVIDENCE_INVERSE ...]] --input INPUT
@@ -237,7 +237,7 @@ parameters fised is possible **WITHOUT** providing the argument -recal.
 This command will lead to 3 output files. One each for the two organisms
 and the third one is where both the organisms are combined. 
 
-3. `python debias.py -i data/goa_yeast.gaf data/goa_dicty.gaf -a C P -PLTHRESHp 30 -e EXPEC IBA -odir data/output -single 1`
+3. `debias -i data/goa_yeast.gaf data/goa_dicty.gaf -a C P -PLTHRESHp 30 -e EXPEC IBA -odir data/output -single 1`
 
 This command will read from two input files, select CCO and BPO
 annotations. Further, it will **choose** only those annotations which
@@ -252,7 +252,7 @@ required permissions are present. This will lead to only one file, since
 the -single argument has been provided, which will contain all the
 selected annotations from both the organisms. 
 
-4. `python debias.py -cattn 1000 -i data/goa_yeast.gaf data/goa_dicty.gaf -a C P -einv COMPEC -pref testing -selrefinv Reactome`
+4. `debias -cattn 1000 -i data/goa_yeast.gaf data/goa_dicty.gaf -a C P -einv COMPEC -pref testing -selrefinv Reactome`
 
 This command will read from two input files, select CCO and BPO
 annotations. Further, it will **discard**  those annotations which have
