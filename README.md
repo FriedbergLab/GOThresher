@@ -37,6 +37,8 @@ python setup.py install
 Installing with pip
 ```
 pip install debias
+OR 
+pip install git+git://github.com/Rinoahu/debias
 ```
 
 ### Initial files
