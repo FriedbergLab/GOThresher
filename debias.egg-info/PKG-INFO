@@ -273,15 +273,16 @@ Description: # Debiasing a Protein Annotation Database
         string "testing". Since the program creates a meaningful name for each
         file, the user has been given the opportunity to give a prefix.
         
+        ### Running test data
         
-        ### Running tests
+        To test all the commands mentioned above, you can run the shell script named test.sh in the tests directory.
         
         ```
         git clone https://github.com/Rinoahu/debias
         cd ./debias/tests
         bash test.sh
-        
         ```
+        
         
 Keywords: GO Annotation
 Platform: UNKNOWN

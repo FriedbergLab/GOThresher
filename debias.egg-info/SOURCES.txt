@@ -20,3 +20,4 @@ debias.egg-info/top_level.txt
 tests/go.obo
 tests/goa_dicty.gaf
 tests/goa_yeast.gaf
+tests/test.sh
