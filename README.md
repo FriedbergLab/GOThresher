@@ -265,5 +265,9 @@ annotations made by "Reactome". All files will be prefixed with the
 string "testing". Since the program creates a meaningful name for each
 file, the user has been given the opportunity to give a prefix.
 
-
+5. ```git clone https://github.com/Rinoahu/debias
+cd ./debias/tests
+bash test.sh
+```
+To test all the commands mentioned above, you can run the shell script named test.sh in the tests directory.
 

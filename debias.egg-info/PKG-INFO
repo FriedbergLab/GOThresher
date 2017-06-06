@@ -1,6 +1,6 @@
 Metadata-Version: 1.1
 Name: debias
-Version: 0.1
+Version: 0.2
 Summary: remove bias from GAF files
 Home-page: https://github.com/Rinoahu/debias
 Author: Iddo friedberg
@@ -274,7 +274,14 @@ Description: # Debiasing a Protein Annotation Database
         file, the user has been given the opportunity to give a prefix.
         
         
+        ### Running tests
         
+        ```
+        git clone https://github.com/Rinoahu/debias
+        cd ./debias/tests
+        bash test.sh
+        
+        ```
         
 Keywords: GO Annotation
 Platform: UNKNOWN
