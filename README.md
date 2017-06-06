@@ -37,7 +37,9 @@ python setup.py install
 Installing with pip
 ```
 pip install debias
-OR 
+```
+OR
+```
 pip install git+git://github.com/Rinoahu/debias
 ```
 
