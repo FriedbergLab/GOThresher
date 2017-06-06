@@ -6,7 +6,6 @@ README.md
 setup.cfg
 setup.py
 tox.ini
-data/data_file
 debias/__init__.py
 debias/__init__.pyc
 debias/debias.py
@@ -18,9 +17,6 @@ debias.egg-info/dependency_links.txt
 debias.egg-info/entry_points.txt
 debias.egg-info/requires.txt
 debias.egg-info/top_level.txt
-tests/all_CCO_REF_100_WCP_2.gaf
-tests/dicty_CCO_REF_100_WCP_2.gaf
 tests/go.obo
 tests/goa_dicty.gaf
 tests/goa_yeast.gaf
-tests/yeast_CCO_REF_100_WCP_2.gaf
