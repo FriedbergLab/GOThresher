@@ -1,5 +1,10 @@
 # Include the license file
-include LICENSE.txt
+include LICENSE
+# Include the CHANGE file
+include CHANGES.txt
+# Include the README file
+include README.md
+
 
 # Include the data files
 recursive-include data *
