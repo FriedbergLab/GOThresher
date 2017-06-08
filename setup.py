@@ -23,7 +23,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='0.11',
+    version='0.13',
 
     description='remove bias from GAF files',
     long_description=long_description,
@@ -32,8 +32,8 @@ setup(
     url='https://github.com/Rinoahu/debias',
 
     # Author details
-    author='Iddo friedberg',
-    author_email='idoerg@gmail.com',
+    author='xiao hu',
+    author_email='xiaohu@iastate.edu',
 
     # Choose your license
     license='GPLv3',
@@ -107,8 +107,11 @@ setup(
     # pip to create the appropriate form of executable for the target platform.
     entry_points={
         'console_scripts': [
-            'debias=debias.debias:main',
-            'debias_prep=debias.debias_prep:main',
+            #'debias=debias.debias:main',
+            'debias=debias:main',
+            #'debias_prep=debias.debias_prep:main',
+            'debias_prep=debias_prep:main',
+
         ],
     },
 )
