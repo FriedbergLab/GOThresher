@@ -1,10 +1,10 @@
 Metadata-Version: 1.1
 Name: debias
-Version: 0.11
+Version: 0.13
 Summary: remove bias from GAF files
 Home-page: https://github.com/Rinoahu/debias
-Author: Iddo friedberg
-Author-email: idoerg@gmail.com
+Author: xiao hu
+Author-email: xiaohu@iastate.edu
 License: GPLv3
 Description: # Debiasing a Protein Annotation Database
         
