@@ -23,7 +23,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='0.15',
+    version='0.16',
 
     description='remove bias from GAF files',
     long_description=long_description,
@@ -108,9 +108,9 @@ setup(
     entry_points={
         'console_scripts': [
             #'debias=debias.debias:main',
-            'debias=debias.debias:main',
+            'debias=debias:main',
             #'debias_prep=debias.debias_prep:main',
-            'debias_prep=debias.debias_prep:main',
+            'debias_prep=debias_prep:main',
 
         ],
     },

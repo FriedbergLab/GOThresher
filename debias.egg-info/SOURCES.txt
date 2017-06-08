@@ -15,9 +15,6 @@ debias.egg-info/dependency_links.txt
 debias.egg-info/entry_points.txt
 debias.egg-info/requires.txt
 debias.egg-info/top_level.txt
-debiaser/__init__.py
-debiaser/debias.py
-debiaser/debias_prep.py
 tests/.test.sh.un~
 tests/go.obo
 tests/goa_dicty.gaf
