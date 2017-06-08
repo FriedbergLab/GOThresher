@@ -1,4 +1,4 @@
 [console_scripts]
-debias = debias:main
-debias_prep = debias_prep:main
+debias = debias.debias:main
+debias_prep = debias.debias_prep:main
 
