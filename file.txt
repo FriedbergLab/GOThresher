@@ -1,0 +1,3 @@
+/home/xiaoh/Downloads/compiler/intel/intelpython27/lib/python2.7/site-packages/debias-0.16-py2.7.egg
+/home/xiaoh/Downloads/compiler/intel/intelpython27/bin/debias
+/home/xiaoh/Downloads/compiler/intel/intelpython27/bin/debias_prep
