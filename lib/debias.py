@@ -458,19 +458,26 @@ def assignProbabilitiesToOntologyGraphs( Prot_to_GO_Map, all_GO_Terms,aspects ):
     assignProbabilitiesToOntologyTree( cc_g, Prot_to_GO_Map, all_GO_Terms, ontology_to_ia_map, 'CCO' )
     """for GO in ontology_to_ia_map:
         vprint(ontology_to_ia_map[GO])"""
-    fileTemp1 = open("PLIC.txt","a")
-    for GO in ontology_to_ia_map:
-      fileTemp1.write(GO+"\t")
-      print(ontology_to_ia_map[GO])
-      print(ontology_to_ia_map[GO][1])
+    #fileTemp1 = open("PLIC.txt","a")
+    #for GO in ontology_to_ia_map:
+      #fileTemp1.write(GO+"\t"+ontology_to_ia_map[GO][1])
+      #print(ontology_to_ia_map[GO])
+      #print(ontology_to_ia_map[GO][1])
       #fileTemp1.write(ontology_to_ia_map[GO])
-    fileTemp1.close()
+    #fileTemp1.close()
     return ontology_to_ia_map
 
 def calculateInformationAccretionForEachProtein( Prot_to_GO_Map, ontology_to_ia_map ):
     vprint( "Starting calculation of ia" )
     infoAccr = dict()
     alt_id_to_id_map = cp.load( open( FILE_ALTERNATE_ID_TO_ID_MAPPING, "rb" ) )
+    fileTemp1 = open("PLIC.txt","a")
+    for GO in ontology_to_ia_map:
+      fileTemp1.write(GO+"\t"+ontology_to_ia_map[GO][1])
+      #print(ontology_to_ia_map[GO])
+      #print(ontology_to_ia_map[GO][1])
+      #fileTemp1.write(ontology_to_ia_map[GO])
+    fileTemp1.close()
     for prot in Prot_to_GO_Map:
         annotations = Prot_to_GO_Map[prot]
         ia = 0
