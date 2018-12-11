@@ -499,6 +499,7 @@ def chooseGOBasedOnAssignedBy( data, assigned_by,assigned_by_inverse):
     return new_data
 
 def calculatePhillipLordInformationContent(data,crisp,percentile_val):
+  fileTemp1 = open("PLIC.txt","a")
     go_terms=[]
     """Prot_to_GO_Map, all_GO_Terms_in_corpus = createProteinToGOMapping( data )
     Prot_to_GO_Map_propagated = propagateOntologies( Prot_to_GO_Map )"""
@@ -537,6 +538,7 @@ def calculatePhillipLordInformationContent(data,crisp,percentile_val):
         if GO_term_to_PL_info[annotation["GO_ID"]]>=threshold:
             new_data[attnid]=data[attnid]
     return new_data
+  fileTemp1.write(collections.Counter(go_terms))
     #vprint(collections.Counter(go_terms))
 
 def calculateWyattClarkInformationContent(data,recal,crisp,percentile_val,aspects,outputfiles,input_num):
