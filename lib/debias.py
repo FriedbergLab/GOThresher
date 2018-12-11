@@ -463,7 +463,7 @@ def assignProbabilitiesToOntologyGraphs( Prot_to_GO_Map, all_GO_Terms,aspects ):
       fileTemp1.write(GO+"\t")
       #print(ontology_to_ia_map[GO])
       #print(ontology_to_ia_map[GO][1])
-      fileTemp1.write(str(ontology_to_ia_map[GO][1]))
+      fileTemp1.write(str(ontology_to_ia_map[GO][1])+"\n")
     fileTemp1.close()
     return ontology_to_ia_map
 
