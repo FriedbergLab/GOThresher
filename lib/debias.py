@@ -460,7 +460,8 @@ def assignProbabilitiesToOntologyGraphs( Prot_to_GO_Map, all_GO_Terms,aspects ):
         vprint(ontology_to_ia_map[GO])"""
     fileTemp1 = open("PLIC.txt","a")
     for GO in ontology_to_ia_map:
-      fileTemp1.write(GO,"\t")
+      fileTemp1.write(GO+"\t")
+      print(ontology_to_ia_map[GO])
       print(ontology_to_ia_map[GO[2]])
       #fileTemp1.write(ontology_to_ia_map[GO])
     fileTemp1.close()
