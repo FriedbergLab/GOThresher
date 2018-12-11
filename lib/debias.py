@@ -446,7 +446,7 @@ def assignProbabilitiesToOntologyTree( g, Prot_to_GO_Map, all_GO_Terms, ontology
             prob = 0
         else:
             prob = num / denom
-        ontology_to_ia_map[node] = [prob, -math.log( prob, 2 )]
+        ontology_to_ia_map[node] = [prob, math.log( 1/prob, 2 )]
 
 def assignProbabilitiesToOntologyGraphs( Prot_to_GO_Map, all_GO_Terms,aspects ):
     mf_g = cp.load( open( FILE_MFO_ONTOLOGY_GRAPH, "rb" ) )
