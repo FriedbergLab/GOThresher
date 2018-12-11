@@ -540,7 +540,7 @@ def calculatePhillipLordInformationContent(data,crisp,percentile_val):
     return new_data
     fileTemp1.write(collections.Counter(go_terms))
     fileTemp1.close()
-    #vprint(collections.Counter(go_terms))
+    vprint(collections.Counter(go_terms))
 
 def calculateWyattClarkInformationContent(data,recal,crisp,percentile_val,aspects,outputfiles,input_num):
     """
