@@ -447,6 +447,9 @@ def assignProbabilitiesToOntologyTree( g, Prot_to_GO_Map, all_GO_Terms, ontology
         else:
             prob = num / denom
         ontology_to_ia_map[node] = [prob, -math.log( prob, 2 )]
+        fileTemp1 = open("PLIC.txt","a")
+        fileTemp1.write(node, "\t", ontology_to_ia_map[node])
+        fileTemp1.close()
 
 def assignProbabilitiesToOntologyGraphs( Prot_to_GO_Map, all_GO_Terms,aspects ):
     mf_g = cp.load( open( FILE_MFO_ONTOLOGY_GRAPH, "rb" ) )
@@ -499,7 +502,6 @@ def chooseGOBasedOnAssignedBy( data, assigned_by,assigned_by_inverse):
     return new_data
 
 def calculatePhillipLordInformationContent(data,crisp,percentile_val):
-    fileTemp1 = open("PLIC.txt","a")
     go_terms=[]
     """Prot_to_GO_Map, all_GO_Terms_in_corpus = createProteinToGOMapping( data )
     Prot_to_GO_Map_propagated = propagateOntologies( Prot_to_GO_Map )"""
@@ -538,9 +540,7 @@ def calculatePhillipLordInformationContent(data,crisp,percentile_val):
         if GO_term_to_PL_info[annotation["GO_ID"]]>=threshold:
             new_data[attnid]=data[attnid]
     return new_data
-    fileTemp1.write(collections.Counter(go_terms))
-    fileTemp1.close()
-    vprint(collections.Counter(go_terms))
+    #vprint(collections.Counter(go_terms))
 
 def calculateWyattClarkInformationContent(data,recal,crisp,percentile_val,aspects,outputfiles,input_num):
     """
