@@ -446,7 +446,7 @@ def assignProbabilitiesToOntologyTree( g, Prot_to_GO_Map, all_GO_Terms, ontology
             prob = 0
         else:
             prob = num / denom
-        ontology_to_ia_map[node] = [prob, math.log( 1/prob, 2 )]
+        ontology_to_ia_map[node] = [prob, -math.log( prob, 2 )]
 
 def assignProbabilitiesToOntologyGraphs( Prot_to_GO_Map, all_GO_Terms,aspects ):
     mf_g = cp.load( open( FILE_MFO_ONTOLOGY_GRAPH, "rb" ) )
@@ -458,9 +458,16 @@ def assignProbabilitiesToOntologyGraphs( Prot_to_GO_Map, all_GO_Terms,aspects ):
     assignProbabilitiesToOntologyTree( cc_g, Prot_to_GO_Map, all_GO_Terms, ontology_to_ia_map, 'CCO' )
     """for GO in ontology_to_ia_map:
         vprint(ontology_to_ia_map[GO])"""
-    fileTemp1 = open("PLIC.txt","a")
+    fileTemp1 = open("IC.txt","a")
     for GO in ontology_to_ia_map:
       fileTemp1.write(GO+"\t")
+      #print(ontology_to_ia_map[GO])
+      #print(ontology_to_ia_map[GO][1])
+      fileTemp1.write(str(ontology_to_ia_map[GO][1])+"\n")
+    fileTemp1.close()
+    fileTemp1 = open("FreqIC.txt","a")
+    for GO in ontology_to_ia_map:
+      fileTemp1.write(GO+"\t"+str(ontology_to_ia_map[GO][0])+"\t")
       #print(ontology_to_ia_map[GO])
       #print(ontology_to_ia_map[GO][1])
       fileTemp1.write(str(ontology_to_ia_map[GO][1])+"\n")
