@@ -842,6 +842,14 @@ def writeReport(filename,report):
 def generateHistogram(options,data,species,prev,lat,msg):
     filepath=options.histogram
     outputfilename=options.output[0]
+    fileTemp1 = open("prev.txt","a")
+    for i in prev:
+      fileTemp1.write(str(i)+"\t"+str(prev[i])+"\n")
+    fileTemp1.close()
+    fileTemp2 = open("later.txt","a")
+    for j in lat:
+      fileTemp2.write(str(j)+"\t"+str(lat[j])+"\n")    
+    fileTemp2.close()
     #print(prev)
     if(filepath[-1]=='/'):
         if os.path.isdir(filepath) == False:
@@ -870,6 +878,13 @@ def generateHistogram(options,data,species,prev,lat,msg):
     #print(sum(lat_val),np.mean(lat_val))
     new_lat_val=[-(val/sum(lat_val))*math.log(val/sum(lat_val),2) for val in lat_val]
     #lat_val=new_lat_val
+    
+    fileTemp1 = open("prevIC.txt","a")
+    for i in new_prev_val:
+      fileTemp1.write(str(i)+"\n")
+    fileTemp2 = open("laterIC.txt","a")
+    for j in new_lat_val:
+      fileTemp2.write(str(j)+"\n")
     
     """prev_val=[]
     for key in prev:
