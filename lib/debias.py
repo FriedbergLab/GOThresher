@@ -916,6 +916,11 @@ def freqGO_TERM(data):
             go_to_freq[data[annotation]['GO_ID']]+=1
         else:
             go_to_freq[data[annotation]['GO_ID']]=1
+            
+    F = open("InterimFile.txt","a")
+    for key in go_to_freq:
+      F.write(str(key)+"\t"+go_to_freq[key]+"\n")
+    F.close()
     return go_to_freq
 
 def main():
