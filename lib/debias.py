@@ -458,14 +458,14 @@ def assignProbabilitiesToOntologyGraphs( Prot_to_GO_Map, all_GO_Terms,aspects ):
     assignProbabilitiesToOntologyTree( cc_g, Prot_to_GO_Map, all_GO_Terms, ontology_to_ia_map, 'CCO' )
     """for GO in ontology_to_ia_map:
         vprint(ontology_to_ia_map[GO])"""
-    fileTemp1 = open("IC.txt","a")
+    fileTemp1 = open("IC.txt","w")
     for GO in ontology_to_ia_map:
       fileTemp1.write(GO+"\t")
       #print(ontology_to_ia_map[GO])
       #print(ontology_to_ia_map[GO][1])
       fileTemp1.write(str(ontology_to_ia_map[GO][1])+"\n")
     fileTemp1.close()
-    fileTemp1 = open("FreqIC.txt","a")
+    fileTemp1 = open("FreqIC.txt","w")
     for GO in ontology_to_ia_map:
       fileTemp1.write(GO+"\t"+str(ontology_to_ia_map[GO][0])+"\t")
       #print(ontology_to_ia_map[GO])
@@ -842,11 +842,11 @@ def writeReport(filename,report):
 def generateHistogram(options,data,species,prev,lat,msg):
     filepath=options.histogram
     outputfilename=options.output[0]
-    fileTemp1 = open("prev.txt","a")
+    fileTemp1 = open("prev.txt","w")
     for i in prev:
       fileTemp1.write(str(i)+"\t"+str(prev[i])+"\n")
     fileTemp1.close()
-    fileTemp2 = open("later.txt","a")
+    fileTemp2 = open("later.txt","w")
     for j in lat:
       fileTemp2.write(str(j)+"\t"+str(lat[j])+"\n")    
     fileTemp2.close()
@@ -872,26 +872,40 @@ def generateHistogram(options,data,species,prev,lat,msg):
     #print("IMG filepath",filepath)
     prev_val=[prev[key] for key in prev]
     #print(sum(prev_val),np.mean(prev_val))
-    new_prev_val=[-(val/sum(prev_val))*math.log(val/sum(prev_val),2) for val in prev_val]
+    new_prev_val=[-math.log(val/sum(prev_val),2) for val in prev_val]
+    print(sum(prev_val))
     #prev_val=new_prev_val
     lat_val=[lat[key] for key in lat]
     #print(sum(lat_val),np.mean(lat_val))
-    new_lat_val=[-(val/sum(lat_val))*math.log(val/sum(lat_val),2) for val in lat_val]
+    new_lat_val=[-math.log(val/sum(lat_val),2) for val in lat_val]
+    print(sum(lat_val))
     #lat_val=new_lat_val
     
-    fileTemp1 = open("prevIC.txt","a")
-    for i in new_prev_val:
-      fileTemp1.write(str(i)+"\n")
-    fileTemp2 = open("laterIC.txt","a")
+    ft1 = open("deltaIC.txt","w")
+    #tempArrayPrev = []
+    #tempArrayLat = []
+    fileTemp1 = open("prevIC.txt","w")
+    for i in prev:
+      ft1.write(str(i)+"\t"+str(prev[i])+"\t"+str(lat[i])+"\t"+str(-math.log(prev[i]/sum(prev_val),2))+"\t"+str(-math.log(lat[i]/sum(lat_val),2))+"\n")
+      fileTemp1.write(str(i)+"\t"+str(prev[i])+"\n")
+      #tempArrayPrev.append(i)
+    fileTemp2 = open("laterIC.txt","w")
     for j in new_lat_val:
       fileTemp2.write(str(j)+"\n")
+      #tempArrayLat.append(j)
     
+    #for k in range(0,len(tempArrayPrev)):
+      #ft1.write(str(tempArrayPrev[k]-tempArrayLat[k])+"\n")
+    ft1.close()
+    fileTemp1.close()
+    fileTemp2.close()
+
     """prev_val=[]
     for key in prev:
         prev_val.append(prev[key])"""
     binsize=100
-    plt.hist(new_prev_val, bins=binsize,color='r',label="Before Debiasing")
-    plt.hist(new_lat_val,bins=binsize,color='b',label="After Debiasing")
+    plt.hist(new_prev_val, bins=binsize,color='r',label="Before Debiasing", log=True)
+    plt.hist(new_lat_val,bins=binsize,color='b',label="After Debiasing", log=True)
     #plt.xlim((0,max(max(new_prev_val)+0.1,max(new_lat_val)+0.1)))
     plt.xlabel("Information Content")
     plt.ylabel("Frequency")
@@ -916,12 +930,13 @@ def freqGO_TERM(data):
             go_to_freq[data[annotation]['GO_ID']]+=1
         else:
             go_to_freq[data[annotation]['GO_ID']]=1
-            
-    F = open("InterimFile.txt","a")
-    for key in go_to_freq:
-      F.write(str(key)+"\t"+go_to_freq[key]+"\n")
-    F.close()
     return go_to_freq
+
+def writeContentsToFile(dataDict,fileName):
+    F = open(fileName+".txt","w")
+    for key in dataDict:
+        F.write(str(key)+"\t"+str(dataDict[key])+"\n")
+    F.close()
 
 def main():
     global verbose,options,report
@@ -1054,9 +1069,11 @@ def main():
                 report_row.append(countProteins(data))
             if options.histogram!=None:
                 prev_go_term_freq=freqGO_TERM(data)
+                writeContentsToFile(prev_go_term_freq,"PrevInterimFile")
             data = chooseProteinsBasedOnPublications( data, options.cutoff_prot,options.cutoff_attn)
             if options.histogram!=None:
                 later_go_term_freq=freqGO_TERM(data)
+                writeContentsToFile(later_go_term_freq,"laterInterimFile")
                 generateHistogram(options,data,eachinputfile,prev_go_term_freq,later_go_term_freq,"Removal of high Throughput Papers")
                 
             vprint( "Number of annotations after choosing proteins based on Publications ", len( data ) )
