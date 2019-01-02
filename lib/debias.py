@@ -882,14 +882,17 @@ def generateHistogram(options,data,species,prev,lat,msg):
     #lat_val=new_lat_val
     
     ft1 = open("deltaIC.txt","w")
+    sigmaDelta = 0
     #tempArrayPrev = []
     #tempArrayLat = []
     fileTemp1 = open("prevIC.txt","w")
     for i in prev:
-      ft1.write(str(i)+"\t"+str(prev[i])+"\t"+str(lat[i])+"\t"+str(-math.log(prev[i]/sum(prev_val),2))+"\t"+str(-math.log(lat[i]/sum(lat_val),2))+"\n")
+      ft1.write(str(i)+"\t"+str(prev[i])+"\t"+str(lat[i])+"\t"+str(-math.log(prev[i]/sum(prev_val),2))+"\t"+str(-math.log(lat[i]/sum(lat_val),2))+"\t"+str(-math.log(prev[i]/sum(prev_val),2)-(-math.log(lat[i]/sum(lat_val),2)))+"\t"+str((-math.log(prev[i]/sum(prev_val),2)-(-math.log(lat[i]/sum(lat_val),2)))**2)+"\n")
       fileTemp1.write(str(i)+"\t"+str(prev[i])+"\n")
+      sigmaDelta+=(-math.log(prev[i]/sum(prev_val),2)-(-math.log(lat[i]/sum(lat_val),2)))**2
       #tempArrayPrev.append(i)
     fileTemp2 = open("laterIC.txt","w")
+    print(sigmaDelta)
     for j in new_lat_val:
       fileTemp2.write(str(j)+"\n")
       #tempArrayLat.append(j)
