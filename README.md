@@ -29,7 +29,7 @@ A program debias_prep.py has been provided in the package. This program builds t
 
 Installing from source
 ```
-git clone https://github.com/Rinoahu/debias
+git clone https://github.com/FriedbergLab/debias
 cd debias
 python setup.py install
 ```
@@ -40,7 +40,7 @@ pip install debias
 ```
 OR
 ```
-pip install git+git://github.com/Rinoahu/debias
+pip install git+git://github.com/FriedbergLab/debias
 ```
 
 ### Initial files
@@ -270,7 +270,7 @@ file, the user has been given the opportunity to give a prefix.
 To test all the commands mentioned above, you can run the shell script named test.sh in the tests directory.
 
 ```
-git clone https://github.com/Rinoahu/debias
+git clone https://github.com/FriedbergLab/debias
 cd ./debias/tests
 bash test.sh
 ```
