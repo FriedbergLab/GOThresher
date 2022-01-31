@@ -873,12 +873,12 @@ def generateHistogram(options,data,species,prev,lat,msg):
     prev_val=[prev[key] for key in prev]
     #print(sum(prev_val),np.mean(prev_val))
     new_prev_val=[-math.log(val/sum(prev_val),2) for val in prev_val]
-    print(sum(prev_val))
+    #print(sum(prev_val))
     #prev_val=new_prev_val
     lat_val=[lat[key] for key in lat]
     #print(sum(lat_val),np.mean(lat_val))
     new_lat_val=[-math.log(val/sum(lat_val),2) for val in lat_val]
-    print(sum(lat_val))
+    #print(sum(lat_val))
     #lat_val=new_lat_val
     
     ft1 = open("deltaIC.txt","w")
