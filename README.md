@@ -1,4 +1,4 @@
-# Debiasing a Protein Annotation Database
+# GOThresher: a program to remove annotation biases from protein function annotation datasets
 
 GOThresher removes annotation bias from [GAF](http://www.geneontology.org/page/go-annotation-file-formats) files based on annotation information content, GO evidence, annotation source, number of proteins annotated from a given source, an date.  GOThresher accepts one or more GAF files as input. The motivation for GAF lies in the observation that many organism annotations are biased due to high throughput experimental studies ([1](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003063)). Removing such annotation biases can help present a more balanaced picture of protein annotations for a given organism or set of proteins.  
 
