@@ -31,7 +31,7 @@ Installing from source
 ```
 git clone https://github.com/FriedbergLab/debias
 cd debias
-python setup.py install
+pip install .
 ```
 
 Installing with pip
