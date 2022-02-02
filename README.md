@@ -245,7 +245,7 @@ Required arguments:
                         of the species following separated by an underscore
 ```
 
-NOTE: Files inside the folder "temp" are generated when `-recal` is set to 1.
+NOTE: Files inside the folder `temp` are generated when `-recal` is set to 1.
 
 -------------
 
