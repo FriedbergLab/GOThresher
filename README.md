@@ -15,7 +15,7 @@ GoThresher requires Python 3.5 or newer with the following libraries installed:
 * [Biopython](http://biopython.org/)
 * [xlsxwriter](http://xlsxwriter.readthedocs.io/)
 
-Modules can be automatically installed using ```pip```, or obtained from their respective websites.
+Modules can be automatically installed using `pip`, or obtained from their respective websites.
 
 ### Required files:
 
@@ -29,7 +29,7 @@ A program debias_prep.py has been provided in the package. This program builds t
 
 ## Installation
 
-GOThresher is available on PyPi, so the best way to install GOThresher is through ```pip```.
+GOThresher is available on PyPi, so the best way to install GOThresher is through `pip`.
 
 You can install GOThresher by running:
 ```
@@ -53,6 +53,10 @@ $ pip install .
 -------------
 
 ## Generate initial mapping files
+
+<!--
+A program debias_prep.py has been provided in the package. This program builds the graphs for each of the ontologies and puts them in three different files. Hence the .obo files are not needed. This program has been provided so that if the hierarchy changes then this program can be used to regenerate the  files. In addition to the three hierarchy graphs for the three ontologies it also generates the mapping for alternate GO_ID to actual GO_ID. It also generates the mapping from one GO_ID to all its ancestors. 
+-->
 
 These files will be created upon running `debias_prep`. 
 `debias_prep -i data/GOFILE.obo`
