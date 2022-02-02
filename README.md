@@ -6,46 +6,54 @@ GOThresher removes annotation bias from [GAF](http://www.geneontology.org/page/g
 
 ## Prerequisites
 
-### Required modules. 
+### Required modules:
 
-Modules are available in most GNU/Linux distributions, or from their respective websites.
-
+GoThresher requires Python 3.5 or newer with the following libraries installed:
 * [networkx](https://networkx.github.io/)
-
 * [matplotlib](https://matplotlib.org/)
-
 * [numpy](http://www.numpy.org/)
-
 * [Biopython](http://biopython.org/)
-
 * [xlsxwriter](http://xlsxwriter.readthedocs.io/)
 
-### Required files
-You would need an obo formatted version of the Gene Ontology. Depending on your needs, this would usually be one of [go-basic.obo](http://purl.obolibrary.org/obo/go/go-basic.obo) or [go.obo](http://purl.obolibrary.org/obo/go.obo). For more details and to download either the most recent daily version or the latest version go to the [Gene Ontology website](http://geneontology.org/page/download-ontology). 
+Modules can be automatically installed using ```pip```, or obtained from their respective websites.
+
+### Required files:
+
+GoThresher requires an obo formatted version of the Gene Ontology. Depending on your needs, this would usually be one of [go-basic.obo](http://purl.obolibrary.org/obo/go/go-basic.obo) or [go.obo](http://purl.obolibrary.org/obo/go.obo). For more details and to download either the most recent daily version or the latest version go to the [Gene Ontology website](http://geneontology.org/page/download-ontology). 
 
 <!--
 A program debias_prep.py has been provided in the package. This program builds the graphs for each of the ontologies and puts them in three different files. Hence the .obo files are not needed. This program has been provided so that if the hierarchy changes then this program can be used to regenerate the  files. In addition to the three hierarchy graphs for the three ontologies it also generates the mapping for alternate GO_ID to actual GO_ID. It also generates the mapping from one GO_ID to all its ancestors. 
 -->
 
-### Installation
+-------------
 
-Installing from source
-```
-git clone https://github.com/FriedbergLab/debias
-cd debias
-pip install .
-```
+## Installation
 
-Installing with pip
+GOThresher is available on PyPi, so the best way to install GOThresher is through ```pip```.
+
+You can install GOThresher by running:
 ```
-pip install debias
+$ pip install debias
 ```
 OR
 ```
-pip install git+git://github.com/FriedbergLab/debias
+$ pip install git+git://github.com/FriedbergLab/debias
 ```
 
-### Initial files
+Alternatively, it is possible to **manually download** from GitHub or **clone the repository** using the following command:
+```
+$ git clone https://github.com/FriedbergLab/debias
+$ cd debias
+```
+and install GOThresher by running: 
+```
+$ pip install .
+```
+
+-------------
+
+## Generate initial mapping files
+
 These files will be created upon running `debias_prep`. 
 `debias_prep -i data/GOFILE.obo`
 
