@@ -64,8 +64,7 @@ GOThresher requires graphs of the three ontologies (MF, CC, BP), mapping of GO t
 
 ```
 $ mkdir data
-$ cd data
-$ debias_prep -i data/<GOFILE>
+$ debias_prep -i ./data/<GOFILE>
 ```
 
 `<GOFILE>` will usually be one of `go.obo` or `go-basic.obo`.
