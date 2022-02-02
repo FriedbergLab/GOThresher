@@ -4,9 +4,9 @@ GOThresher removes annotation bias from [GAF](http://www.geneontology.org/page/g
 
 -------------
 
-### Prerequisites
+## Prerequisites
 
-#### Required modules. 
+### Required modules. 
 
 Modules are available in most GNU/Linux distributions, or from their respective websites.
 
@@ -20,7 +20,7 @@ Modules are available in most GNU/Linux distributions, or from their respective 
 
 * [xlsxwriter](http://xlsxwriter.readthedocs.io/)
 
-#### Required files
+### Required files
 You would need an obo formatted version of the Gene Ontology. Depending on your needs, this would usually be one of [go-basic.obo](http://purl.obolibrary.org/obo/go/go-basic.obo) or [go.obo](http://purl.obolibrary.org/obo/go.obo). For more details and to download either the most recent daily version or the latest version go to the [Gene Ontology website](http://geneontology.org/page/download-ontology). 
 
 <!--
