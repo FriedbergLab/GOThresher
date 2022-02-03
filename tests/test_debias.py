@@ -1,32 +1,47 @@
 #!/usr/bin/python
 import unittest
 import os
+
+from Bio.UniProt import GOA
 from lib import debias
-print(os.getcwd()+os.sep+"goa_yeast.gaf")
-data = debias.chooseProteinsBasedOnPublications(os.getcwd()+os.sep+"goa_yeast.gaf", 500, 0)
 
-for i in data:
-    print(i)
-# t1_dic, all_protein_t1 = create_benchmark.read_gaf(cwd+"//tests//1")
-# t2_dic, all_protein_t2 = create_benchmark.read_gaf(cwd+"//tests//2")
-# NK_dic, LK_dic = create_benchmark.analyze(t1_dic, t2_dic, all_protein_t1)
+input_file = os.getcwd() + os.sep + ".." + os.sep + "example_data" + os.sep + "goa_exampleYeast.gaf"
 
-'''
+gaf_output = GOA._gaf20iterator(open(input_file, "r"))
+data = debias.convertFromGAFToRequiredFormat(gaf_output)
+gaf_output.close()
+
+prot_list = []
+for key in data.keys():
+    prot_list.append(data[key]["DB_Object_Symbol"])
+
+new_data = debias.chooseProteinsBasedOnPublications(data, 50, None)
+new_prot_list = []
+for key in new_data.keys():
+    new_prot_list.append(new_data[key]["DB_Object_Symbol"])
+
+
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(TestDebias)
+    suite.addTest(TestChooseProteinsBasedOnPublications)
     return suite
 
 
-class TestDebias(unittest.TestCase):
+class TestChooseProteinsBasedOnPublications(unittest.TestCase):
     def test_not_include(self):
-        for protein in ["A2P2R3", "A2P2R4", "A2P2R5", "A2P2R6"]:
-            for ontology in NK_dic:
-                self.assertNotIn(protein, NK_dic[ontology], "This protein should not be in NK ")
-        for protein in ["A2P2R3", "A2P2R4", "A2P2R5", "A2P2R6"]:
-            for ontology in LK_dic:
-                self.assertNotIn(protein, LK_dic[ontology], "This protein should not be in LK ")
-'''
+        for entry in ["anntn46881", "anntn31699", "anntn17651"]:
+            self.assertNotIn(entry, new_data.keys(), "This annotation should not be in new_data")
+            # print(data["anntn17651"])
+
+    def test_include_data(self):
+        self.assertIn("LIA1", data["anntn46881"]["DB_Object_Symbol"], "protein LIA1 should be present in data")
+
+        self.assertIn("TIF4632", data["anntn17651"]["DB_Object_Symbol"], "protein TIF4632 should should be present in "
+                                                                         "data")
+        self.assertNotIn("TRT2", new_prot_list, "protein TRT2 should not be present in new_data")
+
+        self.assertNotIn("SUP16", new_prot_list, "protein SUP16 should not be present in new_data")
+
 
 if __name__ == '__main__':
     unittest.main()
