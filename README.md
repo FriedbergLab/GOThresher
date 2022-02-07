@@ -253,7 +253,7 @@ NOTE: Files inside the folder `temp` are generated when `-recal` is set to 1.
 
 ### Step 1: Generating graphs and mapping files
 
-```$ debias_prep -i example_data/exampleGO.obo```
+```$ debias_prep -i example_data/go.obo```
 
 This command will generate seven files in total. Three files corresponds
 to the three ontologies. Three files corresponds to the mapping between
