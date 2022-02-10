@@ -1,0 +1,17 @@
+Metadata-Version: 2.1
+Name: gothresher
+Version: 1.0.11
+Summary: remove bias from GAF files
+Home-page: https://github.com/FriedbergLab/debias
+Author: Parnal Joshi
+Author-email: parnal@iastate.edu
+License: GPLv3
+Keywords: GO Annotation
+Platform: UNKNOWN
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+License-File: LICENSE
+
+UNKNOWN
+

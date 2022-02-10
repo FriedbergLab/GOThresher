@@ -1,0 +1,4 @@
+[console_scripts]
+gothresher = gothresher.gothresher:main
+gothresher_prep = gothresher.gothresher_prep:main
+
