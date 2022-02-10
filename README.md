@@ -33,16 +33,16 @@ GOThresher is available on PyPi, so the best way to install GOThresher is throug
 
 You can install GOThresher by running:
 ```
-$ pip install debias
+$ pip install gothresher
 ```
 OR
 ```
-$ pip install git+git://github.com/FriedbergLab/debias
+$ pip install git+git://github.com/parnaljoshi/debias
 ```
 
 Alternatively, it is possible to **manually download** from GitHub or **clone the repository** using the following command:
 ```
-$ git clone https://github.com/FriedbergLab/debias
+$ git clone https://github.com/parnaljoshi/debias
 $ cd debias
 ```
 and install GOThresher by running: 
