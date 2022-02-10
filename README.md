@@ -64,17 +64,17 @@ GOThresher requires graphs of the three ontologies (MF, CC, BP), mapping of GO t
 
 ```
 $ mkdir data
-$ debias_prep -i ./data/<GOFILE>
+$ gothresher_prep -i ./data/<GOFILE>
 ```
 
 `<GOFILE>` will usually be one of `go.obo` or `go-basic.obo`.
 
-`debias_prep` will generate seven files in total:
+`gothresher_prep` will generate seven files in total:
 1. Three files corresponds to the three ontologies
 2. Three files corresponds to the mapping between each GO_term and its ancestors in its own respective ontology
 3. One file containing mapping from alternate GO_ID to actual GO_ID. 
  
-IMPORTANT: This command needs to be run again when a new version of ontology is available and updated graphs/mapping files need to be used for analysis. In that case, please use `debias_prep` after downloading a new go.obo file.
+IMPORTANT: This command needs to be run again when a new version of ontology is available and updated graphs/mapping files need to be used for analysis. In that case, please use `gothresher_prep` after downloading a new go.obo file.
 
 Following files will be generated within `./data` folder:
 
@@ -94,16 +94,16 @@ Following files will be generated within `./data` folder:
 
 1. Download the latest `go.obo` or `go-basic.obo` file from http://www.geneontology.org/ontology/ 
 
-2. Run the program `debias_prep` program and provide the downloaded `obo` file. See the usage details [here](https://github.com/parnaljoshi/debias#generate-initial-mapping-files). This program needs to be run only when a new `obo` file needs to be used.
+2. Run the program `gothresher_prep` program and provide the downloaded `obo` file. See the usage details [here](https://github.com/parnaljoshi/debias#generate-initial-mapping-files). This program needs to be run only when a new `obo` file needs to be used.
 
-3. Run the program `debias` 
+3. Run the program `gothresher` 
 
 -------------
 
 ## GOThresher usage
 
 ```
-usage: debias [-h] [--prefix PREFIX] [--cutoff_prot CUTOFF_PROT]
+usage: gothresher [-h] [--prefix PREFIX] [--cutoff_prot CUTOFF_PROT]
                  [--cutoff_attn CUTOFF_ATTN] [--output OUTPUT]
                  [--evidence EVIDENCE [EVIDENCE ...] | --evidence_inverse
                  EVIDENCE_INVERSE [EVIDENCE_INVERSE ...]] --input INPUT
@@ -253,7 +253,7 @@ NOTE: Files inside the folder `temp` are generated when `-recal` is set to 1.
 
 ### Step 1: Generating graphs and mapping files
 
-```$ debias_prep -i example_data/go.obo```
+```$ gothresher_prep -i example_data/go.obo```
 
 This command will generate seven files in total. Three files corresponds
 to the three ontologies. Three files corresponds to the mapping between
@@ -263,7 +263,7 @@ this command every time you update GOFILE.
 
 ### Step 2: Running GOThresher
 
-1. ```$ debias -cprot 100 -i example_data/goa_exampleYeast.gaf example_data/goa_exampleDicty.gaf -a C -WCTHRESHp 2 -recal 1```
+1. ```$ gothresher -cprot 100 -i example_data/goa_exampleYeast.gaf example_data/goa_exampleDicty.gaf -a C -WCTHRESHp 2 -recal 1```
 
 This command reads from two input files one for yeast and the other for
 dicty. The -a C only selects the annotations which are CCO. The
@@ -280,7 +280,7 @@ parameters fised is possible **WITHOUT** providing the argument -recal.
 This command will lead to 3 output files. One each for the two organisms
 and the third one is where both the organisms are combined. 
 
-2. ```$ debias -i example_data/goa_exampleYeast.gaf example_data/goa_exampleDicty.gaf -a C P -PLTHRESHp 30 -e EXPEC IBA -odir example_data/output -single 1```
+2. ```$ gothresher -i example_data/goa_exampleYeast.gaf example_data/goa_exampleDicty.gaf -a C P -PLTHRESHp 30 -e EXPEC IBA -odir example_data/output -single 1```
 
 This command will read from two input files, select CCO and BPO
 annotations. Further, it will **choose** only those annotations which
@@ -295,7 +295,7 @@ required permissions are present. This will lead to only one file, since
 the -single argument has been provided, which will contain all the
 selected annotations from both the organisms. 
 
-3. ```$ debias -cattn 1000 -i example_data/goa_exampleYeast.gaf example_data/goa_exampleDicty.gaf -a C P -einv COMPEC -pref testing -selrefinv Reactome```
+3. ```$ gothresher -cattn 1000 -i example_data/goa_exampleYeast.gaf example_data/goa_exampleDicty.gaf -a C P -einv COMPEC -pref testing -selrefinv Reactome```
 
 This command will read from two input files, select CCO and BPO
 annotations. Further, it will **discard**  those annotations which have
