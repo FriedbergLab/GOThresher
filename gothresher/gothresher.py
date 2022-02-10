@@ -399,7 +399,7 @@ def choose_proteins_based_on_references(data, select, inverse_select):
         ptr = inverse_select
 
     for item in ptr:
-        vprint(item)
+        # vprint(item)
         if item in ("GO_REF", "PMID", "Reactome"):
             group.append(item)
         elif "GO_REF" in item or "PMID" in item or "Reactome" in item:
@@ -409,8 +409,8 @@ def choose_proteins_based_on_references(data, select, inverse_select):
                 references.append(line.strip())
 
     new_data = {}
-    vprint(group)
-    vprint(references)
+    # vprint(group)
+    # vprint(references)
     for attnid in data:
         for item in group:
             if item in data[attnid]['DB:Reference']:
@@ -715,10 +715,10 @@ def change_name_of_output_files(options):
         final_outputfilename = ""
         # vprint(inputfile)
 
-        vprint(options.output)
+        # vprint("Output file: "+options.output)
         file = inputfile.split("/")[-1]
         species = file.split(".gaf")[0].split("_")[1]
-        vprint("Species: " + species)
+        # vprint("Species: " + species)
         final_outputfilename = path + species
         aspect = ""
         if options.aspect:
@@ -738,8 +738,9 @@ def change_name_of_output_files(options):
         elif options.info_threshold_Wyatt_Clark_percentile:
             final_outputfilename += '_WCP_' + options.info_threshold_Wyatt_Clark_percentile
         options.output.append(final_outputfilename)
-        vprint(options.output[num])
-        vprint()
+        print("Output file: "+final_outputfilename)
+        # vprint(options.output[num])
+        # vprint()
         # exit()
     # vprint(options.output)
     return options.output
@@ -756,7 +757,7 @@ def combine_output_files(outputfiles, options):
     if options.prefix != None:
         finaloutputfilename = options.prefix + finaloutputfilename
     finaloutputfilename = path + "/" + finaloutputfilename
-    print(finaloutputfilename)
+    print("Final combined output file for all species: "+finaloutputfilename)
     # Combine the gaf files
     header = ""
     for line in open(outputfiles[0] + ".gaf", "r"):
@@ -774,7 +775,7 @@ def delete_temporary_files(options):
     """
     This function deletes all the files for each organism
     """
-    print("Inside delete temporary files")
+    # print("Inside delete temporary files")
     for filename in options.output:
         os.remove(filename + ".gaf")
 
