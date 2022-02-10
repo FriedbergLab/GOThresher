@@ -312,6 +312,11 @@ Unit tests are provided isnide the directory `tests`. They can be run to ensure 
 $ python test_gothresher.py
 ```
 
+Expected output:
+```
+OK
+```
+
 <!--
 ### Running test data
 
