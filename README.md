@@ -306,7 +306,12 @@ file, the user has been given the opportunity to give a prefix.
 
 ## Unit testing
 
-Unit tests are provided isnide the directory `tests`. They can be run to ensure correct installationand working. Running the test script requires the module `unittest` which can be easily installed as `pip install unittest`.
+Unit tests are provided isnide the directory `tests`. They can be run to ensure correct installationand working. Running the test script requires the module `unittest` which can be easily installed as `pip install unittest`. Run the tests as:
+
+```
+$ python test_gothresher.py
+```
+
 <!--
 ### Running test data
 
