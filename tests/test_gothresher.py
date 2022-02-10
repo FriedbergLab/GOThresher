@@ -88,37 +88,3 @@ class TestGOThresher(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
-
-# Convert to dictionary
-
-# Write to file
-
-# Check evidence code for correctness
-
-# Choose proteins based on evidence codes
-# data_ec = gothresher.choose_proteins_based_on_evidence_codes(data, "IPI", None)
-# print(data_ec.keys())
-
-# Choose proteins based on references
-
-# Choose annotations based on date
-
-# Create protein to GO mapping
-
-# Propagate ontologies
-
-# Find frequencies
-
-# Assign probabilities to ontology tree
-
-# Assign probabilities to ontology graph
-
-# Calculate IA for each protein
-
-# Calculate PL IC
-
-# Calculate WC IA
-
-# Change name of output files
-
