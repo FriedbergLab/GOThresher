@@ -33,7 +33,7 @@ GOThresher is available on PyPi, so the best way to install GOThresher is throug
 
 You can install GOThresher by running:
 ```
-$ pip install -i https://test.pypi.org/simple/ gothresher
+$ pip install gothresher
 ```
 <!--
 OR
