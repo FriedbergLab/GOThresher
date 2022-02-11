@@ -38,7 +38,7 @@ $ pip install -i https://test.pypi.org/simple/ gothresher
 <!--
 OR
 ```
-$ pip install git+git://github.com/parnaljoshi/debias
+$ pip install git+git://github.com/FriedbergLab/GOThresher
 ```
 -->
 
