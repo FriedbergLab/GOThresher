@@ -891,7 +891,7 @@ def write_contents_to_file(dataDict, fileName):
 # This function reads the data entered via command line and returns a dictionary with all relevant options
 
 def parse_command_line_arguments():
-    parser = argparse.ArgumentParser(prog="debias.py")
+    parser = argparse.ArgumentParser(prog="gothresher.py")
     mutex_parser_evidence = parser.add_mutually_exclusive_group()
     mutex_parser_assigned_by = parser.add_mutually_exclusive_group()
     mutex_parser_ic_thresh = parser.add_mutually_exclusive_group()
