@@ -11,81 +11,82 @@ import math
 import collections
 import networkx as nx
 from dateutil import parser
+import configparser
 import matplotlib.pyplot as plt
 from Bio.UniProt import GOA
 
-DATADIR = "data/"
+#DATADIR = "data/"
 # Some filenames
-FILE_ALTERNATE_ID_TO_ID_MAPPING = DATADIR + "alt_to_id.graph"
-FILE_CAFA_ID_TO_UNIPROT_ID_MAP = DATADIR + "CAFAIDTOUniprotIDMap.txt"
-FILE_MFO_ONTOLOGY_GRAPH = DATADIR + "mf.graph"
-FILE_BPO_ONTOLOGY_GRAPH = DATADIR + "bp.graph"
-FILE_CCO_ONTOLOGY_GRAPH = DATADIR + "cc.graph"
-FILE_MFO_ONTOLOGY_ANCESTORS_GRAPH = DATADIR + "mf_ancestors.map"
-FILE_BPO_ONTOLOGY_ANCESTORS_GRAPH = DATADIR + "bp_ancestors.map"
-FILE_CCO_ONTOLOGY_ANCESTORS_GRAPH = DATADIR + "cc_ancestors.map"
+# FILE_ALTERNATE_ID_TO_ID_MAPPING = DATADIR + "alt_to_id.graph"
+# FILE_CAFA_ID_TO_UNIPROT_ID_MAP = DATADIR + "CAFAIDTOUniprotIDMap.txt"
+# FILE_MFO_ONTOLOGY_GRAPH = DATADIR + "mf.graph"
+# FILE_BPO_ONTOLOGY_GRAPH = DATADIR + "bp.graph"
+# FILE_CCO_ONTOLOGY_GRAPH = DATADIR + "cc.graph"
+# FILE_MFO_ONTOLOGY_ANCESTORS_GRAPH = DATADIR + "mf_ancestors.map"
+# FILE_BPO_ONTOLOGY_ANCESTORS_GRAPH = DATADIR + "bp_ancestors.map"
+# FILE_CCO_ONTOLOGY_ANCESTORS_GRAPH = DATADIR + "cc_ancestors.map"
 
-verbose = 0
-options = ""
-report = 0
-GAF21FIELDS = [
-    'DB',
-    'DB_Object_ID',
-    'DB_Object_Symbol',
-    'Qualifier',
-    'GO_ID',
-    'DB:Reference',
-    'Evidence',
-    'With',
-    'Aspect',
-    'DB_Object_Name',
-    'Synonym',
-    'DB_Object_Type',
-    'Taxon_ID',
-    'Date',
-    'Assigned_By',
-    'Annotation_Extension',
-    'Gene_Product_Form_ID'
-]
+# verbose = 0
+# options = ""
+# report = 0
+# GAF21FIELDS = [
+#     'DB',
+#     'DB_Object_ID',
+#     'DB_Object_Symbol',
+#     'Qualifier',
+#     'GO_ID',
+#     'DB:Reference',
+#     'Evidence',
+#     'With',
+#     'Aspect',
+#     'DB_Object_Name',
+#     'Synonym',
+#     'DB_Object_Type',
+#     'Taxon_ID',
+#     'Date',
+#     'Assigned_By',
+#     'Annotation_Extension',
+#     'Gene_Product_Form_ID'
+# ]
 
-EXPEC = [
-    "EXP",
-    "IDA",
-    "IPI",
-    "IMP",
-    "IGI",
-    "IEP",
-    "HTP",
-    "HDA",
-    "HMP",
-    "HGI",
-    "HEP"
-]
-
-COMPEC = [
-    "ISS",
-    "ISO",
-    "ISA",
-    "ISM",
-    "IGC",
-    "IBA",
-    "IBD",
-    "IKR",
-    "IRD",
-    "RCA"
-]
-
-AUTHEC = [
-    "TAS",
-    "NAS"
-]
-
-CUREC = [
-    "IC",
-    "ND"
-]
-
-IEA = ["IEA"]
+# EXPEC = [
+#     "EXP",
+#     "IDA",
+#     "IPI",
+#     "IMP",
+#     "IGI",
+#     "IEP",
+#     "HTP",
+#     "HDA",
+#     "HMP",
+#     "HGI",
+#     "HEP"
+# ]
+#
+# COMPEC = [
+#     "ISS",
+#     "ISO",
+#     "ISA",
+#     "ISM",
+#     "IGC",
+#     "IBA",
+#     "IBD",
+#     "IKR",
+#     "IRD",
+#     "RCA"
+# ]
+#
+# AUTHEC = [
+#     "TAS",
+#     "NAS"
+# ]
+#
+# CUREC = [
+#     "IC",
+#     "ND"
+# ]
+#
+# IEA = ["IEA"]
 
 
 def column(matrix, i):
@@ -690,7 +691,7 @@ def calculate_wyatt_clark_information_content(data, recal, crisp, percentile_val
 
 def vprint(*s):
     global verbose
-    # print(s,verbose)
+    print(s, verbose)
     if verbose == 1:
         for string in s:
             print(string, end="")
@@ -716,10 +717,14 @@ def change_name_of_output_files(options):
         # vprint(inputfile)
 
         # vprint("Output file: "+options.output)
-        file = inputfile.split("/")[-1]
+        file = inputfile.split(os.sep)[-1]
+        print(file)
+        print(inputfile.split(os.sep)[-1])
         species = file.split(".gaf")[0].split("_")[1]
+        print("species", species)
         # vprint("Species: " + species)
         final_outputfilename = path + species
+        print("path", path)
         aspect = ""
         if options.aspect:
             for i in range(len(options.aspect)):
@@ -900,6 +905,7 @@ def parse_command_line_arguments():
     required_arguments = parser.add_argument_group("Required arguments")
 
     parser.add_argument('--prefix', '-pref', help="Add a prefix to the name of your output files.")
+    required_arguments.add_argument("--config", "-c", help="INI file. gothresher.ini", default=os.getcwd() + "/gothresher.ini")
     parser.add_argument('--cutoff_prot', '-cprot',
                         help="The threshold level for deciding to eliminate annotations which come from references "
                              "that annotate more than the given 'threshold' number of PROTEINS")
@@ -1010,13 +1016,59 @@ def parse_command_line_arguments():
     return args
 
 
+def init_globals(gothresh_ini_file="gothresher.ini"):
+    config = configparser.ConfigParser()
+    config.read(gothresh_ini_file)
+    # print(config.sections())
+    global FILE_ALTERNATE_ID_TO_ID_MAPPING
+    global FILE_CAFA_ID_TO_UNIPROT_ID_MAP
+    global FILE_MFO_ONTOLOGY_GRAPH
+    global FILE_BPO_ONTOLOGY_GRAPH
+    global FILE_CCO_ONTOLOGY_GRAPH
+    global FILE_MFO_ONTOLOGY_ANCESTORS_GRAPH
+    global FILE_BPO_ONTOLOGY_ANCESTORS_GRAPH
+    global FILE_CCO_ONTOLOGY_ANCESTORS_GRAPH
+
+    global ONTO_DIR
+    ONTO_DIR = os.path.abspath(config['DIRS']['ONTO_DIR'])
+    FILE_ALTERNATE_ID_TO_ID_MAPPING = f"{ONTO_DIR}" + os.sep + "alt_to_id.graph"
+    FILE_CAFA_ID_TO_UNIPROT_ID_MAP = f"{ONTO_DIR}" + os.sep + "CAFAIDTOUniprotIDMap.txt"
+    FILE_MFO_ONTOLOGY_GRAPH = f"{ONTO_DIR}" + os.sep + "mf.graph"
+    FILE_BPO_ONTOLOGY_GRAPH = f"{ONTO_DIR}" + os.sep + "bp.graph"
+    FILE_CCO_ONTOLOGY_GRAPH = f"{ONTO_DIR}" + os.sep + "cc.graph"
+    FILE_MFO_ONTOLOGY_ANCESTORS_GRAPH = f"{ONTO_DIR}" + os.sep + "mf_ancestors.map"
+    FILE_BPO_ONTOLOGY_ANCESTORS_GRAPH = f"{ONTO_DIR}" + os.sep + "bp_ancestors.map"
+    FILE_CCO_ONTOLOGY_ANCESTORS_GRAPH = f"{ONTO_DIR} " + os.sep + "cc_ancestors.map"
+
+    # global verbose
+    # global options
+    # global report
+    global GAF21FIELDS
+    global EXPEC
+    global COMPEC
+    global AUTHEC
+    global CUREC
+    global IEA
+
+    GAF21FIELDS = config['GAF21FIELDS']
+    EXPEC = config['EVIDENCE']['expec']
+    COMPEC = config['EVIDENCE']['compec']
+    AUTHEC = config['EVIDENCE']['authec']
+    CUREC = config['EVIDENCE']['curec']
+    IEA = config['EVIDENCE']['iea']
+
+
 def main():
     global verbose, options, report
+    verbose = 0
+    options = ""
+    report = 0
     command_line_arg = sys.argv
     if len(command_line_arg) == 1:
         print("Please use the --help option to get usage information")
     # Parse command line arguments
     options = parse_command_line_arguments()
+    init_globals(options.config)
     if options.recalculate != 0 and (
             options.info_threshold_Wyatt_Clark is None and options.info_threshold_Wyatt_Clark_percentile is None):
         print("Error in arguments. You must provide Wyatt Clark in order to recalculate")
