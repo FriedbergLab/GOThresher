@@ -5,7 +5,7 @@ import os
 from Bio.UniProt import GOA
 from gothresher import gothresher
 
-input_file = '/example_data/goa_exampleYeast.gaf'
+input_file = 'example_data/goa_exampleYeast.gaf'
 # print(input_file)
 
 # Convert from GAF to required format
