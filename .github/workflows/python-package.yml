@@ -27,6 +27,7 @@ jobs:
     - name: Install dependencies
       run: |
         if [ -d dist ]; then rm -r dist; fi
+        if [ -d build ]; then rm -r build; fi
         python -m pip install --upgrade pip
         python -m pip install networkx matplotlib numpy biopython XlsxWriter
         python -m pip install .
