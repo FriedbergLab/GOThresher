@@ -170,10 +170,10 @@ def findAllCommonAncestorsAndDisjointCommonAncestors(mf_g, bp_g, cc_g, go1, go2)
     common_ancestors = []
     for path1 in all_paths_go1:
         for path2 in all_paths_go2:
-            # print(path1)
-            # print(path2)
-            # print((list(set(path1) & set(path2))))
-            # print(("*" * 50))
+            print(path1)
+            print(path2)
+            print((list(set(path1) & set(path2))))
+            print(("*" * 50))
             if list(set(path1) & set(path2)) not in common_ancestors:
                 common_ancestors.append(list(set(path1) & set(path2)))
             # common_ancestors=list(set(common_ancestors))
@@ -183,7 +183,7 @@ def findAllCommonAncestorsAndDisjointCommonAncestors(mf_g, bp_g, cc_g, go1, go2)
         for node in each_path:
             # if node is not root_node:
             node_to_root_distance[node] = nx.shortest_path_length(current_graph, source=node, target=root_node)
-        # print(node_to_root_distance)
+        print(node_to_root_distance)
         if len(node_to_root_distance) != 0:
             key, _ = max(iter(list(node_to_root_distance.items())), key=lambda x: x[1])
             if key not in dca:
@@ -194,18 +194,17 @@ def findAllCommonAncestorsAndDisjointCommonAncestors(mf_g, bp_g, cc_g, go1, go2)
 
 def findAllAncestorsForAllNodesForOntology(ontology,ONTO_DIR):
     # graph = cp.load(open("data/" + ontology + ".graph", "rb"))
-    # print(ontology)
+    print(ontology)
     graph = cp.load(open(f"{ONTO_DIR}/{ontology}.graph", "rb"))
     graph_ancestors = dict()
     for nodes in graph.nodes():
         graph_ancestors[nodes] = findAllAncestors(graph, nodes)
     return graph_ancestors
 
-
 def init_globals(gothresh_ini_file="gothresher.ini"):
     config = configparser.ConfigParser()
     config.read(gothresh_ini_file)
-    # print(config.sections())
+    print(config.sections())
     global FILE_ALTERNATE_ID_TO_ID_MAPPING 
     global FILE_CAFA_ID_TO_UNIPROT_ID_MAP 
     global FILE_MFO_ONTOLOGY_GRAPH
@@ -268,11 +267,11 @@ def main():
     cp.dump(cc_ancestors, open(FILE_CCO_ONTOLOGY_ANCESTORS_GRAPH, "wb"))
 
     # print(findAllAncestors(mf_g, "GO:0019786"))
-    # ca,dca=findAllCommonAncestorsAndDisjointCommonAncestors(mf_g, bp_g, cc_g, "GO:0035556", "GO:0009966")
-    # for eachca in ca:
-    #    print(eachca)
-    # print("DCA")
-    # print(dca)
+    """ca,dca=findAllCommonAncestorsAndDisjointCommonAncestors(mf_g, bp_g, cc_g, "GO:0035556", "GO:0009966")
+    for eachca in ca:
+        print(eachca)
+    print("DCA")
+    print(dca)"""
 
 
 if __name__ == "__main__":
