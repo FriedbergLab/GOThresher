@@ -14,7 +14,7 @@ from dateutil import parser
 import matplotlib.pyplot as plt
 from Bio.UniProt import GOA
 
-DATADIR = "data/"
+DATADIR = "tests/data/"
 # Some filenames
 FILE_ALTERNATE_ID_TO_ID_MAPPING = DATADIR + "alt_to_id.graph"
 FILE_CAFA_ID_TO_UNIPROT_ID_MAP = DATADIR + "CAFAIDTOUniprotIDMap.txt"
