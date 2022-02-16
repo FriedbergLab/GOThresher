@@ -26,7 +26,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        if [ -d dist ]; then rm -r dist
+        if [ -d dist ]; then rm -r dist; fi
         python -m pip install --upgrade pip
         python -m pip install networkx matplotlib numpy biopython XlsxWriter
         python -m pip install .
