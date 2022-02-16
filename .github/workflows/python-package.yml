@@ -31,4 +31,4 @@ jobs:
     
     - name: Test with unittest
       run: |
-        python -m unittest
+        python tests/test_gothresher.py
