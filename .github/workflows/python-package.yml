@@ -35,4 +35,5 @@ jobs:
     
     - name: Test with unittest
       run: |
-        python tests/test_gothresher.py
+        cd tests
+        python test_gothresher.py
