@@ -1,11 +1,17 @@
 #!/usr/bin/python
 import unittest
 import os
+import sys
 from Bio.UniProt import GOA
 from gothresher import gothresher
 
-input_file = "example_data" + os.sep + "goa_exampleYeast.gaf"
+# script_dir = os.path.dirname(sys.argv[0])
+# input_file = os.path.join(os.getcwd(), script_dir, "goa_exampleYeast.gaf")
+
+input_file = os.path.abspath("goa_exampleYeast.gaf")
+
 # print(input_file)
+# print("scriptdir", script_dir)
 
 # Convert from GAF to required format
 gaf_output = GOA._gaf20iterator(open(input_file, "r"))
