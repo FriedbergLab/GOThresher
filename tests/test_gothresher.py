@@ -1,7 +1,6 @@
 #!/usr/bin/python
 import unittest
 import os
-
 from Bio.UniProt import GOA
 from gothresher import gothresher
 
@@ -10,6 +9,7 @@ input_file = "example_data" + os.sep + "goa_exampleYeast.gaf"
 
 # Convert from GAF to required format
 gaf_output = GOA._gaf20iterator(open(input_file, "r"))
+gothresher.init_globals()
 data = gothresher.convert_from_gaf_to_required_format(gaf_output)
 gaf_output.close()
 
