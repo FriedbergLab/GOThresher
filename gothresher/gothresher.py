@@ -13,17 +13,18 @@ import networkx as nx
 from dateutil import parser
 import matplotlib.pyplot as plt
 from Bio.UniProt import GOA
+import configparser
 
-DATADIR = "data/"
+# ONTO_DIR = "data/"
 # Some filenames
-FILE_ALTERNATE_ID_TO_ID_MAPPING = DATADIR + "alt_to_id.graph"
-FILE_CAFA_ID_TO_UNIPROT_ID_MAP = DATADIR + "CAFAIDTOUniprotIDMap.txt"
-FILE_MFO_ONTOLOGY_GRAPH = DATADIR + "mf.graph"
-FILE_BPO_ONTOLOGY_GRAPH = DATADIR + "bp.graph"
-FILE_CCO_ONTOLOGY_GRAPH = DATADIR + "cc.graph"
-FILE_MFO_ONTOLOGY_ANCESTORS_GRAPH = DATADIR + "mf_ancestors.map"
-FILE_BPO_ONTOLOGY_ANCESTORS_GRAPH = DATADIR + "bp_ancestors.map"
-FILE_CCO_ONTOLOGY_ANCESTORS_GRAPH = DATADIR + "cc_ancestors.map"
+# FILE_ALTERNATE_ID_TO_ID_MAPPING = ONTO_DIR + "alt_to_id.graph"
+# FILE_CAFA_ID_TO_UNIPROT_ID_MAP = ONTO_DIR + "CAFAIDTOUniprotIDMap.txt"
+# FILE_MFO_ONTOLOGY_GRAPH = ONTO_DIR + "mf.graph"
+# FILE_BPO_ONTOLOGY_GRAPH = ONTO_DIR + "bp.graph"
+# FILE_CCO_ONTOLOGY_GRAPH = ONTO_DIR + "cc.graph"
+# FILE_MFO_ONTOLOGY_ANCESTORS_GRAPH = ONTO_DIR + "mf_ancestors.map"
+# FILE_BPO_ONTOLOGY_ANCESTORS_GRAPH = ONTO_DIR + "bp_ancestors.map"
+# FILE_CCO_ONTOLOGY_ANCESTORS_GRAPH = ONTO_DIR + "cc_ancestors.map"
 
 verbose = 0
 options = ""
@@ -648,13 +649,14 @@ def calculate_wyatt_clark_information_content(data, recal, crisp, percentile_val
             "depending on the size of input")
         ontology_to_ia_map = assign_probabilities_to_ontology_graphs(Prot_to_GO_Map_propagated, all_GO_Terms_in_corpus,
                                                                      aspects)
-        if os.path.isdir("data/temp/") == False:
-            os.makedirs("data/temp/")
-        cp.dump(ontology_to_ia_map, open("data/temp/" + ontology_to_ia_map_filename, "wb"))
+        tmpdir = os.path.join(ONTO_DIR,"temp")
+        if os.path.isdir(tmpdir) == False:
+            os.makedirs(tmpdir)
+        cp.dump(ontology_to_ia_map, open(os.path.join(tmpdir , ontology_to_ia_map_filename), "wb"))
     else:
         vprint("Skipping recalculation of Information Accretion for Wyatt Clark")
     try:
-        ontology_to_ia_map = cp.load(open("data/temp/" + ontology_to_ia_map_filename, "rb"))
+        ontology_to_ia_map = cp.load(open(os.path.join(tmpdir, ontology_to_ia_map_filename), "rb"))
     except IOError as e:
         print("File for GO_Term to ia NOT FOUND. Please rerun the program with the argument -recal 1")
         exit()
@@ -826,59 +828,59 @@ def write_report(filename, report):
         # print(chr(column),chr(column+1))
 
 
-def generate_histogram(options, data, species, prev, lat, msg):
-    filepath = options.histogram
-    outputfilename = options.output[0]
-
-    if filepath[-1] == '/':
-        if os.path.isdir(filepath) == False:
-            os.makedirs(filepath)
-        filepath += species.split(".gaf")[0].split("_")[-1] + "_" + "histogram_" + "_".join(
-            outputfilename.split("/")[-1].split("_")[1:]) + ".png"
-    elif filepath == ".":
-        # print("I am here")
-        filepath = species.split(".gaf")[0].split("_")[-1] + "_" + "histogram_" + "_".join(
-            outputfilename.split("/")[-1].split("_")[1:]) + ".png"
-        # print(filepath)
-    else:
-        if "/" in filepath and os.path.isdir('/'.join(filepath.split("/")[:-1])) == False:
-            os.makedirs('/'.join(filepath.split("/")[:-1]))
-        temp = species.split(".gaf")[0].split("_")[-1] + "_"
-        if "." not in filepath and "/" not in filepath:
-            filepath = species.split(".gaf")[0].split("_")[-1] + "_" + "histogram_" + "_".join(
-                outputfilename.split("/")[-1].split("_")[1:]) + ".png"
-        elif "." in filepath.split("/")[-1]:
-            filepath = "/".join((".".join(filepath.split(".")[:-1]) + ".png").split("/")[:-1]) + "/" + temp + \
-                       (".".join(filepath.split(".")[:-1]) + ".png").split("/")[-1]
-        else:
-            filepath = "/".join(filepath.split("/")[:-1]) + "/" + temp + filepath.split("/")[-1] + ".png"
-    # print("IMG filepath",filepath)
-    prev_val = [prev[key] for key in prev]
-    # print(sum(prev_val),np.mean(prev_val))
-    new_prev_val = [-math.log(val / sum(prev_val), 2) for val in prev_val]
-    # print(sum(prev_val))
-    # prev_val=new_prev_val
-    lat_val = [lat[key] for key in lat]
-    # print(sum(lat_val),np.mean(lat_val))
-    new_lat_val = [-math.log(val / sum(lat_val), 2) for val in lat_val]
-    binsize = 100
-    plt.hist(new_prev_val, bins=binsize, color='r', label="Before Debiasing", log=True)
-    plt.hist(new_lat_val, bins=binsize, color='b', label="After Debiasing", log=True)
-    # plt.xlim((0,max(max(new_prev_val)+0.1,max(new_lat_val)+0.1)))
-    plt.xlabel("Information Content")
-    plt.ylabel("Frequency")
-    plt.title("Histogram for " + species.split(".gaf")[0].split("_")[-1] + "\n" + msg)
-
-    if options.histogram == "1":
-        plt.legend(bbox_to_anchor=(0.4, 1))
-        plt.show()
-    else:
-        # plt.figure(figsize=(70,70))
-        plt.legend(bbox_to_anchor=(0.45, 1))
-        plt.savefig(filepath, dpi=900)
-        fhw = open(filepath[:-3] + ".txt", "w")
-        fhw.write(str(new_prev_val) + "\n" + str(new_lat_val))
-    plt.close()
+# def generate_histogram(options, data, species, prev, lat, msg):
+#     filepath = options.histogram
+#     outputfilename = options.output[0]
+# 
+#     if filepath[-1] == '/':
+#         if os.path.isdir(filepath) == False:
+#             os.makedirs(filepath)
+#         filepath += species.split(".gaf")[0].split("_")[-1] + "_" + "histogram_" + "_".join(
+#             outputfilename.split("/")[-1].split("_")[1:]) + ".png"
+#     elif filepath == ".":
+#         # print("I am here")
+#         filepath = species.split(".gaf")[0].split("_")[-1] + "_" + "histogram_" + "_".join(
+#             outputfilename.split("/")[-1].split("_")[1:]) + ".png"
+#         # print(filepath)
+#     else:
+#         if "/" in filepath and os.path.isdir('/'.join(filepath.split("/")[:-1])) == False:
+#             os.makedirs('/'.join(filepath.split("/")[:-1]))
+#         temp = species.split(".gaf")[0].split("_")[-1] + "_"
+#         if "." not in filepath and "/" not in filepath:
+#             filepath = species.split(".gaf")[0].split("_")[-1] + "_" + "histogram_" + "_".join(
+#                 outputfilename.split("/")[-1].split("_")[1:]) + ".png"
+#         elif "." in filepath.split("/")[-1]:
+#             filepath = "/".join((".".join(filepath.split(".")[:-1]) + ".png").split("/")[:-1]) + "/" + temp + \
+#                        (".".join(filepath.split(".")[:-1]) + ".png").split("/")[-1]
+#         else:
+#             filepath = "/".join(filepath.split("/")[:-1]) + "/" + temp + filepath.split("/")[-1] + ".png"
+#     # print("IMG filepath",filepath)
+#     prev_val = [prev[key] for key in prev]
+#     # print(sum(prev_val),np.mean(prev_val))
+#     new_prev_val = [-math.log(val / sum(prev_val), 2) for val in prev_val]
+#     # print(sum(prev_val))
+#     # prev_val=new_prev_val
+#     lat_val = [lat[key] for key in lat]
+#     # print(sum(lat_val),np.mean(lat_val))
+#     new_lat_val = [-math.log(val / sum(lat_val), 2) for val in lat_val]
+#     binsize = 100
+#     plt.hist(new_prev_val, bins=binsize, color='r', label="Before Debiasing", log=True)
+#     plt.hist(new_lat_val, bins=binsize, color='b', label="After Debiasing", log=True)
+#     # plt.xlim((0,max(max(new_prev_val)+0.1,max(new_lat_val)+0.1)))
+#     plt.xlabel("Information Content")
+#     plt.ylabel("Frequency")
+#     plt.title("Histogram for " + species.split(".gaf")[0].split("_")[-1] + "\n" + msg)
+# 
+#     if options.histogram == "1":
+#         plt.legend(bbox_to_anchor=(0.4, 1))
+#         plt.show()
+#     else:
+#         # plt.figure(figsize=(70,70))
+#         plt.legend(bbox_to_anchor=(0.45, 1))
+#         plt.savefig(filepath, dpi=900)
+#         fhw = open(filepath[:-3] + ".txt", "w")
+#         fhw.write(str(new_prev_val) + "\n" + str(new_lat_val))
+#     plt.close()
 
 
 def write_contents_to_file(dataDict, fileName):
@@ -1002,16 +1004,41 @@ def parse_command_line_arguments():
                         help="Set this option to 1 if you wish to view the histogram of GO_TERM frequency before and "
                              "after debiasing is performed with respect to cutoffs based on number of proteins or "
                              "annotations. If you wish to save the file then please enter a filepath. If you are "
-                             "providing a path please make sure your path ends with a '/'. Otherwise the program will "
-                             "assume the last string after the final '/' as the name of the image file. Separate "
+                             "providing a path please make sure your path ends with a '/'. Otherwise the program will "                         "assume the last string after the final '/' as the name of the image file. Separate "
                              "histograms will be generated for each species.")
 
     args = parser.parse_args()
     return args
 
 
+def init_globals(gothresh_ini_file="gothresher.ini"):
+    config = configparser.ConfigParser()
+    config.read(gothresh_ini_file)
+    print("in init_globals")
+    global FILE_ALTERNATE_ID_TO_ID_MAPPING 
+    global FILE_CAFA_ID_TO_UNIPROT_ID_MAP 
+    global FILE_MFO_ONTOLOGY_GRAPH
+    global FILE_BPO_ONTOLOGY_GRAPH
+    global FILE_CCO_ONTOLOGY_GRAPH
+    global FILE_MFO_ONTOLOGY_ANCESTORS_GRAPH
+    global FILE_BPO_ONTOLOGY_ANCESTORS_GRAPH
+    global FILE_CCO_ONTOLOGY_ANCESTORS_GRAPH
+
+    global ONTO_DIR
+# Some filenames
+    ONTO_DIR = os.path.abspath(config['DIRS']['ONTO_DIR'])
+    FILE_ALTERNATE_ID_TO_ID_MAPPING = os.path.join(ONTO_DIR,"alt_to_id.graph")
+    FILE_CAFA_ID_TO_UNIPROT_ID_MAP = os.path.join(ONTO_DIR,"CAFAIDTOUniprotIDMap.txt")
+    FILE_MFO_ONTOLOGY_GRAPH = os.path.join(ONTO_DIR, "mf.graph")
+    FILE_BPO_ONTOLOGY_GRAPH = os.path.join(ONTO_DIR, "bp.graph")
+    FILE_CCO_ONTOLOGY_GRAPH = os.path.join(ONTO_DIR, "cc.graph")
+    FILE_MFO_ONTOLOGY_ANCESTORS_GRAPH = os.path.join(ONTO_DIR , "mf_ancestors.map")
+    FILE_BPO_ONTOLOGY_ANCESTORS_GRAPH = os.path.join(ONTO_DIR , "bp_ancestors.map")
+    FILE_CCO_ONTOLOGY_ANCESTORS_GRAPH = os.path.join(ONTO_DIR , "cc_ancestors.map")
+
 def main():
     global verbose, options, report
+    init_globals()
     command_line_arg = sys.argv
     if len(command_line_arg) == 1:
         print("Please use the --help option to get usage information")
