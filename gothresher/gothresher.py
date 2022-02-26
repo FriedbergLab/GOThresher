@@ -212,6 +212,7 @@ def convert_from_gaf_to_required_format(gaf):
     This function takes the data input which is created by gaf iterator and then makes few changes 
     in the annotations which is relevant to this program.
     """
+    print("in format converter", os.getcwd())
     alt_id_to_id_map = cp.load(open(FILE_ALTERNATE_ID_TO_ID_MAPPING, "rb"))
     counter = 1
     data = {}
@@ -237,7 +238,7 @@ def write_to_file(data, filename, input_filename):
     # print(filename)
     filepath = "/".join(filename.split("/")[:-1])
     try:
-        if os.path.isdir(filepath) == False:
+        if not os.path.isdir(filepath):
             os.makedirs(filepath)
     except OSError:
         print(
@@ -1006,7 +1007,8 @@ def parse_command_line_arguments():
                         help="Set this option to 1 if you wish to view the histogram of GO_TERM frequency before and "
                              "after debiasing is performed with respect to cutoffs based on number of proteins or "
                              "annotations. If you wish to save the file then please enter a filepath. If you are "
-                             "providing a path please make sure your path ends with a '/'. Otherwise the program will "                         "assume the last string after the final '/' as the name of the image file. Separate "
+                             "providing a path please make sure your path ends with a '/'. Otherwise the program will "
+                             "assume the last string after the final '/' as the name of the image file. Separate "
                              "histograms will be generated for each species.")
 
     args = parser.parse_args()
@@ -1029,14 +1031,15 @@ def init_globals(gothresh_ini_file="gothresher.ini"):
     global ONTO_DIR
 # Some filenames
     ONTO_DIR = os.path.abspath(config['DIRS']['ONTO_DIR'])
-    FILE_ALTERNATE_ID_TO_ID_MAPPING = os.path.join(ONTO_DIR,"alt_to_id.graph")
-    FILE_CAFA_ID_TO_UNIPROT_ID_MAP = os.path.join(ONTO_DIR,"CAFAIDTOUniprotIDMap.txt")
+    FILE_ALTERNATE_ID_TO_ID_MAPPING = os.path.join(ONTO_DIR, "alt_to_id.graph")
+    FILE_CAFA_ID_TO_UNIPROT_ID_MAP = os.path.join(ONTO_DIR, "CAFAIDTOUniprotIDMap.txt")
     FILE_MFO_ONTOLOGY_GRAPH = os.path.join(ONTO_DIR, "mf.graph")
     FILE_BPO_ONTOLOGY_GRAPH = os.path.join(ONTO_DIR, "bp.graph")
     FILE_CCO_ONTOLOGY_GRAPH = os.path.join(ONTO_DIR, "cc.graph")
-    FILE_MFO_ONTOLOGY_ANCESTORS_GRAPH = os.path.join(ONTO_DIR , "mf_ancestors.map")
-    FILE_BPO_ONTOLOGY_ANCESTORS_GRAPH = os.path.join(ONTO_DIR , "bp_ancestors.map")
-    FILE_CCO_ONTOLOGY_ANCESTORS_GRAPH = os.path.join(ONTO_DIR , "cc_ancestors.map")
+    FILE_MFO_ONTOLOGY_ANCESTORS_GRAPH = os.path.join(ONTO_DIR, "mf_ancestors.map")
+    FILE_BPO_ONTOLOGY_ANCESTORS_GRAPH = os.path.join(ONTO_DIR, "bp_ancestors.map")
+    FILE_CCO_ONTOLOGY_ANCESTORS_GRAPH = os.path.join(ONTO_DIR, "cc_ancestors.map")
+
 
 def main():
     global verbose, options, report
@@ -1168,8 +1171,8 @@ def main():
             if options.histogram is not None:
                 later_go_term_freq = freq_go_term(data)
                 # write_contents_to_file(later_go_term_freq, "laterInterimFile")
-                generate_histogram(options, data, eachinputfile, prev_go_term_freq, later_go_term_freq,
-                                  "Removal of high Throughput Papers")
+                # generate_histogram(options, data, eachinputfile, prev_go_term_freq, later_go_term_freq,
+                #                   "Removal of high Throughput Papers")
 
             vprint("Number of annotations after choosing proteins based on Publications ", len(data))
             vprint("Data discarded ", prev_len - len(data))
