@@ -1,3 +1,5 @@
+[![GOThresher Test](https://github.com/Pranavkhade/GOThresher/actions/workflows/python-package.yml/badge.svg)](https://github.com/Pranavkhade/GOThresher/actions/workflows/python-package.yml)
+
 # GOThresher: a program to remove annotation biases from protein function annotation datasets
 
 GOThresher removes annotation bias from [GAF](http://www.geneontology.org/page/go-annotation-file-formats) files based on annotation information content, GO evidence, annotation source, number of proteins annotated from a given source, and date.  GOThresher accepts one or more GAF files as input. The motivation for GAF lies in the observation that many organism annotations are biased due to high throughput experimental studies ([1](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003063)). Removing such annotation biases can help present a more balanaced picture of protein annotations for a given organism or set of proteins.  
@@ -308,7 +310,9 @@ file, the user has been given the opportunity to give a prefix.
 
 ## Unit testing
 
-Unit tests are provided inside the directory `tests`. They can be run to ensure correct installation and working. Running the test script requires the module `unittest` which can be easily installed as `pip install unittest`. Run the tests as:
+Unit tests are provided inside the directory `tests`. They can be run to ensure correct installation and working. Running the test script requires the module `unittest` which can be easily installed as `pip install unittest`. 
+
+**Run the tests from within the `tests` directory:**
 
 ```
 $ python test_gothresher.py
