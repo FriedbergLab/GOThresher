@@ -67,10 +67,17 @@ GOThresher requires graphs of the three ontologies (MF, CC, BP), mapping of GO t
 **Run this command only once to generate the mapping files**
 
 ```
-$ mkdir data
-$ gothresher_prep -i ./data/<GOFILE>
+$ gothresher_prep -c <CONFIGFILE> -i <GOFILE>
 ```
 
+### Config file:
+`<CONFIGFILE>` will be a `.ini.` file that defines parameters to generate mapping files.
+- `onto_dir`: Name of output directory where the mapping files will be saved. Default is set to `onto` but can be changed as per user preferences.
+- `root_bpo`: GO ID for the root term of BPO graph
+- `root_cco`: GO ID for the root term of CCO graph
+- `root_mfo`: GO ID for the root term of MFO graph
+
+### Ontology:
 `<GOFILE>` will usually be one of `go.obo` or `go-basic.obo`.
 
 `gothresher_prep` will generate seven files in total:
@@ -80,16 +87,16 @@ $ gothresher_prep -i ./data/<GOFILE>
  
 IMPORTANT: This command needs to be run again when a new version of ontology is available and updated graphs/mapping files need to be used for analysis. In that case, please use `gothresher_prep` after downloading a new go.obo file.
 
-Following files will be generated within `./data` folder:
+Following files will be generated within the user specified `<onto_dir>` folder:
 
 ```
-1. ./data/alt_to_id.graph : Needed to obtain mapping from alternate GO_ID to actual GO_ID
-2. ./data/mf.graph : The MFO Ontology graph
-3. ./data/bp.graph : The BPO Ontology graph
-4. ./data/cc.graph : The CCO Ontology graph
-5. ./data/mf_ancestors.map : The MFO Ancestors map
-6. ./data/bp_ancestors.map : The BPO Ancestors map
-7. ./data/cc_ancestors.map : The CCO Ancestors map
+1. ./<onto_dir>/alt_to_id.graph : Needed to obtain mapping from alternate GO_ID to actual GO_ID
+2. ./<onto_dir>/mf.graph : The MFO Ontology graph
+3. ./<onto_dir>/bp.graph : The BPO Ontology graph
+4. ./<onto_dir>/cc.graph : The CCO Ontology graph
+5. ./<onto_dir>/mf_ancestors.map : The MFO Ancestors map
+6. ./<onto_dir>/bp_ancestors.map : The BPO Ancestors map
+7. ./<onto_dir>/cc_ancestors.map : The CCO Ancestors map
 ```
 
 -------------
@@ -98,7 +105,7 @@ Following files will be generated within `./data` folder:
 
 1. Download the latest `go.obo` or `go-basic.obo` file from http://www.geneontology.org/ontology/ 
 
-2. Run the program `gothresher_prep` program and provide the downloaded `obo` file. See the usage details [here](https://github.com/parnaljoshi/debias#generate-initial-mapping-files). This program needs to be run only when a new `obo` file needs to be used.
+2. Run the program `gothresher_prep` program and provide the downloaded `obo` file as well as the config file included in this repository. See the usage details [here](https://github.com/parnaljoshi/debias#generate-initial-mapping-files). This program needs to be run only when a new `obo` file needs to be used.
 
 3. Run the program `gothresher` 
 
@@ -122,7 +129,6 @@ usage: gothresher [-h] [--prefix PREFIX] [--cutoff_prot CUTOFF_PROT]
                  [--select_references SELECT_REFERENCES [SELECT_REFERENCES ...]
                  | --select_references_inverse SELECT_REFERENCES_INVERSE
                  [SELECT_REFERENCES_INVERSE ...]] [--report REPORT]
-                 [-histogram HISTOGRAM]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -230,18 +236,7 @@ optional arguments:
                         report file. A single report file will be generated.
                         Information for each species will be put into
                         individual worksheets.
-  --histogram HISTOGRAM, -hist HISTOGRAM
-                        Set this option to 1 if you wish to view the histogram
-                        of GO_TERM frequency before and after debiasing is
-                        performed with respect to cutoffs based on number of
-                        proteins or annotations. If you wish to save the file
-                        then please enter a filepath. If you are providing a
-                        path please make sure your path ends with a '/'.
-                        Otherwise the program will assume the last string
-                        after the final '/' as the name of the image file.
-                        Separate histograms will be generated for each
-                        species.
-
+  
 Required arguments:
   --input INPUT [INPUT ...], -i INPUT [INPUT ...]
                         The input file path. Please remember the name of the
@@ -257,7 +252,7 @@ NOTE: Files inside the folder `temp` are generated when `-recal` is set to 1.
 
 ### Step 1: Generating graphs and mapping files
 
-```$ gothresher_prep -i example_data/go.obo```
+```$ gothresher_prep -i example_data/go.obo -c gothresher.ini```
 
 This command will generate seven files in total. Three files corresponds
 to the three ontologies. Three files corresponds to the mapping between
