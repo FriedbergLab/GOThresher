@@ -252,7 +252,7 @@ NOTE: Files inside the folder `temp` are generated when `-recal` is set to 1.
 
 ### Step 1: Generating graphs and mapping files
 
-```$ gothresher_prep -i example_data/go.obo -c gothresher.ini```
+```$ gothresher_prep -i ExampleData/go.obo -c gothresher.ini```
 
 This command will generate seven files in total. Three files corresponds
 to the three ontologies. Three files corresponds to the mapping between
@@ -262,7 +262,7 @@ this command every time you update GOFILE.
 
 ### Step 2: Running GOThresher
 
-1. ```$ gothresher -cprot 100 -i example_data/goa_exampleYeast.gaf example_data/goa_exampleDicty.gaf -a C -WCTHRESHp 2 -recal 1```
+1. ```$ gothresher -cprot 100 -i ExampleData/goa_exampleYeast.gaf ExampleData/goa_exampleDicty.gaf -a C -WCTHRESHp 2 -recal 1```
 
 This command reads from two input files one for yeast and the other for
 dicty. The -a C only selects the annotations which are CCO. The
@@ -279,7 +279,7 @@ parameters fised is possible **WITHOUT** providing the argument -recal.
 This command will lead to 3 output files. One each for the two organisms
 and the third one is where both the organisms are combined. 
 
-2. ```$ gothresher -i example_data/goa_exampleYeast.gaf example_data/goa_exampleDicty.gaf -a C P -PLTHRESHp 30 -e EXPEC IBA -odir example_data/output -single 1```
+2. ```$ gothresher -i ExampleData/goa_exampleYeast.gaf ExampleData/goa_exampleDicty.gaf -a C P -PLTHRESHp 30 -e EXPEC IBA -odir ExampleData/output -single 1```
 
 This command will read from two input files, select CCO and BPO
 annotations. Further, it will **choose** only those annotations which
@@ -294,7 +294,7 @@ required permissions are present. This will lead to only one file, since
 the -single argument has been provided, which will contain all the
 selected annotations from both the organisms. 
 
-3. ```$ gothresher -cattn 1000 -i example_data/goa_exampleYeast.gaf example_data/goa_exampleDicty.gaf -a C P -einv COMPEC -pref testing -selrefinv Reactome```
+3. ```$ gothresher -cattn 1000 -i ExampleData/goa_exampleYeast.gaf ExampleData/goa_exampleDicty.gaf -a C P -einv COMPEC -pref testing -selrefinv Reactome```
 
 This command will read from two input files, select CCO and BPO
 annotations. Further, it will **discard**  those annotations which have
