@@ -246,10 +246,14 @@ def write_to_file(data, filename, input_filename):
     It requires the input file to read the header. Inclusion of the header is mandatory.
     """
     # print("Writing to file ", filename)
-    # print(filename, "\n", input_filename)
-    # filepath = "/".join(filename.split("/")[:-1])
-    filepath = os.path.join(os.path.sep, filename)
-    # print(filepath, "\n", filename.split("/")[:-1])
+    # print("filename", filename, "\n", "inputfilename", input_filename)
+    if os.path.sep in filename:
+        filepath = os.path.sep.join(filename.split(os.path.sep)[:-1])
+    else:
+        filepath = os.path.join(os.path.sep, filename)
+    # filepath = os.path.join(filename)
+    # filepath = os.path.join(os.path.sep, os.getcwd(), filename)
+    # print("filepath", filepath, "\n", "splitfilepath", filename.split(os.path.sep)[:-1])
     try:
         if not os.path.isdir(filepath):
             os.makedirs(filepath)
@@ -258,13 +262,14 @@ def write_to_file(data, filename, input_filename):
             "You do not have sufficient Permissions to create the folder. Please alter the permissions or provide a "
             "different path.")
         sys.exit()
-    fhr = open(input_filename, "r")
+    fhr = open(os.path.abspath(input_filename), "r")
     header = ""
     for line in fhr:
         if line[0] == '!':
             header += line
     fhr.close()
-    fhw = open(filename + ".gaf", "w")
+    # print("this is filename", filename)
+    fhw = open(os.path.abspath(filename) + ".gaf", "w")
     fhw.write(header)
     for key in data:
         per_annotation = data[key]
