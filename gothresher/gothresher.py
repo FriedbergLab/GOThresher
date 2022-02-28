@@ -97,6 +97,9 @@ def column(matrix, i):
 
 
 def print_details_about_data(data):
+    """
+    Function to print summary of input data on the screen
+    """
     print("Total number of annotations in the provided Database ", len(data))
     prots = []
     ref = []
@@ -109,6 +112,9 @@ def print_details_about_data(data):
 
 
 def count_proteins(data):
+    """
+    Counts total number of unique proteins in the input data and outputs a single integer
+    """
     allprots = []
     for annotation in data:
         allprots.append(data[annotation]['DB'] + "_" + data[annotation]['DB_Object_ID'])
@@ -116,6 +122,10 @@ def count_proteins(data):
 
 
 def freq_go_term(data):
+    """
+    This function creates a dictionary structure where keys are GO terms and values are counts of each GO term
+    occurring in the input data
+    """
     go_to_freq = {}
     for annotation in data:
         if data[annotation]['GO_ID'] in go_to_freq:
@@ -517,6 +527,9 @@ def propagate_ontologies(Prot_to_GO_Map):
 
 
 def find_frequency(annotations, Prot_to_GO_Map):
+    """
+        This function counts number of annotations per protein
+    """
     count = 0
     if annotations == None:
         return 0
@@ -527,6 +540,10 @@ def find_frequency(annotations, Prot_to_GO_Map):
 
 
 def assign_probabilities_to_ontology_tree(g, Prot_to_GO_Map, all_GO_Terms, ontology_to_ia_map, aspect):
+    """
+        Each node is a GO term and this function calculates per term information content by parsing the protein to GO
+        mapping graph
+    """
     for node_num, node in enumerate(g.nodes()):
         if node not in all_GO_Terms:
             ontology_to_ia_map[node] = [0, 0]
@@ -541,8 +558,8 @@ def assign_probabilities_to_ontology_tree(g, Prot_to_GO_Map, all_GO_Terms, ontol
         denom = find_frequency(predecessor, Prot_to_GO_Map)
         num = find_frequency(predecessor_with_node, Prot_to_GO_Map)
         # vprint(node,g.successors(node))
-        """vprint(predecessor_with_node,num)
-        vprint(predecessor,denom)"""
+        # vprint(predecessor_with_node,num)
+        # vprint(predecessor,denom)
         if denom == 0:
             prob = 0
         else:
@@ -551,6 +568,9 @@ def assign_probabilities_to_ontology_tree(g, Prot_to_GO_Map, all_GO_Terms, ontol
 
 
 def assign_probabilities_to_ontology_graphs(Prot_to_GO_Map, all_GO_Terms, aspects):
+    """
+        This function calculates per GO term information content for individual ontologies - MFO, BPO and CCO
+    """
     mf_g = cp.load(open(FILE_MFO_ONTOLOGY_GRAPH, "rb"))
     bp_g = cp.load(open(FILE_BPO_ONTOLOGY_GRAPH, "rb"))
     cc_g = cp.load(open(FILE_CCO_ONTOLOGY_GRAPH, "rb"))
@@ -558,8 +578,8 @@ def assign_probabilities_to_ontology_graphs(Prot_to_GO_Map, all_GO_Terms, aspect
     assign_probabilities_to_ontology_tree(mf_g, Prot_to_GO_Map, all_GO_Terms, ontology_to_ia_map, 'MFO')
     assign_probabilities_to_ontology_tree(bp_g, Prot_to_GO_Map, all_GO_Terms, ontology_to_ia_map, 'BPO')
     assign_probabilities_to_ontology_tree(cc_g, Prot_to_GO_Map, all_GO_Terms, ontology_to_ia_map, 'CCO')
-    """for GO in ontology_to_ia_map:
-        vprint(ontology_to_ia_map[GO])"""
+    # for GO in ontology_to_ia_map:
+    #     vprint(ontology_to_ia_map[GO])
     # fileTemp1 = open("IC.txt", "w")
     # for GO in ontology_to_ia_map:
     # fileTemp1.write(GO + "\t")
@@ -578,6 +598,10 @@ def assign_probabilities_to_ontology_graphs(Prot_to_GO_Map, all_GO_Terms, aspect
 
 
 def calculate_information_accretion_for_each_protein(Prot_to_GO_Map, ontology_to_ia_map):
+    """
+        From the protein to GO term mapping data structure, this function calculates information accretion per protein by
+        summing information content of each GO term that the protein is annotated with
+    """
     vprint("Starting calculation of ia")
     infoAccr = {}
     alt_id_to_id_map = cp.load(open(FILE_ALTERNATE_ID_TO_ID_MAPPING, "rb"))
@@ -598,14 +622,18 @@ def calculate_information_accretion_for_each_protein(Prot_to_GO_Map, ontology_to
 
 
 def calculate_phillip_lord_information_content(data, crisp, percentile_val):
+    """
+    This function will calculate per GO term Information content values, and remove the annotations below a threshold
+    or percentile, when the respective values are provided.
+    """
     go_terms = []
-    """Prot_to_GO_Map, all_GO_Terms_in_corpus = create_protein_to_go_mapping( data )
-    Prot_to_GO_Map_propagated = propagate_ontologies( Prot_to_GO_Map )"""
+    # Prot_to_GO_Map, all_GO_Terms_in_corpus = create_protein_to_go_mapping( data )
+    # Prot_to_GO_Map_propagated = propagate_ontologies( Prot_to_GO_Map )
     # alt_id_to_id_map = cp.load( open( FILE_ALTERNATE_ID_TO_ID_MAPPING, "rb" ) )
-    """for eachprot in Prot_to_GO_Map:
-        go_terms.extend([annotation[0] for annotation in Prot_to_GO_Map[eachprot]])"""
-    """for eachprot in Prot_to_GO_Map_propagated:
-        go_terms.extend(Prot_to_GO_Map_propagated[eachprot])"""
+    # for eachprot in Prot_to_GO_Map:
+    #     go_terms.extend([annotation[0] for annotation in Prot_to_GO_Map[eachprot]])
+    # for eachprot in Prot_to_GO_Map_propagated:
+    #     go_terms.extend(Prot_to_GO_Map_propagated[eachprot])
 
     for attnid in data:
         go_terms.append(data[attnid]["GO_ID"])
@@ -641,7 +669,8 @@ def calculate_phillip_lord_information_content(data, crisp, percentile_val):
 def calculate_wyatt_clark_information_content(data, recal, crisp, percentile_val, aspects, outputfiles, input_num):
     """
     This function will display some essential statistics when the value of threshold 
-    is crisp and a percentile is not provided.
+    is crisp and a percentile is not provided. Additionally, based on threshold or percentile cut-offs, will also
+    filter annotations
     """
     # vprint(outputfiles[0].split("_"))
     # print("wc output files", outputfiles)
@@ -703,6 +732,9 @@ def calculate_wyatt_clark_information_content(data, recal, crisp, percentile_val
 
 
 def vprint(*s):
+    """
+    When verbose option is selected, this function will print output of commands on screen
+    """
     global verbose
     # print(s,verbose)
     if verbose == 1:
@@ -712,6 +744,9 @@ def vprint(*s):
 
 
 def change_name_of_output_files(options):
+    """
+    This function customizes names of output files based on the user set of arguments
+    """
     longAspect = {'P': 'BPO', 'C': 'CCO', 'F': 'MFO'}
     if options.prefix is not None:
         prefix = options.prefix
@@ -769,13 +804,17 @@ def change_name_of_output_files(options):
 
 
 def combine_output_files(outputfiles, options):
+    """
+    When a single output is requested, this function will combine individual outputs for multiple input files into
+    one consolidated output file
+    """
     # path = "/".join(outputfiles[0].split("/")[:-1])
     path = os.path.sep.join(outputfiles[0].split(os.path.sep)[:-1])
     # print("combine output", path)
     # file = outputfiles[0].split("/")[-1]
-    """if ("./" in outputfiles[0]):
-        finaloutputfilename="all_"+"_".join(file.split("_")[1:])
-    else:"""
+    # if ("./" in outputfiles[0]):
+    #     finaloutputfilename="all_"+"_".join(file.split("_")[1:])
+    # else:
     # finaloutputfilename = "all_" + "_".join(outputfiles[0].split("/")[-1].split("_")[1:])
     finaloutputfilename = "all_" + "_".join(outputfiles[0].split("_")[1:])
     if options.prefix != None:
@@ -798,7 +837,8 @@ def combine_output_files(outputfiles, options):
 
 def delete_temporary_files(options):
     """
-    This function deletes all the files for each organism
+    This function deletes temporary files. Additionally when a single combined output is requested, it deletes
+    outputs for individual species
     """
     # print("Inside delete temporary files")
     for filename in options.output:
@@ -806,6 +846,9 @@ def delete_temporary_files(options):
 
 
 def create_report_file(filepath, outputfilename):
+    """
+    Generates a summary statistics report of input gaf
+    """
     # print("Outputfilename ",outputfilename)
     # print("Filepath ",filepath)
     repfilepath = ""
@@ -828,6 +871,9 @@ def create_report_file(filepath, outputfilename):
 
 
 def write_report(filename, report):
+    """
+    Writes previously generated report to a file
+    """
     # fhw=open(filename,"w")
     # print("in report")
     all_filenames = []
@@ -1039,6 +1085,9 @@ def parse_command_line_arguments():
 
 
 def init_globals(gothresh_ini_file="gothresher.ini"):
+    """
+    Define global variables
+    """
     config = configparser.ConfigParser()
     config.read(gothresh_ini_file)
     # print("in init_globals")
