@@ -3,6 +3,8 @@ MANIFEST.in
 README.md
 setup.cfg
 setup.py
+data/all_CCO_REF_100_WCP_2.gaf
+data/goa_CCO_REF_100_WCP_2.gaf
 gothresher/__init__.py
 gothresher/gothresher.py
 gothresher/gothresher_prep.py

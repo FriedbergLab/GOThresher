@@ -152,6 +152,7 @@ def choose_proteins_based_on_publications(data, cutoff_prot, cutoff_attn):
     simple_g = nx.Graph(g)  # Converting the multi graph to a simple graph without parallel edges
 
     no_of_prot_annotations_by_each_ref = []
+
     for ref in list(set(column(mapping, 1))):
         no_of_prot_annotations_by_each_ref.append(simple_g.degree(ref))
 
@@ -178,33 +179,33 @@ def choose_proteins_based_on_publications(data, cutoff_prot, cutoff_attn):
     return new_data
 
 
-def convert_to_dictionary(filename):
-    """
-    This function reads from the input gaf file and converts it to a dictionary. This function is deprecated and will
-    be removed in further releases. Instead of using this function the program now makes use of the gaf iterator
-    function from biopython.
-    """
-    alt_id_to_id_map = cp.load(open(FILE_ALTERNATE_ID_TO_ID_MAPPING, "rb"))
-    fhr = open(filename, "r")
-    data = {}
-    counter = 1
-    for line in fhr:
-        if "!" not in line:
-            line = line.split("\t")
-            id = "anntn" + str(counter)
-            per_annotation = {}
-            for f_no, field in enumerate(GAF21FIELDS):
-                if field == "GO_ID":
-                    if line[f_no].strip() in alt_id_to_id_map:
-                        # print(line[f_no].strip())
-                        line[f_no] = alt_id_to_id_map[line[f_no].strip()]
-                per_annotation[field] = line[f_no]
-            data[id] = per_annotation
-            counter += 1
-            """if(len(data)==10):
-                break"""
-    fhr.close()
-    return data
+# def convert_to_dictionary(filename):
+#     """
+#     This function reads from the input gaf file and converts it to a dictionary. This function is deprecated and will
+#     be removed in further releases. Instead of using this function the program now makes use of the gaf iterator
+#     function from biopython.
+#     """
+#     alt_id_to_id_map = cp.load(open(FILE_ALTERNATE_ID_TO_ID_MAPPING, "rb"))
+#     fhr = open(filename, "r")
+#     data = {}
+#     counter = 1
+#     for line in fhr:
+#         if "!" not in line:
+#             line = line.split("\t")
+#             id = "anntn" + str(counter)
+#             per_annotation = {}
+#             for f_no, field in enumerate(GAF21FIELDS):
+#                 if field == "GO_ID":
+#                     if line[f_no].strip() in alt_id_to_id_map:
+#                         # print(line[f_no].strip())
+#                         line[f_no] = alt_id_to_id_map[line[f_no].strip()]
+#                 per_annotation[field] = line[f_no]
+#             data[id] = per_annotation
+#             counter += 1
+#             """if(len(data)==10):
+#                 break"""
+#     fhr.close()
+#     return data
 
 
 def convert_from_gaf_to_required_format(gaf):
@@ -212,7 +213,7 @@ def convert_from_gaf_to_required_format(gaf):
     This function takes the data input which is created by gaf iterator and then makes few changes 
     in the annotations which is relevant to this program.
     """
-    print("in format converter", os.getcwd())
+    # print("in format converter", os.getcwd())
     alt_id_to_id_map = cp.load(open(FILE_ALTERNATE_ID_TO_ID_MAPPING, "rb"))
     counter = 1
     data = {}
@@ -234,9 +235,11 @@ def write_to_file(data, filename, input_filename):
     This function will write the content of the data structure 'data' to the output file. 
     It requires the input file to read the header. Inclusion of the header is mandatory.
     """
-    vprint("Writing to file ", filename)
-    # print(filename)
-    filepath = "/".join(filename.split("/")[:-1])
+    # print("Writing to file ", filename)
+    # print(filename, "\n", input_filename)
+    # filepath = "/".join(filename.split("/")[:-1])
+    filepath = os.path.join(os.path.sep, filename)
+    # print(filepath, "\n", filename.split("/")[:-1])
     try:
         if not os.path.isdir(filepath):
             os.makedirs(filepath)
@@ -295,6 +298,7 @@ def choose_proteins_based_on_evidence_codes(data, evidence_list, evidence_invers
     """
     This function will select only those annotations which have been annotated by the provided Evidence Codes
     """
+    # print("in ec function")
     # Checking whether the provided Evidence codes are correct or not
     if evidence_list is not None:
         if check_evidence_code_for_correctness(evidence_list) == False:
@@ -640,8 +644,12 @@ def calculate_wyatt_clark_information_content(data, recal, crisp, percentile_val
     is crisp and a percentile is not provided.
     """
     # vprint(outputfiles[0].split("_"))
+    # print("wc output files", outputfiles)
+    # print(outputfiles[input_num].split("_")[:-2])
+    # ontology_to_ia_map_filename = "ontology_to_ia_map_" + "_".join(
+    #     outputfiles[input_num].split("/")[-1].split("_")[:-2]) + ".txt"
     ontology_to_ia_map_filename = "ontology_to_ia_map_" + "_".join(
-        outputfiles[input_num].split("/")[-1].split("_")[:-2]) + ".txt"
+            outputfiles[input_num].split(os.path.sep)[-1].split("_")[:-2]) + ".txt"
     # vprint(ontology_to_ia_map_filename)
     # exit()
     Prot_to_GO_Map, all_GO_Terms_in_corpus = create_protein_to_go_mapping(data)
@@ -652,10 +660,11 @@ def calculate_wyatt_clark_information_content(data, recal, crisp, percentile_val
             "depending on the size of input")
         ontology_to_ia_map = assign_probabilities_to_ontology_graphs(Prot_to_GO_Map_propagated, all_GO_Terms_in_corpus,
                                                                      aspects)
-        tmpdir = os.path.join(ONTO_DIR,"temp")
+        tmpdir = os.path.join(ONTO_DIR, "temp")
         if os.path.isdir(tmpdir) == False:
             os.makedirs(tmpdir)
-        cp.dump(ontology_to_ia_map, open(os.path.join(tmpdir , ontology_to_ia_map_filename), "wb"))
+        # print("ontology to ia filename", ontology_to_ia_map_filename)
+        cp.dump(ontology_to_ia_map, open(os.path.join(tmpdir, ontology_to_ia_map_filename), "wb"))
     else:
         vprint("Skipping recalculation of Information Accretion for Wyatt Clark")
     try:
@@ -710,9 +719,12 @@ def change_name_of_output_files(options):
         prefix = ""
     if options.output == None:
         options.output = []
-        path = "./" + prefix
+        # path = "./" + prefix
+        # print(os.getcwd())
+        path = os.path.join(prefix)
     else:
-        path = options.output + "/" + prefix
+        # path = options.output + "/" + prefix
+        path = os.path.join(options.output, prefix)
         options.output = []
 
     # vprint("Output Options ",options.output)
@@ -721,9 +733,14 @@ def change_name_of_output_files(options):
         # vprint(inputfile)
 
         # vprint("Output file: "+options.output)
-        file = inputfile.split("/")[-1]
+        # file = inputfile.split("/")[-1]
+        file = inputfile.split(os.path.sep)[-1]
+        # print("input file", inputfile)
+        # print("file", file)
         species = file.split(".gaf")[0].split("_")[1]
+        # print("species", species)
         # vprint("Species: " + species)
+        # final_outputfilename = path + species
         final_outputfilename = path + species
         aspect = ""
         if options.aspect:
@@ -752,16 +769,19 @@ def change_name_of_output_files(options):
 
 
 def combine_output_files(outputfiles, options):
-    # print(outputfiles)
-    path = "/".join(outputfiles[0].split("/")[:-1])
-    file = outputfiles[0].split("/")[-1]
+    # path = "/".join(outputfiles[0].split("/")[:-1])
+    path = os.path.sep.join(outputfiles[0].split(os.path.sep)[:-1])
+    # print("combine output", path)
+    # file = outputfiles[0].split("/")[-1]
     """if ("./" in outputfiles[0]):
         finaloutputfilename="all_"+"_".join(file.split("_")[1:])
     else:"""
-    finaloutputfilename = "all_" + "_".join(outputfiles[0].split("/")[-1].split("_")[1:])
+    # finaloutputfilename = "all_" + "_".join(outputfiles[0].split("/")[-1].split("_")[1:])
+    finaloutputfilename = "all_" + "_".join(outputfiles[0].split("_")[1:])
     if options.prefix != None:
         finaloutputfilename = options.prefix + finaloutputfilename
-    finaloutputfilename = path + "/" + finaloutputfilename
+    finaloutputfilename = os.path.join(path, finaloutputfilename)
+    # finaloutputfilename = path + "/" + finaloutputfilename
     print("Final combined output file for all species: "+finaloutputfilename)
     # Combine the gaf files
     header = ""
@@ -789,33 +809,36 @@ def create_report_file(filepath, outputfilename):
     # print("Outputfilename ",outputfilename)
     # print("Filepath ",filepath)
     repfilepath = ""
-    if filepath[-1] == '/':
+    # print("in create report")
+    if filepath[-1] == os.path.sep:
         if os.path.isdir(filepath) == False:
             os.makedirs(filepath)
-        filepath += "report_" + "_".join(outputfilename.split("/")[-1].split("_")[1:]) + ".xlsx"
+        filepath += "report_" + "_".join(outputfilename.split(os.path.sep)[-1].split("_")[1:]) + ".tsv"
     elif filepath == ".":
-        filepath = "report_" + "_".join(outputfilename.split("/")[-1].split("_")[1:]) + ".xlsx"
+        filepath = "report_" + "_".join(outputfilename.split(os.path.sep)[-1].split("_")[1:]) + ".tsv"
     else:
-        if "/" in filepath and os.path.isdir('/'.join(filepath.split("/")[:-1])) == False:
-            os.makedirs('/'.join(filepath.split("/")[:-1]))
-        if "." in filepath.split("/")[-1]:
-            filepath = ".".join(filepath.split(".")[:-1]) + ".xlsx"
+        if os.path.sep in filepath and os.path.isdir(os.path.sep.join(filepath.split(os.path.sep)[:-1])) == False:
+            os.makedirs(os.path.sep.join(filepath.split(os.path.sep)[:-1]))
+        if "." in filepath.split(os.path.sep)[-1]:
+            filepath = ".".join(filepath.split(".")[:-1]) + ".tsv"
         else:
-            filepath += ".xlsx"
-    # print("Report Filepath ",filepath)
+            filepath += ".tsv"
+    print("Report saved in cwd ")
     return filepath
 
 
 def write_report(filename, report):
     # fhw=open(filename,"w")
+    # print("in report")
     all_filenames = []
-    if "/" not in filename:
+    # print(filename)
+    if os.path.sep not in filename:
         for species in report:
-            all_filenames.append(species + "_" + filename[:-4] + "tsv")
+            all_filenames.append(species + "_" + filename[:-4] + ".tsv")
     else:
         for species in report:
             all_filenames.append(
-                "/".join(filename.split("/")[:-1]) + "/" + species + "_" + filename.split("/")[1][:-4] + "tsv")
+                os.path.sep.join(filename.split(os.path.sep)[:-1]) + os.path.sep + species + "_" + filename.split(os.path.sep)[1][:-4] + ".tsv")
     # print(all_filenames)
 
     # print(report)
@@ -886,11 +909,11 @@ def write_report(filename, report):
 #     plt.close()
 
 
-def write_contents_to_file(dataDict, fileName):
-    F = open(fileName + ".txt", "w")
-    for key in dataDict:
-        F.write(str(key) + "\t" + str(dataDict[key]) + "\n")
-    F.close()
+# def write_contents_to_file(dataDict, fileName):
+#     F = open(fileName + ".txt", "w")
+#     for key in dataDict:
+#         F.write(str(key) + "\t" + str(dataDict[key]) + "\n")
+#     F.close()
 
 
 # This function reads the data entered via command line and returns a dictionary with all relevant options
@@ -1018,7 +1041,7 @@ def parse_command_line_arguments():
 def init_globals(gothresh_ini_file="gothresher.ini"):
     config = configparser.ConfigParser()
     config.read(gothresh_ini_file)
-    print("in init_globals")
+    # print("in init_globals")
     global FILE_ALTERNATE_ID_TO_ID_MAPPING 
     global FILE_CAFA_ID_TO_UNIPROT_ID_MAP 
     global FILE_MFO_ONTOLOGY_GRAPH
@@ -1110,7 +1133,8 @@ def main():
                 report_row.append(count_proteins(data))
                 report_row.append(prev_len)
                 report_row.append(len(data))
-                reportdict[eachinputfile].append(report_row)
+                # reportdict[eachinputfile].append(report_row)
+                reportdict[species].append(report_row)
             vprint()
         if options.aspect is not None:
             vprint("Number of annotations before choosing proteins based on aspect ", len(data))
@@ -1138,7 +1162,8 @@ def main():
                 report_row.append(count_proteins(data))
                 report_row.append(prev_len)
                 report_row.append(len(data))
-                reportdict[eachinputfile].append(report_row)
+                reportdict[species].append(report_row)
+                # reportdict[eachinputfile].append(report_row)
             vprint()
         if options.date_before is not None or options.date_after is not None:
             vprint("Number of annotations before choosing proteins based on provided range of dates ", len(data))
@@ -1152,7 +1177,8 @@ def main():
                 report_row.append(count_proteins(data))
                 report_row.append(prev_len)
                 report_row.append(len(data))
-                reportdict[eachinputfile].append(report_row)
+                reportdict[species].append(report_row)
+                # reportdict[eachinputfile].append(report_row)
             vprint()
         if options.cutoff_prot is not None or options.cutoff_attn is not None:
             vprint("Number of annotations before choosing proteins based on Publications ", len(data))
@@ -1196,7 +1222,8 @@ def main():
                 report_row.append(count_proteins(data))
                 report_row.append(prev_len)
                 report_row.append(len(data))
-                reportdict[eachinputfile].append(report_row)
+                reportdict[species].append(report_row)
+                # reportdict[eachinputfile].append(report_row)
             vprint()
         if options.info_threshold_Wyatt_Clark or options.info_threshold_Wyatt_Clark_percentile is not None:
             vprint("Number of annotations before choosing proteins based on Wyatt Clark Threshold ", len(data))
@@ -1213,7 +1240,8 @@ def main():
                 report_row.append(count_proteins(data))
                 report_row.append(prev_len)
                 report_row.append(len(data))
-                reportdict[eachinputfile].append(report_row)
+                # reportdict[eachinputfile].append(report_row)
+                reportdict[species].append(report_row)
             vprint()
 
         write_to_file(data, options.output[file_num], options.input[file_num])
