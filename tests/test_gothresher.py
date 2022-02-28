@@ -1,9 +1,13 @@
 #!/usr/bin/python
+import datetime
 import unittest
 import os
 import sys
+import io
 from Bio.UniProt import GOA
 from gothresher import gothresher
+import numpy
+import hashlib
 
 # script_dir = os.path.dirname(sys.argv[0])
 # input_file = os.path.join(os.getcwd(), script_dir, "goa_exampleYeast.gaf")
@@ -41,6 +45,14 @@ data_aspect = gothresher.choose_go_based_on_aspect(data, "P")
 # Choose GO based on assigned by
 data_ab = gothresher.choose_go_based_on_assigned_by(data, "SGD", None)
 # print(data.keys() - data_ab.keys())
+
+# Choose proteins based on evidence codes
+data_ec = gothresher.choose_proteins_based_on_evidence_codes(data, ["IPI", "IBA"], None)
+# print(data_ec.keys())
+
+# Choose proteins based on references
+data_ref = gothresher.choose_proteins_based_on_references(data, ["PMID:9799240"], None)
+# print(data_ref)
 
 
 def suite():
@@ -90,6 +102,50 @@ class TestGOThresher(unittest.TestCase):
     def test_include_data_ab(self):
         self.assertIn("URB2", data_ab["anntn47066"]["DB_Object_Symbol"])
         self.assertIn("GO:0006364", data_ab["anntn11857"]["GO_ID"])
+
+    def test_not_include_data_ec(self):
+        for entry in ["anntn11857", "anntn28782", "anntn36384"]:
+            self.assertNotIn(entry, data_ec.keys(), "This annotation should not be in new_data")
+
+    def test_include_data_ec(self):
+        self.assertIn("URB2", data_ec["anntn47066"]["DB_Object_Symbol"])
+        self.assertIn("GO:0000981", data_ec["anntn46610"]["GO_ID"])
+
+    def test_data_ref(self):
+        got_list = []
+        for k in data_ref.keys():
+            got_list.append(data[k]['DB:Reference'])
+        for entry in got_list:
+            self.assertNotIn(entry, ["PMID:11927560", "PMID:8663399", "PMID:9472021"])
+        self.assertEqual(len(numpy.unique(got_list)), 1)
+
+    def test_print_details_about_data(self):
+        captured_out = io.StringIO()
+        sys.stdout = captured_out
+        gothresher.print_details_about_data(data)
+        sys.stdout = sys.__stdout__
+        expected_out = "Total number of annotations in the provided Database  47072\n"+\
+                       "Total number of unique proteins in the provided Database  6189\n"+\
+                       "Total number of unique references in the provided Database  11599\n"
+        self.assertEqual(expected_out, captured_out.getvalue())
+
+    def test_data_before_date(self):
+        # Choose annotations based on date
+        data_date = gothresher.choose_annotations_based_on_date(data, "2011-7-22", None)
+        date_list = []
+        for k in data_date.keys():
+            date_list.append(data[k]['Date'])
+        for entry in date_list:
+            self.assertLessEqual(entry, datetime.date(2011, 7, 22))
+
+    def test_data_after_date(self):
+        # Choose annotations based on date
+        data_date = gothresher.choose_annotations_based_on_date(data, None, "2011-7-22")
+        date_list = []
+        for k in data_date.keys():
+            date_list.append(data[k]['Date'])
+        for entry in date_list:
+            self.assertGreaterEqual(entry, datetime.date(2011, 7, 22))
 
 
 if __name__ == '__main__':
