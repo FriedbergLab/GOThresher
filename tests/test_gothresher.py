@@ -54,6 +54,8 @@ data_ec = gothresher.choose_proteins_based_on_evidence_codes(data, ["IPI", "IBA"
 data_ref = gothresher.choose_proteins_based_on_references(data, ["PMID:9799240"], None)
 # print(data_ref)
 
+# Choose anotations based on PL Information Content
+data_plic = gothresher.calculate_phillip_lord_information_content(data, 10, None)
 
 def suite():
     suite = unittest.TestSuite()
@@ -146,6 +148,11 @@ class TestGOThresher(unittest.TestCase):
             date_list.append(data[k]['Date'])
         for entry in date_list:
             self.assertGreaterEqual(entry, datetime.date(2011, 7, 22))
+
+    def test_data_include_pl_ic(self):
+        for entry in ["anntn45985", "anntn39155", "anntn37332"]:
+            self.assertIn(entry, data_plic.keys(), "This annotation should be in new_data")
+
 
 
 if __name__ == '__main__':
