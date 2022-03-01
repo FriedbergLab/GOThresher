@@ -482,7 +482,9 @@ def create_protein_to_go_mapping(data):
     """
     prot_to_go = {}
     all_GO = []
-    alt_id_to_id_map = cp.load(open(FILE_ALTERNATE_ID_TO_ID_MAPPING, "rb"))
+    # alt_id_to_id_map = cp.load(open(FILE_ALTERNATE_ID_TO_ID_MAPPING, "rb"))
+    f = open(FILE_ALTERNATE_ID_TO_ID_MAPPING, "rb")
+    alt_id_to_id_map = cp.load(f)
     for attnid in data:
         annotation = data[attnid]
         prot_id = annotation['DB'] + '_' + annotation['DB_Object_ID']
@@ -498,6 +500,7 @@ def create_protein_to_go_mapping(data):
             if [GO_term, annotation['Aspect']] not in prot_to_go[prot_id]:
                 prot_to_go[prot_id].append([GO_term, annotation['Aspect']])
         # vprint(prot_to_go[prot_id])
+    f.close()
     return prot_to_go, list(set(all_GO))
 
 
@@ -666,6 +669,7 @@ def calculate_phillip_lord_information_content(data, crisp, percentile_val):
     for attnid in data:
         annotation = data[attnid]
         if GO_term_to_PL_info[annotation["GO_ID"]] >= threshold:
+            # print(attnid)
             new_data[attnid] = data[attnid]
     return new_data
     # vprint(collections.Counter(go_terms))
@@ -752,6 +756,7 @@ def change_name_of_output_files(options):
     """
     This function customizes names of output files based on the user set of arguments
     """
+    # print(options)
     longAspect = {'P': 'BPO', 'C': 'CCO', 'F': 'MFO'}
     if options.prefix is not None:
         prefix = options.prefix
