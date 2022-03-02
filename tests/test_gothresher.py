@@ -7,15 +7,8 @@ import io
 from Bio.UniProt import GOA
 from gothresher import gothresher
 import numpy
-import hashlib
-
-# script_dir = os.path.dirname(sys.argv[0])
-# input_file = os.path.join(os.getcwd(), script_dir, "goa_exampleYeast.gaf")
 
 input_file = os.path.abspath("goa_exampleYeast.gaf")
-
-# print(input_file)
-# print("scriptdir", script_dir)
 
 # Convert from GAF to required format
 gaf_output = GOA._gaf20iterator(open(input_file, "r"))
@@ -59,6 +52,10 @@ data_plic = gothresher.calculate_phillip_lord_information_content(data, 10, None
 
 # Create protein to go mapping
 mapping_obj = gothresher.create_protein_to_go_mapping(data)
+
+# Calculate WC IC
+ia_dict = gothresher.calculate_wyatt_clark_information_content(data, 0, None, 2, ["C"],
+                                                               ["exampleYeast_CCO_REF_100_WCP_2"], 0)
 
 
 def suite():
@@ -130,8 +127,8 @@ class TestGOThresher(unittest.TestCase):
         sys.stdout = captured_out
         gothresher.print_details_about_data(data)
         sys.stdout = sys.__stdout__
-        expected_out = "Total number of annotations in the provided Database  47072\n"+\
-                       "Total number of unique proteins in the provided Database  6189\n"+\
+        expected_out = "Total number of annotations in the provided Database  47072\n" + \
+                       "Total number of unique proteins in the provided Database  6189\n" + \
                        "Total number of unique references in the provided Database  11599\n"
         self.assertEqual(expected_out, captured_out.getvalue())
 
@@ -165,6 +162,30 @@ class TestGOThresher(unittest.TestCase):
         for entry in ["SGD_S000003026", "SGD_S000005098", "SGD_S000000845"]:
             self.assertIn(entry, mapping_obj[0].keys())
 
+    def test_ia_related_functions(self):
+        # This calls five functions:
+        # 1. Create protein to GO map
+        # 2. Propagate ontologies
+        # 3. Find frequency
+        # 4. Assign probabilities to ontology tree
+        # 5. Assign probabilities to ontology graph
+        for entry in ["anntn46890", "anntn24549", "anntn6747"]:
+            self.assertIn(entry, ia_dict.keys())
+
 
 if __name__ == '__main__':
     unittest.main()
+
+# # Change name of output file
+# gothresher.change_name_of_output_files(Namespace(prefix=None, cutoff_prot=None, cutoff_attn=None, output='ExampleData'
+#                                                                                                          '/output',
+#                                                  evidence=['EXPEC', 'IBA'], evidence_inverse=None,
+#                                                  input=['ExampleData/goa_exampleYeast.gaf',
+#                                                         'ExampleData/goa_exampleDicty.gaf'], aspect=['C', 'P'],
+#                                                  assigned_by=None, assigned_by_inverse=None, recalculate=0,
+#                                                  info_threshold_Wyatt_Clark_percentile=None,
+#                                                  info_threshold_Wyatt_Clark=None,
+#                                                  info_threshold_Phillip_Lord_percentile='30',
+#                                                  info_threshold_Phillip_Lord=None, verbose=0, date_before=None,
+#                                                  date_after=None, single_file='1', select_references=None,
+#                                                  select_references_inverse=None, report=None, histogram=None))
