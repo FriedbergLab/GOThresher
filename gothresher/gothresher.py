@@ -499,6 +499,7 @@ def create_protein_to_go_mapping(data):
         else:
             if [GO_term, annotation['Aspect']] not in prot_to_go[prot_id]:
                 prot_to_go[prot_id].append([GO_term, annotation['Aspect']])
+        # print(prot_id, prot_to_go[prot_id])
         # vprint(prot_to_go[prot_id])
     f.close()
     return prot_to_go, list(set(all_GO))
@@ -531,6 +532,7 @@ def propagate_ontologies(Prot_to_GO_Map):
                 ancestors.extend(cc_ancestors[GO_term])
         ancestors = list(set(ancestors))
         Prot_to_GO_Map_new[eachprotein] = ancestors
+        # print(Prot_to_GO_Map_new)
     return Prot_to_GO_Map_new
 
 
@@ -605,28 +607,28 @@ def assign_probabilities_to_ontology_graphs(Prot_to_GO_Map, all_GO_Terms, aspect
     return ontology_to_ia_map
 
 
-def calculate_information_accretion_for_each_protein(Prot_to_GO_Map, ontology_to_ia_map):
-    """
-        From the protein to GO term mapping data structure, this function calculates information accretion per protein by
-        summing information content of each GO term that the protein is annotated with
-    """
-    vprint("Starting calculation of ia")
-    infoAccr = {}
-    alt_id_to_id_map = cp.load(open(FILE_ALTERNATE_ID_TO_ID_MAPPING, "rb"))
-    for prot in Prot_to_GO_Map:
-        annotations = Prot_to_GO_Map[prot]
-        ia = 0
-        for annotation in annotations:
-            if len(annotation) == 2:
-                GO_term = annotation[0]
-            else:
-                GO_term = annotation
-            if GO_term not in ontology_to_ia_map:
-                GO_term = alt_id_to_id_map[GO_term]
-            # vprint(prot,annotation[0])
-            ia += ontology_to_ia_map[GO_term][1]
-        infoAccr[prot] = ia
-    return infoAccr
+# def calculate_information_accretion_for_each_protein(Prot_to_GO_Map, ontology_to_ia_map):
+#     """
+#         From the protein to GO term mapping data structure, this function calculates information accretion per protein by
+#         summing information content of each GO term that the protein is annotated with
+#     """
+#     vprint("Starting calculation of ia")
+#     infoAccr = {}
+#     alt_id_to_id_map = cp.load(open(FILE_ALTERNATE_ID_TO_ID_MAPPING, "rb"))
+#     for prot in Prot_to_GO_Map:
+#         annotations = Prot_to_GO_Map[prot]
+#         ia = 0
+#         for annotation in annotations:
+#             if len(annotation) == 2:
+#                 GO_term = annotation[0]
+#             else:
+#                 GO_term = annotation
+#             if GO_term not in ontology_to_ia_map:
+#                 GO_term = alt_id_to_id_map[GO_term]
+#             # vprint(prot,annotation[0])
+#             ia += ontology_to_ia_map[GO_term][1]
+#         infoAccr[prot] = ia
+#     return infoAccr
 
 
 def calculate_phillip_lord_information_content(data, crisp, percentile_val):
@@ -681,6 +683,7 @@ def calculate_wyatt_clark_information_content(data, recal, crisp, percentile_val
     is crisp and a percentile is not provided. Additionally, based on threshold or percentile cut-offs, will also
     filter annotations
     """
+    # print(recal, crisp, percentile_val, aspects, outputfiles, input_num)
     # vprint(outputfiles[0].split("_"))
     # print("wc output files", outputfiles)
     # print(outputfiles[input_num].split("_")[:-2])
@@ -706,6 +709,9 @@ def calculate_wyatt_clark_information_content(data, recal, crisp, percentile_val
     else:
         vprint("Skipping recalculation of Information Accretion for Wyatt Clark")
     try:
+        tmpdir = os.path.join(ONTO_DIR, "temp")
+        # print(ontology_to_ia_map_filename)
+        # print(ONTO_DIR)
         ontology_to_ia_map = cp.load(open(os.path.join(tmpdir, ontology_to_ia_map_filename), "rb"))
     except IOError as e:
         print("File for GO_Term to ia NOT FOUND. Please rerun the program with the argument -recal 1")
@@ -805,11 +811,12 @@ def change_name_of_output_files(options):
         elif options.info_threshold_Wyatt_Clark_percentile:
             final_outputfilename += '_WCP_' + options.info_threshold_Wyatt_Clark_percentile
         options.output.append(final_outputfilename)
-        print("Output file: "+final_outputfilename)
+        print("Output file: " + os.path.abspath(final_outputfilename))
         # vprint(options.output[num])
         # vprint()
         # exit()
     # vprint(options.output)
+    print(options.output)
     return options.output
 
 
@@ -831,7 +838,7 @@ def combine_output_files(outputfiles, options):
         finaloutputfilename = options.prefix + finaloutputfilename
     finaloutputfilename = os.path.join(path, finaloutputfilename)
     # finaloutputfilename = path + "/" + finaloutputfilename
-    print("Final combined output file for all species: "+finaloutputfilename)
+    print("Final combined output file for all species: " + os.path.abspath(finaloutputfilename))
     # Combine the gaf files
     header = ""
     for line in open(outputfiles[0] + ".gaf", "r"):
