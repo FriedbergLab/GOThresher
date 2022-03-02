@@ -54,8 +54,12 @@ data_ec = gothresher.choose_proteins_based_on_evidence_codes(data, ["IPI", "IBA"
 data_ref = gothresher.choose_proteins_based_on_references(data, ["PMID:9799240"], None)
 # print(data_ref)
 
-# Choose anotations based on PL Information Content
+# Choose annotations based on PL Information Content
 data_plic = gothresher.calculate_phillip_lord_information_content(data, 10, None)
+
+# Create protein to go mapping
+mapping_obj = gothresher.create_protein_to_go_mapping(data)
+
 
 def suite():
     suite = unittest.TestSuite()
@@ -153,6 +157,13 @@ class TestGOThresher(unittest.TestCase):
         for entry in ["anntn45985", "anntn39155", "anntn37332"]:
             self.assertIn(entry, data_plic.keys(), "This annotation should be in new_data")
 
+    def test_prot_to_go_mapping(self):
+        self.assertIsInstance(mapping_obj[0], dict)
+        self.assertIsInstance(mapping_obj[1], list)
+
+    def test_prot_to_go_mapping_include(self):
+        for entry in ["SGD_S000003026", "SGD_S000005098", "SGD_S000000845"]:
+            self.assertIn(entry, mapping_obj[0].keys())
 
 
 if __name__ == '__main__':
