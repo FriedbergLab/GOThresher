@@ -47,7 +47,7 @@ $ pip install git+git://github.com/FriedbergLab/GOThresher
 Alternatively, it is possible to **manually download** from GitHub or **clone the repository** using the following command:
 ```
 $ git clone https://github.com/FriedbergLab/GOThresher
-$ cd debias
+$ cd GOThresher
 ```
 and install GOThresher by running: 
 ```
