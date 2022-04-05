@@ -31,7 +31,7 @@ A program debias_prep.py has been provided in the package. This program builds t
 
 ## Installation
 
-GOThresher is available on PyPi, so the best way to install GOThresher is through `pip`.
+GOThresher is available on PyPi, so the recommended way to install GOThresher is through `pip`.
 
 You can install GOThresher by running:
 ```
