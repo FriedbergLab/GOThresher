@@ -309,7 +309,7 @@ Unit tests are provided inside the directory `tests`. Please note, if GOThresher
 
 ### Prerequisites
 
-#### Required modules to run test script:
+#### Required module to run the test script:
 
 * [unittest](https://docs.python.org/3/library/unittest.html)
 
@@ -317,15 +317,13 @@ Unit tests are provided inside the directory `tests`. Please note, if GOThresher
 
 #### Required files:
 
-You can download the entire GOThresher repository
+You can download the entire GOThresher repository (Recommended)
 ```
 $ git clone https://github.com/FriedbergLab/GOThresher
 $ cd GOThresher/tests
 ```
 OR 
-
 Download only the tests directory 
-
 ```
 $ svn export https://github.com/FriedbergLab/GOThresher.git/trunk/tests
 $ cd tests
