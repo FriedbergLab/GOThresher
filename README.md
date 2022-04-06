@@ -21,7 +21,7 @@ Modules can be automatically installed using `pip`, or obtained from their respe
 
 ### Required files:
 
-GoThresher requires an obo formatted version of the Gene Ontology. Depending on your needs, this would usually be one of [go-basic.obo](http://purl.obolibrary.org/obo/go/go-basic.obo) or [go.obo](http://purl.obolibrary.org/obo/go.obo). For more details and to download either the most recent daily version or the latest version go to the [Gene Ontology website](http://geneontology.org/page/download-ontology). 
+GOThresher requires an obo formatted version of the Gene Ontology. Depending on your needs, this would usually be one of [go-basic.obo](http://purl.obolibrary.org/obo/go/go-basic.obo) or [go.obo](http://purl.obolibrary.org/obo/go.obo). For more details and to download either the most recent daily version or the latest version go to the [Gene Ontology website](http://geneontology.org/page/download-ontology). 
 
 <!--
 A program debias_prep.py has been provided in the package. This program builds the graphs for each of the ontologies and puts them in three different files. Hence the .obo files are not needed. This program has been provided so that if the hierarchy changes then this program can be used to regenerate the  files. In addition to the three hierarchy graphs for the three ontologies it also generates the mapping for alternate GO_ID to actual GO_ID. It also generates the mapping from one GO_ID to all its ancestors. 
@@ -31,7 +31,7 @@ A program debias_prep.py has been provided in the package. This program builds t
 
 ## Installation
 
-GOThresher is available on PyPi, so the recommended way to install GOThresher is through `pip`.
+GOThresher is available on PyPi, so the recommended way to install GOThresher is through `pip`. Do note, this approach will not download any data files that are available on GitHub. User will have to clone the repository separately. 
 
 You can install GOThresher by running:
 ```
@@ -264,7 +264,7 @@ this command every time you update GOFILE.
 
 1. ```$ gothresher -cprot 100 -i ExampleData/goa_exampleYeast.gaf ExampleData/goa_exampleDicty.gaf -a C -WCTHRESHp 2 -recal 1```
 
-This command reads from two input files - one for yeast and the other for
+This command reads two input files - one for yeast and the other for
 dicty. The `-a C` only selects the annotations which are "CCO". The
 `-WCTHRESHp` argument specifies that the Wyatt Clark Threshold is a 2
 percentile, which means all annotations having a Wyatt Clark Information
@@ -272,10 +272,8 @@ content below 2% will be removed. Instead of providing a percentage
 value, one can also provide a threshold value using the argument
 `-WCTHRESH`. In addition to that, those annotations will be removed which
 have been annotated by references that have annotated more than
-100 proteins in a single paper. The output will be put in the current directory. It is
-necessary to have `-recal 1` in this command since the GO_term to IC has
-to be created. Subsequent runs with different threshold and all other
-parameters fised is possible without providing the argument `-recal`.
+100 proteins in a single paper. The output will be saved in the current directory. It is
+necessary to have `-recal 1` in this command since the GO Term to IC mapping has not been created yet. Subsequent runs for the same data with different threshold values is possible without providing the argument `-recal`, however for new data files, use `-recal 1`.
 This command will generate 3 output files. One each for the two organisms
 and the third one is where both the organisms are combined. 
 
