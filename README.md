@@ -305,7 +305,24 @@ file, the user has been given the opportunity to give a prefix.
 
 ## Unit testing
 
-Unit tests are provided inside the directory `tests`. They can be run to ensure correct installation and working. Running the test script requires the module `unittest` which can be easily installed as `pip install unittest`. 
+Unit tests are provided inside the directory `tests`. Please note, if GOThresher has been directly installed from PyPi using pip, user will have to download relevant files to run the test script separately.
+
+### Prerequisites
+
+#### Required modules to run test script:
+
+* [unittest](https://docs.python.org/3/library/unittest.html)
+
+`unittest` module can be automatically installed using `pip`.
+
+#### Required files:
+
+You can download the entire GOThresher repository
+
+OR 
+
+Download only the tests directory 
+
 
 **Run the tests from within the `tests` directory:**
 
