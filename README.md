@@ -317,13 +317,14 @@ Unit tests are provided inside the directory `tests`. Please note, if GOThresher
 
 #### Required files:
 
-You can download the entire GOThresher repository (Recommended)
+You can download the entire GOThresher repository (Recommended):
 ```
 $ git clone https://github.com/FriedbergLab/GOThresher
 $ cd GOThresher/tests
 ```
 OR 
-Download only the tests directory 
+
+Download the tests directory only: 
 ```
 $ svn export https://github.com/FriedbergLab/GOThresher.git/trunk/tests
 $ cd tests
