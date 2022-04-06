@@ -254,9 +254,9 @@ NOTE: Files inside the folder `temp` are generated when `-recal` is set to 1.
 
 ```$ gothresher_prep -i ExampleData/go.obo -c gothresher.ini```
 
-This command will generate seven files in total. Three files corresponds
-to the three ontologies. Three files corresponds to the mapping between
-each GO_term and its ancestors in its own respective ontology. The last
+This command will generate seven files in total. Three files corresponding
+to the three ontologies, and three files corresponding to the mapping between
+each GO Term and its ancestors in its own respective ontology. The last
 file contains mapping from alternate GO_ID to actual GO_ID. Please use
 this command every time you update GOFILE. 
 
@@ -265,36 +265,36 @@ this command every time you update GOFILE.
 1. ```$ gothresher -cprot 100 -i ExampleData/goa_exampleYeast.gaf ExampleData/goa_exampleDicty.gaf -a C -WCTHRESHp 2 -recal 1```
 
 This command reads two input files - one for yeast and the other for
-dicty. The `-a C` only selects the annotations which are "CCO". The
+dicty. The `-a C` selects the annotations which are only "CCO". The
 `-WCTHRESHp` argument specifies that the Wyatt Clark Threshold is a 2
 percentile, which means all annotations having a Wyatt Clark Information
 content below 2% will be removed. Instead of providing a percentage
-value, one can also provide a threshold value using the argument
+value, user can also provide a threshold value using the argument
 `-WCTHRESH`. In addition to that, those annotations will be removed which
 have been annotated by references that have annotated more than
 100 proteins in a single paper. The output will be saved in the current directory. It is
 necessary to have `-recal 1` in this command since the GO Term to IC mapping has not been created yet. Subsequent runs for the same data with different threshold values is possible without providing the argument `-recal`, however for new data files, use `-recal 1`.
-This command will generate 3 output files. One each for the two organisms
-and the third one is where both the organisms are combined. 
+This command will generate 3 output files - one file each for the two organisms,
+and the third one is a file where annotations for both the organisms are combined into a single file. 
 
 2. ```$ gothresher -i ExampleData/goa_exampleYeast.gaf ExampleData/goa_exampleDicty.gaf -a C P -PLTHRESHp 30 -e EXPEC IBA -odir ExampleData/output -single 1```
 
-This command will read from two input files, select CCO and BPO
+This command will reads two input files, select "CCO" and "BPO"
 annotations. Further, it will choose only those annotations which
-have been made experimentally or have been annotated computationally as
+have been made experimentally "EXPEC" or have been annotated computationally as
 "IBA" (Inferred from Biological aspect of Ancestor). In addition to that
 it will discard all annotations which have a Phillip Lord information
-content less than 30%. Instead of providing a percentage value one can
+content less than 30%. Instead of providing a percentage value user can
 also provide a threshold value using the argument `-PLTHRESH`. The final
-output will be put inside the `data/output` directory. You can include non
+output will be generated inside the `data/output` directory. User can include non
 existent paths. The program will attempt to create the folders if
-required permissions are present. This will lead to only one file, since
+required permissions are present. This will lead to only one output file, since
 the `-single 1` argument has been provided, which will contain all the
 selected annotations from both the organisms. 
 
 3. ```$ gothresher -cattn 1000 -i ExampleData/goa_exampleYeast.gaf ExampleData/goa_exampleDicty.gaf -a C P -einv COMPEC -pref testing -selrefinv Reactome```
 
-This command will read from two input files, select "CCO" and "BPO"
+This command will read two input files, select "CCO" and "BPO"
 annotations. Further, it will discard those annotations which have
 been made computationally. The program further filters out all
 annotations made by "Reactome". All files will be prefixed with the
@@ -315,7 +315,7 @@ Unit tests are provided inside the directory `tests`. Please note, if GOThresher
 
 #### Required files:
 
-You can download the entire GOThresher repository (Recommended):
+Download the entire GOThresher repository (Recommended):
 ```
 $ git clone https://github.com/FriedbergLab/GOThresher
 $ cd GOThresher/tests
