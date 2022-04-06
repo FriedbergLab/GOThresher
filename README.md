@@ -2,7 +2,7 @@
 
 # GOThresher: a program to remove annotation biases from protein function annotation datasets
 
-GOThresher removes annotation bias from [GAF](http://www.geneontology.org/page/go-annotation-file-formats) files based on annotation information content, GO evidence, annotation source, number of proteins annotated from a given source, and date.  GOThresher accepts one or more GAF files as input. The motivation for GAF lies in the observation that many organism annotations are biased due to high throughput experimental studies ([1](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003063)). Removing such annotation biases can help present a more balanaced picture of protein annotations for a given organism or set of proteins.  
+GOThresher removes annotation bias from [GAF](http://www.geneontology.org/page/go-annotation-file-formats) files based on annotation information content, GO evidence, annotation source, number of proteins annotated from a given source, and date.  GOThresher accepts one or more GAF files as input. The motivation for GAF lies in the observation that many organism annotations are biased due to high throughput experimental studies ([1](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003063)). Removing such annotation biases can help present a more balanced picture of protein annotations for a given organism or set of proteins.  
 
 -------------
 
@@ -21,7 +21,7 @@ Modules can be automatically installed using `pip`, or obtained from their respe
 
 ### Required files:
 
-GoThresher requires an obo formatted version of the Gene Ontology. Depending on your needs, this would usually be one of [go-basic.obo](http://purl.obolibrary.org/obo/go/go-basic.obo) or [go.obo](http://purl.obolibrary.org/obo/go.obo). For more details and to download either the most recent daily version or the latest version go to the [Gene Ontology website](http://geneontology.org/page/download-ontology). 
+GOThresher requires an obo formatted version of the Gene Ontology. Depending on your needs, this would usually be one of [go-basic.obo](http://purl.obolibrary.org/obo/go/go-basic.obo) or [go.obo](http://purl.obolibrary.org/obo/go.obo). For more details and to download either the most recent daily version or the latest version go to the [Gene Ontology website](http://geneontology.org/page/download-ontology). 
 
 <!--
 A program debias_prep.py has been provided in the package. This program builds the graphs for each of the ontologies and puts them in three different files. Hence the .obo files are not needed. This program has been provided so that if the hierarchy changes then this program can be used to regenerate the  files. In addition to the three hierarchy graphs for the three ontologies it also generates the mapping for alternate GO_ID to actual GO_ID. It also generates the mapping from one GO_ID to all its ancestors. 
@@ -31,7 +31,7 @@ A program debias_prep.py has been provided in the package. This program builds t
 
 ## Installation
 
-GOThresher is available on PyPi, so the best way to install GOThresher is through `pip`.
+GOThresher is available on PyPi, so the recommended way to install GOThresher is through `pip`. Do note, this approach will not download any data files that are available on GitHub. User will have to clone the repository separately. 
 
 You can install GOThresher by running:
 ```
@@ -47,7 +47,7 @@ $ pip install git+git://github.com/FriedbergLab/GOThresher
 Alternatively, it is possible to **manually download** from GitHub or **clone the repository** using the following command:
 ```
 $ git clone https://github.com/FriedbergLab/GOThresher
-$ cd debias
+$ cd GOThresher
 ```
 and install GOThresher by running: 
 ```
@@ -264,40 +264,38 @@ this command every time you update GOFILE.
 
 1. ```$ gothresher -cprot 100 -i ExampleData/goa_exampleYeast.gaf ExampleData/goa_exampleDicty.gaf -a C -WCTHRESHp 2 -recal 1```
 
-This command reads from two input files one for yeast and the other for
-dicty. The -a C only selects the annotations which are CCO. The
--WCTHRESHp argument specifies that the Wyatt Clark Threshold is a 2
+This command reads two input files - one for yeast and the other for
+dicty. The `-a C` only selects the annotations which are "CCO". The
+`-WCTHRESHp` argument specifies that the Wyatt Clark Threshold is a 2
 percentile, which means all annotations having a Wyatt Clark Information
 content below 2% will be removed. Instead of providing a percentage
-value one can also provide a threshold value using the argument
--WCTHRESH. In addition to that, those annotations will be removed which
-have been annotated by references that have in turn annotated more than
-100 **proteins**. The output will be put in the current directory. It is
-necessary to have -recal 1 in this command since the GO_term to IC has
-to be created. Subsequent runs with different threshold and all other
-parameters fised is possible **WITHOUT** providing the argument -recal.
-This command will lead to 3 output files. One each for the two organisms
+value, one can also provide a threshold value using the argument
+`-WCTHRESH`. In addition to that, those annotations will be removed which
+have been annotated by references that have annotated more than
+100 proteins in a single paper. The output will be saved in the current directory. It is
+necessary to have `-recal 1` in this command since the GO Term to IC mapping has not been created yet. Subsequent runs for the same data with different threshold values is possible without providing the argument `-recal`, however for new data files, use `-recal 1`.
+This command will generate 3 output files. One each for the two organisms
 and the third one is where both the organisms are combined. 
 
 2. ```$ gothresher -i ExampleData/goa_exampleYeast.gaf ExampleData/goa_exampleDicty.gaf -a C P -PLTHRESHp 30 -e EXPEC IBA -odir ExampleData/output -single 1```
 
 This command will read from two input files, select CCO and BPO
-annotations. Further, it will **choose** only those annotations which
+annotations. Further, it will choose only those annotations which
 have been made experimentally or have been annotated computationally as
 "IBA" (Inferred from Biological aspect of Ancestor). In addition to that
 it will discard all annotations which have a Phillip Lord information
 content less than 30%. Instead of providing a percentage value one can
-also provide a threshold value using the argument -PLTHRESH. The final
-output will be put inside the data/output directory. You can include non
+also provide a threshold value using the argument `-PLTHRESH`. The final
+output will be put inside the `data/output` directory. You can include non
 existent paths. The program will attempt to create the folders if
 required permissions are present. This will lead to only one file, since
-the -single argument has been provided, which will contain all the
+the `-single 1` argument has been provided, which will contain all the
 selected annotations from both the organisms. 
 
 3. ```$ gothresher -cattn 1000 -i ExampleData/goa_exampleYeast.gaf ExampleData/goa_exampleDicty.gaf -a C P -einv COMPEC -pref testing -selrefinv Reactome```
 
-This command will read from two input files, select CCO and BPO
-annotations. Further, it will **discard**  those annotations which have
+This command will read from two input files, select "CCO" and "BPO"
+annotations. Further, it will discard those annotations which have
 been made computationally. The program further filters out all
 annotations made by "Reactome". All files will be prefixed with the
 string "testing". Since the program creates a meaningful name for each
@@ -305,7 +303,30 @@ file, the user has been given the opportunity to give a prefix.
 
 ## Unit testing
 
-Unit tests are provided inside the directory `tests`. They can be run to ensure correct installation and working. Running the test script requires the module `unittest` which can be easily installed as `pip install unittest`. 
+Unit tests are provided inside the directory `tests`. Please note, if GOThresher has been directly installed from PyPi using `pip`, user will have to download relevant files to run the test script separately.
+
+### Prerequisites
+
+#### Required module to run the test script:
+
+* [unittest](https://docs.python.org/3/library/unittest.html)
+
+`unittest` module can be automatically installed using `pip`.
+
+#### Required files:
+
+You can download the entire GOThresher repository (Recommended):
+```
+$ git clone https://github.com/FriedbergLab/GOThresher
+$ cd GOThresher/tests
+```
+OR 
+
+Download the tests directory only: 
+```
+$ svn export https://github.com/FriedbergLab/GOThresher.git/trunk/tests
+$ cd tests
+```
 
 **Run the tests from within the `tests` directory:**
 
@@ -317,15 +338,3 @@ Expected output:
 ```
 OK
 ```
-
-<!--
-### Running test data
-
-To test all the commands mentioned above, you can run the shell script named `test.sh` in the `example_data` directory.
-
-```
-$ git clone https://github.com/FriedbergLab/debias
-$ cd ./debias/example_data
-$ bash test.sh
-```
--->
