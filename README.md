@@ -305,7 +305,7 @@ file, the user has been given the opportunity to give a prefix.
 
 ## Unit testing
 
-Unit tests are provided inside the directory `tests`. Please note, if GOThresher has been directly installed from PyPi using pip, user will have to download relevant files to run the test script separately.
+Unit tests are provided inside the directory `tests`. Please note, if GOThresher has been directly installed from PyPi using `pip`, user will have to download relevant files to run the test script separately.
 
 ### Prerequisites
 
@@ -318,11 +318,18 @@ Unit tests are provided inside the directory `tests`. Please note, if GOThresher
 #### Required files:
 
 You can download the entire GOThresher repository
-
+```
+$ git clone https://github.com/FriedbergLab/GOThresher
+$ cd GOThresher/tests
+```
 OR 
 
 Download only the tests directory 
 
+```
+$ svn export https://github.com/FriedbergLab/GOThresher.git/trunk/tests
+$ cd tests
+```
 
 **Run the tests from within the `tests` directory:**
 
@@ -334,15 +341,3 @@ Expected output:
 ```
 OK
 ```
-
-<!--
-### Running test data
-
-To test all the commands mentioned above, you can run the shell script named `test.sh` in the `example_data` directory.
-
-```
-$ git clone https://github.com/FriedbergLab/debias
-$ cd ./debias/example_data
-$ bash test.sh
-```
--->
