@@ -1,8 +1,8 @@
 Metadata-Version: 2.1
 Name: gothresher
-Version: 1.0.11
-Summary: remove bias from GAF files
-Home-page: https://github.com/FriedbergLab/debias
+Version: 1.0.18
+Summary: Remove annotation bias from GAF files
+Home-page: https://github.com/FriedbergLab/GOThresher
 Author: Parnal Joshi
 Author-email: parnal@iastate.edu
 License: GPLv3
