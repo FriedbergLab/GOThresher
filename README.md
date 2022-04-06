@@ -264,40 +264,40 @@ this command every time you update GOFILE.
 
 1. ```$ gothresher -cprot 100 -i ExampleData/goa_exampleYeast.gaf ExampleData/goa_exampleDicty.gaf -a C -WCTHRESHp 2 -recal 1```
 
-This command reads from two input files one for yeast and the other for
-dicty. The -a C only selects the annotations which are CCO. The
--WCTHRESHp argument specifies that the Wyatt Clark Threshold is a 2
+This command reads from two input files - one for yeast and the other for
+dicty. The `-a C` only selects the annotations which are "CCO". The
+`-WCTHRESHp` argument specifies that the Wyatt Clark Threshold is a 2
 percentile, which means all annotations having a Wyatt Clark Information
 content below 2% will be removed. Instead of providing a percentage
-value one can also provide a threshold value using the argument
--WCTHRESH. In addition to that, those annotations will be removed which
-have been annotated by references that have in turn annotated more than
-100 **proteins**. The output will be put in the current directory. It is
-necessary to have -recal 1 in this command since the GO_term to IC has
+value, one can also provide a threshold value using the argument
+`-WCTHRESH`. In addition to that, those annotations will be removed which
+have been annotated by references that have annotated more than
+100 proteins in a single paper. The output will be put in the current directory. It is
+necessary to have `-recal 1` in this command since the GO_term to IC has
 to be created. Subsequent runs with different threshold and all other
-parameters fised is possible **WITHOUT** providing the argument -recal.
-This command will lead to 3 output files. One each for the two organisms
+parameters fised is possible without providing the argument `-recal`.
+This command will generate 3 output files. One each for the two organisms
 and the third one is where both the organisms are combined. 
 
 2. ```$ gothresher -i ExampleData/goa_exampleYeast.gaf ExampleData/goa_exampleDicty.gaf -a C P -PLTHRESHp 30 -e EXPEC IBA -odir ExampleData/output -single 1```
 
 This command will read from two input files, select CCO and BPO
-annotations. Further, it will **choose** only those annotations which
+annotations. Further, it will choose only those annotations which
 have been made experimentally or have been annotated computationally as
 "IBA" (Inferred from Biological aspect of Ancestor). In addition to that
 it will discard all annotations which have a Phillip Lord information
 content less than 30%. Instead of providing a percentage value one can
-also provide a threshold value using the argument -PLTHRESH. The final
-output will be put inside the data/output directory. You can include non
+also provide a threshold value using the argument `-PLTHRESH`. The final
+output will be put inside the `data/output` directory. You can include non
 existent paths. The program will attempt to create the folders if
 required permissions are present. This will lead to only one file, since
-the -single argument has been provided, which will contain all the
+the `-single 1` argument has been provided, which will contain all the
 selected annotations from both the organisms. 
 
 3. ```$ gothresher -cattn 1000 -i ExampleData/goa_exampleYeast.gaf ExampleData/goa_exampleDicty.gaf -a C P -einv COMPEC -pref testing -selrefinv Reactome```
 
-This command will read from two input files, select CCO and BPO
-annotations. Further, it will **discard**  those annotations which have
+This command will read from two input files, select "CCO" and "BPO"
+annotations. Further, it will discard those annotations which have
 been made computationally. The program further filters out all
 annotations made by "Reactome". All files will be prefixed with the
 string "testing". Since the program creates a meaningful name for each
