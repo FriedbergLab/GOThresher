@@ -3,7 +3,7 @@
 
 # GOThresher: a program to remove annotation biases from protein function annotation datasets
 
-GOThresher removes annotation bias from [GAF](http://www.geneontology.org/page/go-annotation-file-formats) files based on annotation information content, GO evidence, annotation source, number of proteins annotated from a given source, and date.  GOThresher accepts one or more GAF files as input. The motivation for GOThresher lies in the observation that many organism annotations are biased due to high throughput experimental studies ([1](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003063)). Removing such annotation biases can help present a more balanced picture of protein annotations for a given organism or set of proteins.  
+GOThresher removes annotation bias from [GAF](http://www.geneontology.org/page/go-annotation-file-formats) files based on annotation information content, GO evidence, annotation source, number of proteins annotated from a given source, and date.  GOThresher accepts one or more GAF files as input. The motivation for GOThresher lies in the observation that protein function annotations are biased due to high throughput experimental studies ([1](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003063)). Removing such annotation biases can help present a more balanced picture of protein annotations for a given organism or set of proteins.  
 
 -------------
 
@@ -32,7 +32,7 @@ Additionally, a config file that defines parameters to generate mapping files is
 
 ## Installation
 
-GOThresher is available on PyPi, so the recommended way to install GOThresher is through `pip`. Do note, this approach will not download any data and config files that are available on GitHub. User will have to clone the repository separately to download files required to run GOThresher. 
+GOThresher is available on PyPi, so the recommended way to install GOThresher is through `pip`. Do note, this approach will not download any data and config files that are available on GitHub. User will have to clone the repository separately to download example data and files required to run GOThresher. 
 
 You can install GOThresher by running:
 ```
@@ -202,7 +202,7 @@ optional arguments:
   --info_threshold_Phillip_Lord_percentile INFO_THRESHOLD_PHILLIP_LORD_PERCENTILE, -PLTHRESHp INFO_THRESHOLD_PHILLIP_LORD_PERCENTILE
                         Provide the percentile p. All annotations having
                         information content below p will be discarded. So if 5 is provided, proteins annotated by 
-                        terms whose score is in the top 5%  will be  left in, the rest will be discarded.
+                        terms whose score is in the bottom 5% will be discarded.
   --info_threshold_Phillip_Lord INFO_THRESHOLD_PHILLIP_LORD, -PLTHRESH INFO_THRESHOLD_PHILLIP_LORD
                         Provide a  value t. All annotations having
                         information content below t will be discarded
@@ -280,9 +280,9 @@ this command every time you update GOFILE.
 1. ```$ gothresher -cprot 100 -i ExampleData/goa_exampleYeast.gaf ExampleData/goa_exampleDicty.gaf -a C -WCTHRESHp 2 -recal 1```
 
 This command reads two input files - one for yeast and the other for
-dicty. The `-a C` selects the annotations which are only "CCO". The
-`-WCTHRESHp` argument specifies that the Wyatt Clark Threshold is a 2
-percentile, which means all annotations having a Wyatt Clark Information
+dicty. The `-a C` selects the annotations which are only "CCO". 
+The `-WCTHRESHp` argument specifies that the Wyatt Clark Threshold is 2
+percent, which means all annotations having a Wyatt Clark Information
 content below 2% will be removed. Instead of providing a percentage
 value, user can also provide a threshold value using the argument
 `-WCTHRESH`. In addition to that, those annotations will be removed which
