@@ -26,7 +26,7 @@ If GOthresher is installed using conda, none of the above pre-requisites are nee
 
 GOThresher requires an obo formatted version of the Gene Ontology. Depending on your needs, this would usually be one of [go-basic.obo](http://purl.obolibrary.org/obo/go/go-basic.obo) or [go.obo](http://purl.obolibrary.org/obo/go.obo). For more details and to download either the most recent daily version or the latest version go to the [Gene Ontology website](http://geneontology.org/page/download-ontology). 
 
-Additionally, a config file that defines parameters to generate mapping files is required. This will be a `.ini.` file, which can be downloaded from [here](https://github.com/FriedbergLab/GOThresher/blob/master/gothresher.ini). If user clones this repository in the following installation step, the `.ini.` and `ExampleData/go.obo` files will be included.
+Additionally, a config file that defines parameters to generate mapping files is required. This will be a `.ini` file, which can be downloaded from [here](https://github.com/FriedbergLab/GOThresher/blob/master/gothresher.ini). If user clones this repository in the following installation step, the `.ini` and `ExampleData/go.obo` files will be included.
 
 -------------
 
