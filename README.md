@@ -301,7 +301,7 @@ have been made experimentally "EXPEC" or have been annotated computationally as
 it will discard all annotations which have a Phillip Lord information
 content less than 30%. Instead of providing a percentage value user can
 also provide a threshold value using the argument `-PLTHRESH`. The final
-output will be generated inside the `data/output` directory. User can include non
+output will be generated inside the `ExampleData/output` directory. User can include non
 existent paths. The program will attempt to create the folders if
 required permissions are present. This will lead to only one output file, since
 the `-single 1` argument has been provided, which will contain all the
