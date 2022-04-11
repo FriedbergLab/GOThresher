@@ -318,7 +318,7 @@ file, the user has been given the opportunity to give a prefix.
 
 ## Unit testing
 
-Unit tests are provided inside the directory `tests`. Please note, if GOThresher has been directly installed from PyPi using `pip`, user will have to download relevant files to run the test script separately.
+Unit tests are provided inside the directory `tests`. Please note, if GOThresher has been directly installed from PyPi using `pip`, or using `conda`, user will have to download relevant files to run the test script separately.
 
 ### Prerequisites
 
