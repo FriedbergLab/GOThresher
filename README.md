@@ -20,6 +20,8 @@ GOThresher requires Python 3.5 or newer with the following libraries installed:
 
 Modules can be automatically installed using `pip`, or obtained from their respective websites.
 
+If GOthresher is installed using conda, none of the above pre-requisites are needed.
+
 ### Required files:
 
 GOThresher requires an obo formatted version of the Gene Ontology. Depending on your needs, this would usually be one of [go-basic.obo](http://purl.obolibrary.org/obo/go/go-basic.obo) or [go.obo](http://purl.obolibrary.org/obo/go.obo). For more details and to download either the most recent daily version or the latest version go to the [Gene Ontology website](http://geneontology.org/page/download-ontology). 
@@ -43,6 +45,23 @@ $ pip install git+git://github.com/FriedbergLab/GOThresher
 ```
 -->
 
+GOThresher can be installed using conda. Please note, user will have to download config and `.obo` files required to run GOThresher separately from the GitHub.  
+
+You can install GOThresher by running
+```
+$ conda install -c parnaljoshi gothresher
+```
+
+It is recommended to create an isolated conda environment and install GOThresher into it. This allows having the correct version of all the dependencies isolated from the system's Python installation.
+```
+$ conda create --name gth -c parnaljoshi python=3.7 gothresher
+```
+
+Before using GOThresher, you should activate the environment:
+```
+$ conda activate gth
+```
+
 Alternatively, it is possible to **manually download** from GitHub or **clone the repository** using the following command:
 ```
 $ git clone https://github.com/FriedbergLab/GOThresher
@@ -52,7 +71,6 @@ and install GOThresher by running:
 ```
 $ pip install .
 ```
-
 -------------
 
 ## Generate initial mapping files
