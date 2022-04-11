@@ -1,5 +1,5 @@
 {% set name = "gothresher" %}
-{% set version = "1.0.18" %}
+{% set version = "1.0.21" %}
 
 package:
   name: "{{ name|lower }}"
@@ -37,10 +37,12 @@ requirements:
     - python
     - xlsxwriter
 
-#test:
-#  commands:
-#    - gothresher -help
-#    - gothresher_prep -help
+test:
+  imports:
+    - gothresher
+  commands:
+    - gothresher_prep --help
+    - gothresher --help
 
 about:
   home: "https://github.com/FriedbergLab/GOThresher"

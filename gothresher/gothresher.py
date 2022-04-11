@@ -1108,6 +1108,7 @@ def init_globals(gothresh_ini_file="gothresher.ini"):
     config = configparser.ConfigParser()
     config.read(gothresh_ini_file)
     # print("in init_globals")
+    # print(config.sections())
     global FILE_ALTERNATE_ID_TO_ID_MAPPING 
     global FILE_CAFA_ID_TO_UNIPROT_ID_MAP 
     global FILE_MFO_ONTOLOGY_GRAPH
@@ -1132,12 +1133,13 @@ def init_globals(gothresh_ini_file="gothresher.ini"):
 
 def main():
     global verbose, options, report
-    init_globals()
+    # init_globals()
     command_line_arg = sys.argv
     if len(command_line_arg) == 1:
         print("Please use the --help option to get usage information")
     # Parse command line arguments
     options = parse_command_line_arguments()
+    init_globals()
     if options.recalculate != 0 and (
             options.info_threshold_Wyatt_Clark is None and options.info_threshold_Wyatt_Clark_percentile is None):
         print("Error in arguments. You must provide Wyatt Clark in order to recalculate")

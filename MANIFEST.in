@@ -1,10 +1,15 @@
 # Include the license file
 include LICENSE
+
 # Include the CHANGE file
 include CHANGES.txt
+
 # Include the README file
 include README.md
 
+# Include the ini file
+include gothresher.ini
+
 
 # Include the data files
-recursive-include data *
+recursive-include onto *
