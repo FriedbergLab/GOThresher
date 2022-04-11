@@ -24,11 +24,13 @@ Modules can be automatically installed using `pip`, or obtained from their respe
 
 GOThresher requires an obo formatted version of the Gene Ontology. Depending on your needs, this would usually be one of [go-basic.obo](http://purl.obolibrary.org/obo/go/go-basic.obo) or [go.obo](http://purl.obolibrary.org/obo/go.obo). For more details and to download either the most recent daily version or the latest version go to the [Gene Ontology website](http://geneontology.org/page/download-ontology). 
 
+Additionally, a config file that defines parameters to generate mapping files is required. This will be a `.ini.` file, which can be downloaded from [here](https://github.com/FriedbergLab/GOThresher/blob/master/gothresher.ini). If user clones this repository in the following installation step, the `.ini.` will be included.
+
 -------------
 
 ## Installation
 
-GOThresher is available on PyPi, so the recommended way to install GOThresher is through `pip`. Do note, this approach will not download any data files that are available on GitHub. User will have to clone the repository separately. 
+GOThresher is available on PyPi, so the recommended way to install GOThresher is through `pip`. Do note, this approach will not download any data and config files that are available on GitHub. User will have to clone the repository separately to download files required to run GOThresher. 
 
 You can install GOThresher by running:
 ```
@@ -98,7 +100,7 @@ Following files will be generated within the user specified `<onto_dir>` folder:
 
 1. Download the latest `go.obo` or `go-basic.obo` file from http://www.geneontology.org/ontology/ 
 
-2. Run the program `gothresher_prep` program and provide the downloaded `obo` file as well as the config file included in this repository. See the usage details [here](https://github.com/parnaljoshi/debias#generate-initial-mapping-files). This program needs to be run only when a new `obo` file needs to be used.
+2. Run the program `gothresher_prep` program and provide the downloaded `obo` file as well as the config file included in this repository. See the usage details [here](https://github.com/FriedbergLab/GOThresher#generate-initial-mapping-files). This program needs to be run only when a new `obo` file needs to be used.
 
 3. Run the program `gothresher` 
 
