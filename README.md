@@ -326,7 +326,7 @@ Unit tests are provided inside the directory `tests`. Please note, if GOThresher
 
 * [unittest](https://docs.python.org/3/library/unittest.html)
 
-`unittest` has been built into the Python standard library.
+`unittest` has been built into the Python standard library, and therefore comes packaged with Python.
 
 #### Required files:
 
