@@ -71,6 +71,9 @@ and install GOThresher by running:
 ```
 $ pip install .
 ```
+
+After installation, follow the steps described below for detailed instructions about how to use GOThresher. Alternatively, you can jump to [example usage](https://github.com/FriedbergLab/GOThresher/blob/master/README.md#example-usage)
+
 -------------
 
 ## Generate initial mapping files
