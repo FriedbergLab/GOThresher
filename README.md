@@ -54,7 +54,7 @@ $ conda install -c bioconda gothresher
 
 It is recommended to create an isolated conda environment and install GOThresher into it. This allows having the correct version of all the dependencies isolated from the system's Python installation.
 ```
-$ conda create --name gth -c bioconda python=3.7 gothresher
+$ conda create --name gth -c bioconda gothresher
 ```
 
 Before using GOThresher, you should activate the environment:
