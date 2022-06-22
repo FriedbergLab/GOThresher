@@ -3,7 +3,7 @@
 
 # GOThresher: a program to remove annotation biases from protein function annotation datasets
 
-GOThresher removes annotation bias from [GAF](http://www.geneontology.org/page/go-annotation-file-formats) files based on annotation information content, GO evidence, annotation source, number of proteins annotated from a given source, and date.  GOThresher accepts one or more GAF files as input. The motivation for GOThresher lies in the observation that protein function annotations are biased due to high throughput experimental studies ([1](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003063)). Removing such annotation biases can help present a more balanced picture of protein annotations for a given organism or set of proteins.  
+GOThresher removes annotation bias from [GAF](http://www.geneontology.org/page/go-annotation-file-formats) files based on GO term information content, GO evidence, annotation source, number of proteins annotated from a given source, and date.  GOThresher accepts one or more GAF files as input. The motivation for GOThresher lies in the observation that protein function annotations are biased due to high throughput experimental studies ([1](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003063)). Removing such annotation biases can help present a more balanced picture of protein annotations for a given organism or set of proteins.  
 
 -------------
 
@@ -20,7 +20,7 @@ GOThresher requires Python 3.5 or newer with the following libraries installed:
 
 Modules can be automatically installed using `pip`, or obtained from their respective websites.
 
-If GOthresher is installed using conda, none of the above pre-requisites are needed.
+If GOThresher is installed using conda, none of the above pre-requisites are needed.
 
 ### Required files:
 
@@ -87,7 +87,7 @@ $ gothresher_prep -c <CONFIGFILE> -i <GOFILE>
 ```
 
 ### Config file:
-`<CONFIGFILE>` will be a `.ini.` file that defines parameters to generate mapping files.
+`<CONFIGFILE>` will be a `.ini` file that defines parameters to generate mapping files.
 - `onto_dir`: Name of output directory where the mapping files will be saved. Default is set to `onto` but can be changed as per user preferences.
 - `root_bpo`: GO ID for the root term of BPO graph
 - `root_cco`: GO ID for the root term of CCO graph
@@ -97,8 +97,8 @@ $ gothresher_prep -c <CONFIGFILE> -i <GOFILE>
 `<GOFILE>` will usually be one of `go.obo` or `go-basic.obo`.
 
 `gothresher_prep` will generate seven files in total:
-1. Three files corresponds to the three ontologies
-2. Three files corresponds to the mapping between each GO_term and its ancestors in its own respective ontology
+1. Three files corresponding to the three ontologies
+2. Three files corresponding to the mapping between each GO term and its ancestors in its own respective ontology
 3. One file containing mapping from alternate GO_ID to actual GO_ID. 
  
 IMPORTANT: This command needs to be run again when a new version of ontology is available and updated graphs/mapping files need to be used for analysis. In that case, please use `gothresher_prep` after downloading a new go.obo file.
@@ -121,7 +121,7 @@ Following files will be generated within the user specified `<onto_dir>` folder:
 
 1. Download the latest `go.obo` or `go-basic.obo` file from http://www.geneontology.org/ontology/ 
 
-2. Run the program `gothresher_prep` program and provide the downloaded `obo` file as well as the config file included in this repository. See the usage details [here](https://github.com/FriedbergLab/GOThresher#generate-initial-mapping-files). This program needs to be run only when a new `obo` file needs to be used.
+2. Run the program `gothresher_prep` and provide the downloaded `obo` file as well as the config file included in this repository. See the usage details [here](https://github.com/FriedbergLab/GOThresher#generate-initial-mapping-files). This program needs to be run only when a new `obo` file needs to be used.
 
 3. Run the program `gothresher` 
 
