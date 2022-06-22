@@ -49,12 +49,12 @@ GOThresher can be installed using conda. Please note, user will have to download
 
 You can install GOThresher by running
 ```
-$ conda install -c parnaljoshi gothresher
+$ conda install -c bioconda gothresher
 ```
 
 It is recommended to create an isolated conda environment and install GOThresher into it. This allows having the correct version of all the dependencies isolated from the system's Python installation.
 ```
-$ conda create --name gth -c parnaljoshi python=3.7 gothresher
+$ conda create --name gth -c bioconda python=3.7 gothresher
 ```
 
 Before using GOThresher, you should activate the environment:
