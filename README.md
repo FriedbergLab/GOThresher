@@ -1,9 +1,9 @@
 [![install with conda](https://anaconda.org/parnaljoshi/gothresher/badges/installer/conda.svg)](https://anaconda.org/parnaljoshi/gothresher)
-[![GOThresher Test](https://github.com/Pranavkhade/GOThresher/actions/workflows/python-package.yml/badge.svg)](https://github.com/Pranavkhade/GOThresher/actions/workflows/python-package.yml)
+[![GOThresher Test](https://github.com/FriedbergLab/GOThresher/actions/workflows/python-package.yml/badge.svg)](https://github.com/FriedbergLab/GOThresher/actions/workflows/python-package.yml)
 
 # GOThresher: a program to remove annotation biases from protein function annotation datasets
 
-GOThresher removes annotation bias from [GAF](http://www.geneontology.org/page/go-annotation-file-formats) files based on annotation information content, GO evidence, annotation source, number of proteins annotated from a given source, and date.  GOThresher accepts one or more GAF files as input. The motivation for GOThresher lies in the observation that many organism annotations are biased due to high throughput experimental studies ([1](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003063)). Removing such annotation biases can help present a more balanced picture of protein annotations for a given organism or set of proteins.  
+GOThresher removes annotation bias from [GAF](http://www.geneontology.org/page/go-annotation-file-formats) files based on GO term information content, GO evidence, annotation source, number of proteins annotated from a given source, and date.  GOThresher accepts one or more GAF files as input. The motivation for GOThresher lies in the observation that protein function annotations are biased due to high throughput experimental studies ([1](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003063)). Removing such annotation biases can help present a more balanced picture of protein annotations for a given organism or set of proteins.  
 
 -------------
 
@@ -20,19 +20,19 @@ GOThresher requires Python 3.5 or newer with the following libraries installed:
 
 Modules can be automatically installed using `pip`, or obtained from their respective websites.
 
-If GOthresher is installed using conda, none of the above pre-requisites are needed.
+If GOThresher is installed using conda, none of the above pre-requisites are needed.
 
 ### Required files:
 
 GOThresher requires an obo formatted version of the Gene Ontology. Depending on your needs, this would usually be one of [go-basic.obo](http://purl.obolibrary.org/obo/go/go-basic.obo) or [go.obo](http://purl.obolibrary.org/obo/go.obo). For more details and to download either the most recent daily version or the latest version go to the [Gene Ontology website](http://geneontology.org/page/download-ontology). 
 
-Additionally, a config file that defines parameters to generate mapping files is required. This will be a `.ini.` file, which can be downloaded from [here](https://github.com/FriedbergLab/GOThresher/blob/master/gothresher.ini). If user clones this repository in the following installation step, the `.ini.` and `ExampleData/go.obo` files will be included.
+Additionally, a config file that defines parameters to generate mapping files is required. This will be a `.ini` file, which can be downloaded from [here](https://github.com/FriedbergLab/GOThresher/blob/master/gothresher.ini). If user clones this repository in the following installation step, the `.ini` and `ExampleData/go.obo` files will be included.
 
 -------------
 
 ## Installation
 
-GOThresher is available on PyPi, so the recommended way to install GOThresher is through `pip`. Do note, this approach will not download any data and config files that are available on GitHub. User will have to clone the repository separately to download files required to run GOThresher. 
+GOThresher is available on PyPi, so the recommended way to install GOThresher is through `pip`. Do note, this approach will not download any data and config files that are available on GitHub. User will have to clone the repository separately to download example data and files required to run GOThresher. 
 
 You can install GOThresher by running:
 ```
@@ -49,12 +49,12 @@ GOThresher can be installed using conda. Please note, user will have to download
 
 You can install GOThresher by running
 ```
-$ conda install -c parnaljoshi gothresher
+$ conda install -c bioconda gothresher
 ```
 
 It is recommended to create an isolated conda environment and install GOThresher into it. This allows having the correct version of all the dependencies isolated from the system's Python installation.
 ```
-$ conda create --name gth -c parnaljoshi python=3.7 gothresher
+$ conda create --name gth -c bioconda gothresher
 ```
 
 Before using GOThresher, you should activate the environment:
@@ -71,6 +71,9 @@ and install GOThresher by running:
 ```
 $ pip install .
 ```
+
+After installation, follow the steps described below for detailed instructions about how to use GOThresher. Alternatively, you can jump to [example usage](https://github.com/FriedbergLab/GOThresher/blob/master/README.md#example-usage)
+
 -------------
 
 ## Generate initial mapping files
@@ -84,7 +87,7 @@ $ gothresher_prep -c <CONFIGFILE> -i <GOFILE>
 ```
 
 ### Config file:
-`<CONFIGFILE>` will be a `.ini.` file that defines parameters to generate mapping files.
+`<CONFIGFILE>` will be a `.ini` file that defines parameters to generate mapping files.
 - `onto_dir`: Name of output directory where the mapping files will be saved. Default is set to `onto` but can be changed as per user preferences.
 - `root_bpo`: GO ID for the root term of BPO graph
 - `root_cco`: GO ID for the root term of CCO graph
@@ -94,8 +97,8 @@ $ gothresher_prep -c <CONFIGFILE> -i <GOFILE>
 `<GOFILE>` will usually be one of `go.obo` or `go-basic.obo`.
 
 `gothresher_prep` will generate seven files in total:
-1. Three files corresponds to the three ontologies
-2. Three files corresponds to the mapping between each GO_term and its ancestors in its own respective ontology
+1. Three files corresponding to the three ontologies
+2. Three files corresponding to the mapping between each GO term and its ancestors in its own respective ontology
 3. One file containing mapping from alternate GO_ID to actual GO_ID. 
  
 IMPORTANT: This command needs to be run again when a new version of ontology is available and updated graphs/mapping files need to be used for analysis. In that case, please use `gothresher_prep` after downloading a new go.obo file.
@@ -118,7 +121,7 @@ Following files will be generated within the user specified `<onto_dir>` folder:
 
 1. Download the latest `go.obo` or `go-basic.obo` file from http://www.geneontology.org/ontology/ 
 
-2. Run the program `gothresher_prep` program and provide the downloaded `obo` file as well as the config file included in this repository. See the usage details [here](https://github.com/FriedbergLab/GOThresher#generate-initial-mapping-files). This program needs to be run only when a new `obo` file needs to be used.
+2. Run the program `gothresher_prep` and provide the downloaded `obo` file as well as the config file included in this repository. See the usage details [here](https://github.com/FriedbergLab/GOThresher#generate-initial-mapping-files). This program needs to be run only when a new `obo` file needs to be used.
 
 3. Run the program `gothresher` 
 
@@ -199,7 +202,7 @@ optional arguments:
   --info_threshold_Phillip_Lord_percentile INFO_THRESHOLD_PHILLIP_LORD_PERCENTILE, -PLTHRESHp INFO_THRESHOLD_PHILLIP_LORD_PERCENTILE
                         Provide the percentile p. All annotations having
                         information content below p will be discarded. So if 5 is provided, proteins annotated by 
-                        terms whose score is in the top 5%  will be  left in, the rest will be discarded.
+                        terms whose score is in the bottom 5% will be discarded.
   --info_threshold_Phillip_Lord INFO_THRESHOLD_PHILLIP_LORD, -PLTHRESH INFO_THRESHOLD_PHILLIP_LORD
                         Provide a  value t. All annotations having
                         information content below t will be discarded
@@ -277,9 +280,9 @@ this command every time you update GOFILE.
 1. ```$ gothresher -cprot 100 -i ExampleData/goa_exampleYeast.gaf ExampleData/goa_exampleDicty.gaf -a C -WCTHRESHp 2 -recal 1```
 
 This command reads two input files - one for yeast and the other for
-dicty. The `-a C` selects the annotations which are only "CCO". The
-`-WCTHRESHp` argument specifies that the Wyatt Clark Threshold is a 2
-percentile, which means all annotations having a Wyatt Clark Information
+dicty. The `-a C` selects the annotations which are only "CCO". 
+The `-WCTHRESHp` argument specifies that the Wyatt Clark Threshold is 2
+percent, which means all annotations having a Wyatt Clark Information
 content below 2% will be removed. Instead of providing a percentage
 value, user can also provide a threshold value using the argument
 `-WCTHRESH`. In addition to that, those annotations will be removed which
@@ -298,7 +301,7 @@ have been made experimentally "EXPEC" or have been annotated computationally as
 it will discard all annotations which have a Phillip Lord information
 content less than 30%. Instead of providing a percentage value user can
 also provide a threshold value using the argument `-PLTHRESH`. The final
-output will be generated inside the `data/output` directory. User can include non
+output will be generated inside the `ExampleData/output` directory. User can include non
 existent paths. The program will attempt to create the folders if
 required permissions are present. This will lead to only one output file, since
 the `-single 1` argument has been provided, which will contain all the
@@ -315,7 +318,7 @@ file, the user has been given the opportunity to give a prefix.
 
 ## Unit testing
 
-Unit tests are provided inside the directory `tests`. Please note, if GOThresher has been directly installed from PyPi using `pip`, user will have to download relevant files to run the test script separately.
+Unit tests are provided inside the directory `tests`. Please note, if GOThresher has been directly installed from PyPi using `pip`, or using `conda`, user will have to download relevant files to run the test script separately.
 
 ### Prerequisites
 
@@ -323,7 +326,7 @@ Unit tests are provided inside the directory `tests`. Please note, if GOThresher
 
 * [unittest](https://docs.python.org/3/library/unittest.html)
 
-`unittest` module can be automatically installed using `pip`.
+`unittest` has been built into the Python standard library, and therefore comes packaged with Python.
 
 #### Required files:
 
