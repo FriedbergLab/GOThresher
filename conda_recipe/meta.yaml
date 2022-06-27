@@ -1,5 +1,5 @@
 {% set name = "gothresher" %}
-{% set version = "1.0.21" %}
+{% set version = "1.0.22" %}
 
 package:
   name: "{{ name|lower }}"
@@ -7,7 +7,7 @@ package:
 
 source:
   url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
-  # sha256: 78c1ebc86461926d68f0616197ccb42703529696b2464ba47e50212d0a870870
+  sha256: 78c1ebc86461926d68f0616197ccb42703529696b2464ba47e50212d0a870870
   path: ..
 
 build:
@@ -22,7 +22,7 @@ requirements:
   host:
     - python
     - biopython
-    - matplotlib
+    - matplotlib-base
     - networkx
     - numpy
     - pip
@@ -46,7 +46,7 @@ test:
 
 about:
   home: "https://github.com/FriedbergLab/GOThresher"
-  license: "GNU General Public v3 (GPLv3)"
+  license: GNU General Public v3 (GPLv3)
   license_family: GPL3
   license_file: 
   summary: "remove bias from GAF files"
@@ -55,4 +55,4 @@ about:
 
 extra:
   recipe-maintainers:
-    - your-github-id-here
+    - FriedbergLab

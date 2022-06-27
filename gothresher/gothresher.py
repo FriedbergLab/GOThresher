@@ -732,11 +732,11 @@ def calculate_wyatt_clark_information_content(data, recal, crisp, percentile_val
     # vprint("Wyatt Clark Threshold",threshold,min(ia),max(ia))
     new_data = {}
 
-    if crisp is not None:
-        num_bins = 10
+    # if crisp is not None:
+    #     num_bins = 10
         # the histogram of the data
-        n, bins, patches = plt.hist(ia, num_bins, facecolor='green', alpha=0.9)
-        plt.show()
+    #     n, bins, patches = plt.hist(ia, num_bins, facecolor='green', alpha=0.9)
+    #     plt.show()
     for attnid in data:
         annotation = data[attnid]
         # vprint(ontology_to_ia_map[annotation["GO_ID"]])
@@ -1089,13 +1089,13 @@ def parse_command_line_arguments():
                              "please make sure your path ends with a '/'. Otherwise the program will assume the last "
                              "string after the final '/' as the name of the report file. A single report file will be "
                              "generated. Information for each species will be put into individual worksheets.")
-    parser.add_argument('--histogram', '-hist',
-                        help="Set this option to 1 if you wish to view the histogram of GO_TERM frequency before and "
-                             "after debiasing is performed with respect to cutoffs based on number of proteins or "
-                             "annotations. If you wish to save the file then please enter a filepath. If you are "
-                             "providing a path please make sure your path ends with a '/'. Otherwise the program will "
-                             "assume the last string after the final '/' as the name of the image file. Separate "
-                             "histograms will be generated for each species.")
+    # parser.add_argument('--histogram', '-hist',
+    #                    help="Set this option to 1 if you wish to view the histogram of GO_TERM frequency before and "
+    #                         "after debiasing is performed with respect to cutoffs based on number of proteins or "
+    #                         "annotations. If you wish to save the file then please enter a filepath. If you are "
+    #                         "providing a path please make sure your path ends with a '/'. Otherwise the program will "
+    #                         "assume the last string after the final '/' as the name of the image file. Separate "
+    #                         "histograms will be generated for each species.")
 
     args = parser.parse_args()
     return args
@@ -1258,11 +1258,11 @@ def main():
                 else:
                     report_row.append("Annotation Cut off")
                 report_row.append(count_proteins(data))
-            if options.histogram is not None:
+            # if options.histogram is not None:
                 prev_go_term_freq = freq_go_term(data)
                 # write_contents_to_file(prev_go_term_freq, "PrevInterimFile")
-            data = choose_proteins_based_on_publications(data, options.cutoff_prot, options.cutoff_attn)
-            if options.histogram is not None:
+            # data = choose_proteins_based_on_publications(data, options.cutoff_prot, options.cutoff_attn)
+            # if options.histogram is not None:
                 later_go_term_freq = freq_go_term(data)
                 # write_contents_to_file(later_go_term_freq, "laterInterimFile")
                 # generate_histogram(options, data, eachinputfile, prev_go_term_freq, later_go_term_freq,
