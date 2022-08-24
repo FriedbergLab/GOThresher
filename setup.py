@@ -22,10 +22,11 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='1.0.24',
+    version='1.0.26',
 
-    description='Remove annotation bias from GAF files',
-    # long_description=long_description,
+    description='GOThresher: a program to remove annotation biases from protein function annotation datasets',
+    
+    long_description='GOThresher removes annotation bias from GAF files based on GO term information content, GO evidence, annotation source, number of proteins annotated from a given source, and date. GOThresher accepts one or more GAF files as input. The motivation for GOThresher lies in the observation that protein function annotations are biased due to high throughput experimental studies. Removing such annotation biases can help present a more balanced picture of protein annotations for a given organism or set of proteins.',
 
     # The project's main homepage.
     url='https://github.com/FriedbergLab/GOThresher',
