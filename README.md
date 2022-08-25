@@ -36,11 +36,11 @@ There are three different ways to install GOThresher:
 
 **1. Installation using `pip`:**
 
-GOThresher is available on PyPi, so the recommended way to install GOThresher is through `pip`. You can install GOThresher by running:
+GOThresher is available on [PyPi](https://pypi.org/project/gothresher/), which you can install using `pip`:
 ```
 $ pip install gothresher
 ```
-Do note, this approach will not download any data and config files that are available in the GitHub repository. User will have to clone this repository separately or download example data and config file required to run GOThresher from [Figshare](https://doi.org/10.6084/m9.figshare.20609208). 
+Do note, this approach will not download any data and config files that are available in the GitHub repository. User will have to clone this repository separately or download example data and .ini config file required to run GOThresher from [Figshare](https://doi.org/10.6084/m9.figshare.20609208). 
 
 **2. Installation using `conda`:**
 
