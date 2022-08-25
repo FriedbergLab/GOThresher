@@ -1,4 +1,4 @@
-[![install with conda](https://anaconda.org/parnaljoshi/gothresher/badges/installer/conda.svg)](https://anaconda.org/parnaljoshi/gothresher)
+[![Anaconda-Server Badge](https://anaconda.org/bioconda/gothresher/badges/installer/conda.svg)](https://anaconda.org/bioconda/gothresher)
 [![GOThresher Test](https://github.com/FriedbergLab/GOThresher/actions/workflows/python-package.yml/badge.svg)](https://github.com/FriedbergLab/GOThresher/actions/workflows/python-package.yml)
 
 # GOThresher: a program to remove annotation biases from protein function annotation datasets
@@ -44,9 +44,9 @@ Do note, this approach will not download any data and config files that are avai
 
 **2. Installation using `conda`:**
 
-GOThresher can be installed using conda. Please note, user will have to download config and `.obo` files required to run GOThresher separately by cloning this GitHub repository, or from [Figshare](https://doi.org/10.6084/m9.figshare.20609208).  
+GOThresher can be installed from [Conda](https://anaconda.org/bioconda/gothresher). Please note, user will have to download config and `.obo` files required to run GOThresher separately by cloning this GitHub repository, or from [Figshare](https://doi.org/10.6084/m9.figshare.20609208).  
 
-It is recommended to create an isolated conda environment and install GOThresher into it. This allows having the correct version of all the dependencies isolated from the system's Python installation.
+It is recommended to create a separate Conda environment and install GOThresher into it. This allows having the correct version of all the dependencies isolated from the system's.
 ```
 $ conda create --name gth
 ```
