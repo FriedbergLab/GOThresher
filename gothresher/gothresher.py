@@ -230,11 +230,15 @@ def convert_from_gaf_to_required_format(gaf):
     for annotation in gaf:
         id = "anntn" + str(counter)
         if annotation['GO_ID'] in alt_id_to_id_map:
-            annotation['GO_ID'] = alt_id_to_id_map[annotation['GO_ID']]
+            if alt_id_to_id_map[annotation['GO_ID']][1] == 'mf':
+                annotation['Aspect'] = "F"
+            elif alt_id_to_id_map[annotation['GO_ID']][1] == 'bp':
+                annotation['Aspect'] = "P"
+            elif alt_id_to_id_map[annotation['GO_ID']][1] == 'cc':
+                annotation['Aspect'] = "C"
+            annotation['GO_ID'] = alt_id_to_id_map[annotation['GO_ID']][0]
         annotation['DB:Reference'] = annotation['DB:Reference'][0]
         annotation['Date'] = parser.parse(annotation['Date']).date()
-        # annotation['Qualifier']='|'.join(annotation['Qualifier'])
-        # print(annotation['Evidence'])
         data[id] = annotation
         counter += 1
     return data

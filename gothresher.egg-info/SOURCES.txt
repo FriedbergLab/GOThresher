@@ -13,12 +13,3 @@ gothresher.egg-info/dependency_links.txt
 gothresher.egg-info/entry_points.txt
 gothresher.egg-info/requires.txt
 gothresher.egg-info/top_level.txt
-onto/alt_to_id.graph
-onto/bp.graph
-onto/bp_ancestors.map
-onto/cc.graph
-onto/cc_ancestors.map
-onto/mf.graph
-onto/mf_ancestors.map
-onto/temp/ontology_to_ia_map_exampleDicty_CCO_REF_100.txt
-onto/temp/ontology_to_ia_map_exampleYeast_CCO_REF_100.txt
