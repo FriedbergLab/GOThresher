@@ -5,7 +5,7 @@
 + _References_: a "Reference" is the source of the annotation: that can be a paper with a PubmedID used to identify it, or a knowledgebase such as Reactome
 + _Wyatt_Clark_: 
 
-#### Here we explain the 
+#### Command line options expanded 
 
 + `--cutoff_prot=n`
 If a reference annottates nore that `n` proteins, do not include it's annotations in the analysis. This is because we have observed that annotations coming from references annotating many proteins tend to have a low information content [[2]](https://journals.plos.org/ploscompbiol/article/authors?id=10.1371/journal.pcbi.1003063)
