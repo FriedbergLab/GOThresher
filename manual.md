@@ -1,4 +1,4 @@
-## Command line options
+## An expanded explanation of GOThresher
 
 #### Glossary:
 + _Information content_: the information content (IC) of a GO term is a numerical representation of how specific that term is. The term ["Catalytic Activity"](https://www.ebi.ac.uk/QuickGO/term/GO:0003824) has a lower information content than ["Hydrolase activity"](https://www.ebi.ac.uk/QuickGO/term/GO:0016787) which, in turn, has a lower information content than ["Alpha Amylase Activity"](https://www.ebi.ac.uk/QuickGO/term/GO:0004556). The inforamtion content is calculates as `IC = -log(P(i))` where `P(i)` is the frequency of the GO term `i` in the corpus. For further reading see: [[1]](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1000443)
