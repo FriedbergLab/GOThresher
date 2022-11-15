@@ -3,6 +3,7 @@
 #### Glossary:
 
 _References_: a "Reference" is the source of the annotation: that can be a paper with a PubmedID used to identify it, or a knowledgebase such as Reactome
+_Wyatt_Clark_: 
 
 #### Here we explain the 
 
@@ -16,8 +17,14 @@ Similar to the above, only removing annotations from a reference that provide mo
 Output directory. (default?)
 
 + `--evidence`
-A GO annotation is a statement about the function of a particular gene. Each annotation includes an [_evidence code_](http://geneontology.org/docs/guide-go-evidence-codes/) to indicate how the annotation to a particular term is supported. if `--evidence` is used, then only proteins annotated with the support of evidence codes listed after this argument will be included in the output. Special arguments include
-++ EXPEC: all experimental evidence codes
-++ COMPEC: all computational evidence codes
+A GO annotation is a statement about the function of a particular gene. Each annotation includes an [_evidence code_](http://geneontology.org/docs/guide-go-evidence-codes/) to indicate how the annotation to a particular term is supported. if `--evidence` is used, then only proteins annotated with the support of evidence codes listed after this argument will be included in the output. There are also special arguments that are sets of several evidence codes:
+
+    + EXPEC: all experimental evidence codes
+    + COMPEC: all computational evidence codes
+    + AUTHREC: all evidence codes derived from author statements
+    + CUREC: all evidence codes derived by curator
+
++ `--evidence_inverse`: excludes the evidece codes in this argument
+
 
 
