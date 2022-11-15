@@ -1,14 +1,16 @@
 ## Command line options
 
 #### Glossary:
-
-_References_: a "Reference" is the source of the annotation: that can be a paper with a PubmedID used to identify it, or a knowledgebase such as Reactome
-_Wyatt_Clark_: 
++ _Information content_: the information content (IC) of a GO term is a numerical represeantriaon of how specific that term is. The term ["Catalytic Activity"](https://www.ebi.ac.uk/QuickGO/term/GO:0003824) has a lower information content than ["Hydrolase activity"](https://www.ebi.ac.uk/QuickGO/term/GO:0016787) which, in turn, has a lower infomratrion content than ["Alpha Amylase Activity"](https://www.ebi.ac.uk/QuickGO/term/GO:0004556).
++ The inforamtion content is calculates as IC = -log(Pi) where Pi is the frequency fo the GO term in the corpus. For further reading see: [[1]](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1000443)
++ 
++ _References_: a "Reference" is the source of the annotation: that can be a paper with a PubmedID used to identify it, or a knowledgebase such as Reactome
++ _Wyatt_Clark_: 
 
 #### Here we explain the 
 
 + `--cutoff_prot=n`
-If a reference annottates nore that `n` proteins, do not include it's annotations in the analysis. This is because we have observed that annotations coming from references annotating many proteins tend to have a low information content [1](https://journals.plos.org/ploscompbiol/article/authors?id=10.1371/journal.pcbi.1003063)
+If a reference annottates nore that `n` proteins, do not include it's annotations in the analysis. This is because we have observed that annotations coming from references annotating many proteins tend to have a low information content [[2]](https://journals.plos.org/ploscompbiol/article/authors?id=10.1371/journal.pcbi.1003063)
 
 + `--cutoff_attn=n`
 Similar to the above, only removing annotations from a reference that provide more than a certain number of annotations.
