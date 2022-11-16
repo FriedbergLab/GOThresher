@@ -3,13 +3,15 @@
 #### Glossary:
 + _Aspect_: The Gene Ontology comprises three apects: Molecular Function, Biological Process, and Cellular Component. these are also known as Categories in teh Gene Ontology. Each protein may have one or more annotations from each category. Fror more information see: [1](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3037419/)
     + _Molecular function_ is defined as the biochemical activity (including specific binding to ligands or structures) of a gene product. 
-    + _Biological process_ refers to a biological objective to which the gene or gene product contributes. A process is accomplished via one or more ordered assemblies of molecular functions
-    + _Cellular component_ refers to the place in the cell where a gene product is active
+    + _Biological process_ refers to a biological objective to which the gene or gene product contributes. A process is accomplished via one or more ordered assemblies of molecular functions.
+    + _Cellular component_ refers to the place in the cell where a gene product is active.
 
 
-+ _Information content_: the information content (IC) of a GO term is a numerical representation of how specific that term is. The term ["Catalytic Activity"](https://www.ebi.ac.uk/QuickGO/term/GO:0003824) has a lower information content than ["Hydrolase activity"](https://www.ebi.ac.uk/QuickGO/term/GO:0016787) which, in turn, has a lower information content than ["Alpha Amylase Activity"](https://www.ebi.ac.uk/QuickGO/term/GO:0004556). The inforamtion content is calculates as `IC = -log(P(i))` where `P(i)` is the frequency of the GO term `i` in the corpus. For further reading see: [[2]](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1000443).
++ _Information content_: the information content (IC) of a GO term is a numerical representation of how specific that term is. The term ["Catalytic Activity"](https://www.ebi.ac.uk/QuickGO/term/GO:0003824) has a lower information content than ["Hydrolase activity"](https://www.ebi.ac.uk/QuickGO/term/GO:0016787) which, in turn, has a lower information content than ["Alpha Amylase Activity"](https://www.ebi.ac.uk/QuickGO/term/GO:0004556). 
+    + The _Phillip_lord _ inforamtion content is calculated as `IC = -log(P(i))` where `P(i)` is the frequency of the GO term `i` in the corpus. For further reading see: [[2]](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1000443).
+    + The _Wyatt_Clark_ information content  is calculated by treating the Gene Ontolgoy as a Bayesian network, with each  as defined in [[3]]().
 + _References_: a "Reference" is the source of the annotation: that can be a paper with a PubmedID used to identify it, or a knowledgebase such as Reactome
-+ _Wyatt_Clark_: Wyatt Clark one of two ways if calculating the information conent of a term. Here a term's IC is calculated by treating the Gene Ontolgoy as a bayesian network, with each  as defined in [[3]]().
+
 
 #### Command line options expanded 
 
@@ -30,8 +32,11 @@ A GO annotation is a statement about the function of a particular gene. Each ann
     + AUTHREC: all evidence codes derived from author statements
     + CUREC: all evidence codes derived by curator
 
-+ `--evidence_inverse`: excludes the evidece codes given in this argument.
-+ 
++ `--evidence_inverse` excludes the evidece codes given in this argument.
++ `--aspect` any combination of Biological Process, Cellular Component, and Molecular Function by using the letters P C and F respectively.
++ `--assigned_by` filter in which database assigns the annotation. Default: all **HOW ARE THE DATABASES NOTED?**
++ `--assigned_by_inverse` filter out annotations assigned by theses databases. 
+ 
 
 
 
