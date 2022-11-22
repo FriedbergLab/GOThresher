@@ -9,8 +9,8 @@
 
 + _Information content_: the information content (IC) of a GO term is a numerical representation of how specific that term is. The term ["Catalytic Activity"](https://www.ebi.ac.uk/QuickGO/term/GO:0003824) has a lower information content than ["Hydrolase activity"](https://www.ebi.ac.uk/QuickGO/term/GO:0016787) which, in turn, has a lower information content than ["Alpha Amylase Activity"](https://www.ebi.ac.uk/QuickGO/term/GO:0004556). 
     + The _Phillip_lord _ inforamtion content is calculated as `IC = -log(P(i))` where `P(i)` is the frequency of the GO term `i` in the corpus. For further reading see: [[2]](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1000443).
-    + The _Wyatt_Clark_ information content  is calculated by treating the Gene Ontology as a Bayesian network. Each node frequency is condiional upon the frequency of its parents, as defined in [[3]]().
-+ _References_: a "Reference" is the source of the annotation. Examples for references are tthe PubmedID of a paper, or a knowledgebase such as Reactome
+    + The _Wyatt_Clark_ information content  is calculated by treating the Gene Ontolgoy as a Bayesian network, with each  as defined in [[3]]().
++ _References_: a "Reference" is the source of the annotation: that can be a paper with a PubmedID used to identify it, or a knowledgebase such as Reactome
 
 
 #### Command line options expanded 
@@ -33,9 +33,12 @@ A GO annotation is a statement about the function of a particular gene. Each ann
     + CUREC: all evidence codes derived by curator
 
 + `--evidence_inverse` excludes the evidece codes given in this argument.
-+ `--aspect` any combination of Biological Process, Cellular Component, and Molecular Function by using the letters P C and F respectively.
-+ `--assigned_by` filter in which database assigns the annotation. Default: all **HOW ARE THE DATABASES NOTED?**
-+ `--assigned_by_inverse` filter out annotations assigned by theses databases. 
++ `--aspect` filter by any combination of Biological Process, Cellular Component, and Molecular Function by using the letters P C and F respectively.
++ `--assigned_by` filter in which database assigns the annotation. Default: all 
++ `--assigned_by_inverse` filter out annotations assigned by theses databases
++ `--recalculate`: calculating the information accretion (aka Wyatt Clark) for a GO DAG takes time. This only needs to be used if running on a new corpus of data.
++ `--info_threshold`: annotations with an information content (Wyatt Clark or Phillip Lord)  that is below a certain percentile or absolute value will be filtered out. Example: -WCTHRESH 20 heeps the top 20% of annotation
+
  
 
 
