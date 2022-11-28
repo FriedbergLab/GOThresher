@@ -134,7 +134,7 @@ Following files will be generated within the user specified `<onto_dir>` folder:
 
 ## GOThresher usage
 
-A Glossary and a more expanded explantioan for some of the command line options is available in the [Manual](manual.md)
+A glossary and a more expanded explanation for some of the command line options are available in the [Manual](manual.md)
 
 ```
 usage: gothresher [-h] [--prefix PREFIX] [--cutoff_prot CUTOFF_PROT]
