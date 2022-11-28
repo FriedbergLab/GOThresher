@@ -1,5 +1,7 @@
 ## An expanded explanation of GOThresher
 
+Here we provide a basic glossary and an expanded explanation for some of the command line options in GOThresher.
+
 #### Glossary:
 + _Aspect_: The Gene Ontology comprises three apects: Molecular Function (MFO, F), Biological Process (BPO, P), and Cellular Component (CCO, C). these are also known as _Categories_ in the Gene Ontology. Each protein may have one or more annotations from each category. For more information see: [[1]](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3037419/)
     + _Molecular function_ is defined as the biochemical activity (including specific binding to ligands or structures) of a gene product. 
