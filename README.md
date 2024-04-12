@@ -1,4 +1,4 @@
-[![Anaconda-Server Badge](https://anaconda.org/bioconda/gothresher/badges/installer/conda.svg)](https://anaconda.org/bioconda/gothresher)
+[![Anaconda-Server Badge](https://anaconda.org/bioconda/gothresher/badges/version.svg)](https://anaconda.org/bioconda/gothresher)
 [![GOThresher Test](https://github.com/FriedbergLab/GOThresher/actions/workflows/python-package.yml/badge.svg)](https://github.com/FriedbergLab/GOThresher/actions/workflows/python-package.yml)
 
 # GOThresher: a program to remove annotation biases from protein function annotation datasets
