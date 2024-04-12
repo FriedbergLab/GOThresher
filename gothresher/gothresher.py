@@ -304,7 +304,8 @@ def check_evidence_code_for_correctness(codes):
                 evidence != "IEA":
             evidence = [evidence]
             if True not in {set(evidence).issubset(set(COMPEC)), set(evidence).issubset(set(EXPEC)),
-                            set(evidence).issubset(set(CUREC)), set(evidence).issubset(set(IEA))}:
+                            set(evidence).issubset(set(AUTHEC)), set(evidence).issubset(set(CUREC)),
+                            set(evidence).issubset(set(IEA))}:
                 return False
     return True
 
