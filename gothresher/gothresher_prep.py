@@ -78,15 +78,19 @@ def parseGOTerms(inputfile):
         for line in split_term:
             if "id:" in line and "GO:" in line and "alt_id" not in line:
                 GO_term = "GO:" + line.split("GO:")[-1].strip()
+            alt_id = ''
             if "GO:" in line and "alt_id" in line:
                 alt_id = "GO:" + line.split("GO:")[-1].strip()
-                alt_id_to_id_mapping[alt_id] = GO_term
+                alt_id_to_id_mapping[alt_id] = [GO_term]
             if "namespace: biological_process" in line:
                 namespace = "bp"
             elif "namespace: cellular_component" in line:
                 namespace = "cc"
             elif "namespace: molecular_function" in line:
                 namespace = "mf"
+
+            if alt_id != '':
+                alt_id_to_id_mapping[alt_id].append(namespace)
 
             # Iddo: this looks dangerous!
             if ("is_a:" in line or "relationship: part_of" in line) and "GO" in line:
